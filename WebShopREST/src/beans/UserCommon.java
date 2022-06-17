@@ -6,6 +6,7 @@ import beans.CustomerType;
 import enums.Role;
 
 public class UserCommon {
+	private String id;
 	private String userName;
 	private String password;
 	private String name;
@@ -19,9 +20,10 @@ public class UserCommon {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UserCommon(String userName, String password, String name, String surname, String sex, Date birthDate,
+	public UserCommon(String id, String userName, String password, String name, String surname, String sex, Date birthDate,
 			Role role, CustomerType customerType) {
 		super();
+		this.id = id;
 		this.userName = userName;
 		this.password = password;
 		this.name = name;
@@ -78,6 +80,12 @@ public class UserCommon {
 	}
 	public void setCustomerType(CustomerType customerType) {
 		this.customerType = customerType;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }
