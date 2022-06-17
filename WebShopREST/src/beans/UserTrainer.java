@@ -1,9 +1,19 @@
 package beans;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-public class UserTrainer {
+import enums.Role;
+
+public class UserTrainer extends UserCommon {
 	private ArrayList<TrainingHistory> trainingHistory;
+
+
+	public UserTrainer(String userName, String password, String name, String surname, String sex, Date birthDate,
+			Role role, CustomerType customerType) {
+		super(userName, password, name, surname, sex, birthDate, role, customerType);
+		// TODO Auto-generated constructor stub
+	}
 
 	public UserTrainer() {
 		super();
