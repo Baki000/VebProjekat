@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import enums.CenterType;
 
 public class SportsCenter {
+	private int id;
 	private String name;
 	private CenterType centerType;
 	private ArrayList<String> content;
 	private boolean status;
-	private Location location;
+	private int location;
 	private String imagePath;
 	private float averageGrade;
 	private String workingHours;
@@ -18,9 +19,10 @@ public class SportsCenter {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SportsCenter(String name, CenterType centerType, ArrayList<String> content, boolean status,
-			Location location, String imagePath, float averageGrade, String workingHours) {
+	public SportsCenter(int id, String name, CenterType centerType, ArrayList<String> content, boolean status,
+			int location, String imagePath, float averageGrade, String workingHours) {
 		super();
+		this.setId(id);
 		this.name = name;
 		this.centerType = centerType;
 		this.content = content;
@@ -54,10 +56,10 @@ public class SportsCenter {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public Location getLocation() {
+	public int getLocation() {
 		return location;
 	}
-	public void setLocation(Location location) {
+	public void setLocation(int location) {
 		this.location = location;
 	}
 	public String getImagePath() {
@@ -77,5 +79,11 @@ public class SportsCenter {
 	}
 	public void setWorkingHours(String workingHours) {
 		this.workingHours = workingHours;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 }
