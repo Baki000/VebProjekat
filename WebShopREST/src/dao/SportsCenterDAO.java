@@ -28,7 +28,7 @@ public class SportsCenterDAO {
 		
 	}
 	
-	public Collection<SportsCenter> getAllCenters(){
+	public Collection<SportsCenter> getAllSportsCenters(){
 		return centers.values();
 	}
 	

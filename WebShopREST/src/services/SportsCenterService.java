@@ -32,7 +32,7 @@ public class SportsCenterService {
 	}
 	
 	private SportsCenterDAO getSportsCenterDAO() {
-		return (SportsCenterDAO) ctx.getAttribute("letovanjeDAO");
+		return (SportsCenterDAO) ctx.getAttribute("sportsCenterDAO");
 	}
 	
 	@GET

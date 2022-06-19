@@ -7,19 +7,16 @@ import enums.CenterType;
 public class SportsCenter {
 	private int id;
 	private String name;
-	private CenterType centerType;
-	private ArrayList<String> content;
+	private int centerType;
+	private String content;
 	private boolean status;
 	private int location;
 	private String imagePath;
 	private float averageGrade;
 	private String workingHours;
 	
-	public SportsCenter() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public SportsCenter(int id, String name, CenterType centerType, ArrayList<String> content, boolean status,
+	public SportsCenter() {}
+	public SportsCenter(int id, String name, int centerType, String content, boolean status,
 			int location, String imagePath, float averageGrade, String workingHours) {
 		super();
 		this.setId(id);
@@ -38,16 +35,16 @@ public class SportsCenter {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public CenterType getCenterType() {
+	public int getCenterType() {
 		return centerType;
 	}
-	public void setCenterType(CenterType centerType) {
+	public void setCenterType(int centerType) {
 		this.centerType = centerType;
 	}
-	public ArrayList<String> getContent() {
+	public String getContent() {
 		return content;
 	}
-	public void setContent(ArrayList<String> content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 	public boolean isStatus() {

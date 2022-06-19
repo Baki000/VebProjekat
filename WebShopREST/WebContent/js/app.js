@@ -10,7 +10,10 @@ var app = new Vue({
 	mounted() {
 		axios
 			.get('rest/sportsCenters/getAll')
-			.then(response => (this.sports_center = response.data))
+			.then(response => (this.sports_centers = response.data))
+	},
+	methods: {
+		
 	}
 	
 });
