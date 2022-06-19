@@ -97,7 +97,7 @@ public class UserCommonDAO {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		
-		List<UserCommon> userList = Arrays.asList(mapper.readValue(new File(contextPath + "/letovanja.json"), UserCommon[].class));
+		List<UserCommon> userList = Arrays.asList(mapper.readValue(new File(contextPath + "/users.json"), UserCommon[].class));
 		
 		for (UserCommon u : userList) {
 			users.put((""+u.getId()), u);
