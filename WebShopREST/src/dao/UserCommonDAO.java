@@ -31,6 +31,7 @@ public class UserCommonDAO {
 	}
 	
 	public Collection<UserCommon> getAllUsers(){
+		
 		return users.values();
 	}
 	

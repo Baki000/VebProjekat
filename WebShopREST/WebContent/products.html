@@ -9,7 +9,37 @@
 <body>
 <p>HAAAOS</p>
 <div id="products">
-		<router-view></router-view>	
+		<h3>{{title}}</h3>
+
+		<table border="1" id="tabela">
+			<thead>
+				<tr bgcolor="lightgrey">
+					<th>ID</th>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Content</th>
+					<th>Status</th>
+					<th>Location</th>
+					<th>Image</th>
+					<th>Average Grade</th>
+					<th>Working Hours</th>
+				</tr>
+			</thead>
+
+			<tr v-for="sc in sports_centers">
+
+				<td>{{sc.id}}</td>
+				<td>{{sc.name}}</td>
+				<td>{{sc.centerType}}</td>
+				<td>{{sc.content}}</td>
+				<td>{{sc.status}}</td>
+				<td>{{sc.location}}</td>
+				<td>{{sc.imagePath}}</td>
+				<td>{{sc.averageGrade}}</td>
+				<td>{{sc.workingHours}}</td>
+				
+			</tr>
+		</table>
 </div>
 
 	<script src="js/vue.js"></script>
