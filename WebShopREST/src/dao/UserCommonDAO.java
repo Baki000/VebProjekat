@@ -1,19 +1,25 @@
 package dao;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import beans.Product;
 import beans.User;
 import beans.UserCommon;
+import enums.Role;
 
 public class UserCommonDAO {
 	
@@ -23,7 +29,7 @@ public class UserCommonDAO {
 	
 	public UserCommonDAO(String contextPath) {
 		try {
-			loadUsers(contextPath);
+			loadUsers2(contextPath);
 		} catch(Exception e){
 			return;
 		}
@@ -48,6 +54,22 @@ public class UserCommonDAO {
 		if (!user.getPassword().equals(password)) {
 			return null;
 		}
+		return user;
+	}
+	
+	public UserCommon save(UserCommon user) {
+		System.out.println("SAVEEE");
+		Integer maxId = -1;
+		for (String id : users.keySet()) {
+			int idNum =Integer.parseInt(id);
+			if (idNum > maxId) {
+				maxId = idNum;
+			}
+		}
+		maxId++;
+		user.setId(maxId);
+		users.put(""+user.getId(), user);
+		
 		return user;
 	}
 	
@@ -101,6 +123,45 @@ public class UserCommonDAO {
 		
 		for (UserCommon u : userList) {
 			users.put((""+u.getId()), u);
+		}
+	}
+	
+	private void loadUsers2(String contextPath) {
+		BufferedReader in = null;
+		try {
+			File file = new File(contextPath + "/users.txt");
+			in = new BufferedReader(new FileReader(file));
+			String line;
+			StringTokenizer st;
+			while ((line = in.readLine()) != null) {
+				line = line.trim();
+				if (line.equals("") || line.indexOf('#') == 0)
+					continue;
+				st = new StringTokenizer(line, ";");
+				while (st.hasMoreTokens()) {
+					int id = Integer.parseInt(st.nextToken().trim());
+					String userName = st.nextToken().trim();
+					String password = st.nextToken().trim();
+					String name = st.nextToken().trim();
+					String surname = st.nextToken().trim();
+					String sex = st.nextToken().trim();
+					String birthDate = st.nextToken().trim();
+					int role = Integer.parseInt(st.nextToken().trim());
+					float fee = Float.parseFloat(st.nextToken().trim());
+					int points = Integer.parseInt(st.nextToken().trim());
+					users.put(userName, new UserCommon(id, userName, password, name, surname, sex, birthDate, role, fee, points));
+				}
+				
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				}
+				catch (Exception e) { }
+			}
 		}
 	}
 

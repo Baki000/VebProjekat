@@ -69,6 +69,16 @@ public class UserCommonService {
 		return Response.status(200).build();
 	}
 	
+	@POST
+	@Path("/registration")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public UserCommon newProduct(UserCommon user) {
+		System.out.println("UPAOOOO");
+		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
+		return dao.save(user);
+	}
+	
 	
 	@POST
 	@Path("/logout")

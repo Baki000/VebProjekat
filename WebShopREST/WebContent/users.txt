@@ -1,3 +1,2 @@
-1;pera;pera;Pera;Peric;pera@email.com;pera;pera
-Jovana;Jovanovic;jj@email.com;jovana;jj123
-Stojanka;Novakovic;st.nov@email.com;st.nov;100ja
+1;pera;pera;Pera;Peric;sex;211212;2;2.5;2
+2;baki;baki;Pera;Peric;sex;211212;2;2.5;2

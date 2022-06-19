@@ -15,7 +15,7 @@ public class UserCommon {
 	private String surname;
 	private String sex;
 	private String birthDate;
-	private Role role;
+	private int role;
 	//private CustomerType customerType;
 	//customer
 	private float fee;
@@ -23,7 +23,7 @@ public class UserCommon {
 	//private ArrayList<SportsCenter> visitedCenters;
 	
 	public UserCommon(int id, String userName, String password, String name, String surname, String sex,
-			String birthDate, Role role, float fee, int points) {
+			String birthDate, int role, float fee, int points) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -125,10 +125,10 @@ public class UserCommon {
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
-	public Role getRole() {
+	public int getRole() {
 		return role;
 	}
-	public void setRole(Role role) {
+	public void setRole(int role) {
 		this.role = role;
 	}
 //	public CustomerType getCustomerType() {

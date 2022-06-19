@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Registration</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script src="jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+	<div id ="registration">
+		<h3>{{title}}</h3>
+
+		
+
+		<form id="forma"  @submit='createOrEditProduct'>
+			<table>
+				<tr>
+					<td>Username</td>
+					<td><input type="text" name="userName" v-model="selectedProduct.userName"></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><input type="password" name="password" v-model="selectedProduct.password"></td>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td><input type="text" name="name" v-model="selectedProduct.name"></td>
+				</tr>
+				<tr>
+					<td>Surname</td>
+					<td><input type="text" name="surname" v-model="selectedProduct.surname"></td>
+				</tr>
+				<tr>
+					<td>Sex</td>
+					<td><input type="text" name="sex" v-model="selectedProduct.sex"></td>
+				</tr>
+				<tr>
+					<td>Birth Date</td>
+					<td><input type="text" name="birthDate" v-model="selectedProduct.birthDate"></td>
+				</tr>
+				<tr>
+					<td>Role</td>
+					<td><input type="number" name="role" v-model="selectedProduct.role"></td>
+				</tr>
+				<tr>
+					<td>Fee</td>
+					<td><input type="number" name="fee" v-model="selectedProduct.fee"></td>
+				</tr>
+				<tr>
+					<td>Points</td>
+					<td><input type="number" name="points" v-model="selectedProduct.points"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Register"></td>
+				</tr>
+			</table>
+			<p id="error" >{{error}}</p>
+		</form>
+	</div>
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/registration.js"></script>
+	
+</body>
+
+</html>
