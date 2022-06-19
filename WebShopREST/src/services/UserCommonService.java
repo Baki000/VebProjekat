@@ -22,7 +22,7 @@ import dao.ProductDAO;
 import dao.UserCommonDAO;
 import dao.UserDAO;
 
-@Path("/userCommon")
+@Path("/users")
 public class UserCommonService {
 	@Context
 	ServletContext ctx;
@@ -59,6 +59,7 @@ public class UserCommonService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response login(UserCommon user, @Context HttpServletRequest request) {
+		System.out.println("usao sam");
 		UserCommonDAO userDao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
 		UserCommon loggedUser = userDao.find(user.getUserName(), user.getPassword());
 		if (loggedUser != null) {

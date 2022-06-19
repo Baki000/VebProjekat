@@ -14,13 +14,29 @@ public class UserCommon {
 	private String name;
 	private String surname;
 	private String sex;
-	private Date birthDate;
+	private String birthDate;
 	private Role role;
-	private CustomerType customerType;
+	//private CustomerType customerType;
 	//customer
 	private float fee;
 	private int points;
-	private ArrayList<SportsCenter> visitedCenters;
+	//private ArrayList<SportsCenter> visitedCenters;
+	
+	public UserCommon(int id, String userName, String password, String name, String surname, String sex,
+			String birthDate, Role role, float fee, int points) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.name = name;
+		this.surname = surname;
+		this.sex = sex;
+		this.birthDate = birthDate;
+		this.role = role;
+		this.fee = fee;
+		this.points = points;
+	}
+
 	public float getFee() {
 		return fee;
 	}
@@ -37,13 +53,14 @@ public class UserCommon {
 		this.points = points;
 	}
 
-	public ArrayList<SportsCenter> getVisitedCenters() {
+	/*public ArrayList<SportsCenter> getVisitedCenters() {
 		return visitedCenters;
 	}
 
 	public void setVisitedCenters(ArrayList<SportsCenter> visitedCenters) {
 		this.visitedCenters = visitedCenters;
 	}
+	*/
 
 	public SportsCenter getSportsCenter() {
 		return sportsCenter;
@@ -67,29 +84,10 @@ public class UserCommon {
 
 	
 	public UserCommon() {
-		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public UserCommon(int id, String userName, String password, String name, String surname, String sex, Date birthDate,
-			Role role, CustomerType customerType, float fee, int points, ArrayList<SportsCenter> visitedCenters,
-			SportsCenter sportsCenter, ArrayList<TrainingHistory> trainingHistory) {
-		super();
-		this.id = id;
-		this.userName = userName;
-		this.password = password;
-		this.name = name;
-		this.surname = surname;
-		this.sex = sex;
-		this.birthDate = birthDate;
-		this.role = role;
-		this.customerType = customerType;
-		this.fee = fee;
-		this.points = points;
-		this.visitedCenters = visitedCenters;
-		this.sportsCenter = sportsCenter;
-		this.trainingHistory = trainingHistory;
-	}
+
 
 	public String getUserName() {
 		return userName;
@@ -121,10 +119,10 @@ public class UserCommon {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public Date getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 	public Role getRole() {
@@ -133,12 +131,12 @@ public class UserCommon {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	public CustomerType getCustomerType() {
-		return customerType;
-	}
-	public void setCustomerType(CustomerType customerType) {
-		this.customerType = customerType;
-	}
+//	public CustomerType getCustomerType() {
+//		return customerType;
+//	}
+//	public void setCustomerType(CustomerType customerType) {
+//		this.customerType = customerType;
+//	}
 	public int getId() {
 		return id;
 	}

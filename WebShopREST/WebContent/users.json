@@ -1,0 +1,2 @@
+[{ "id" : 1, "userName" : "Dare", "password" : "123", "name" : "Darko", "surname" : "true", "sex" : "male", "birthDate" : "22.9.2000.", "role" : 2, "fee" : 300.00, "points" : 22 },
+{ "id" : 2, "userName" : "mare", "password" : "mare123", "name" : "Marko", "surname" : "true", "sex" : "male", "birthDate" : "22.9.2001.", "role" : 1, "fee" : 300.00, "points" : 22}]
