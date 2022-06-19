@@ -7,7 +7,7 @@ import enums.CenterType;
 public class SportsCenter {
 	private int id;
 	private String name;
-	private int centerType;
+	private CenterType centerType;
 	private String content;
 	private boolean status;
 	private int location;
@@ -16,7 +16,7 @@ public class SportsCenter {
 	private String workingHours;
 	
 	public SportsCenter() {}
-	public SportsCenter(int id, String name, int centerType, String content, boolean status,
+	public SportsCenter(int id, String name, CenterType centerType, String content, boolean status,
 			int location, String imagePath, float averageGrade, String workingHours) {
 		super();
 		this.setId(id);
@@ -35,10 +35,10 @@ public class SportsCenter {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getCenterType() {
+	public CenterType getCenterType() {
 		return centerType;
 	}
-	public void setCenterType(int centerType) {
+	public void setCenterType(CenterType centerType) {
 		this.centerType = centerType;
 	}
 	public String getContent() {
