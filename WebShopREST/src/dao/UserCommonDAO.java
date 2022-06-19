@@ -1,6 +1,7 @@
 package dao;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -23,7 +24,8 @@ import enums.Role;
 
 public class UserCommonDAO {
 	
-	private HashMap<String, UserCommon> users = new HashMap<String, UserCommon>();
+	private HashMap<Integer, UserCommon> users = new HashMap<Integer, UserCommon>();
+	private static String contextPath = "";
 	
 	public UserCommonDAO() {}
 	
@@ -47,30 +49,68 @@ public class UserCommonDAO {
 	}
 	
 	public UserCommon find(String username, String password) {
-		if (!users.containsKey(username)) {
-			return null;
+//		if (!users.containsKey(username)) {
+//			return null;
+//		}
+//		UserCommon user = users.get(username);
+//		if (!user.getPassword().equals(password)) {
+//			return null;
+//		}
+//		return user;
+		UserCommon pronadjen = null;
+		for(int intId : users.keySet()) {
+			UserCommon korisnik = users.get(intId);
+			if(korisnik.getUserName().equals(username)) {
+				pronadjen  = korisnik;
+			}
 		}
-		UserCommon user = users.get(username);
-		if (!user.getPassword().equals(password)) {
-			return null;
+		if(pronadjen != null) {
+			if(!pronadjen.getPassword().equals(password)) {
+				pronadjen = null;
+			}
 		}
-		return user;
+		return pronadjen;
 	}
 	
+	
 	public UserCommon save(UserCommon user) {
-		System.out.println("SAVEEE");
+		System.out.println("SAVEEEEE");
 		Integer maxId = -1;
-		for (String id : users.keySet()) {
-			int idNum =Integer.parseInt(id);
-			if (idNum > maxId) {
-				maxId = idNum;
+		for (int id : users.keySet()) {
+			if (id > maxId) {
+				maxId = id;
 			}
 		}
 		maxId++;
 		user.setId(maxId);
-		users.put(""+user.getId(), user);
-		
+		users.put(user.getId(), user);
+		saveUsers();
 		return user;
+	}
+	
+	public void saveUsers() {
+		BufferedWriter out = null;
+		try {
+			File file = new File(contextPath + "users.txt");
+			System.out.println(file.getCanonicalPath());
+			out = new BufferedWriter(new FileWriter(file));
+
+			for(UserCommon user : users.values()) {
+				String s = user.getId() + ";" + user.getUserName() + ";" + user.getPassword() + ";" + user.getName() + ";" + user.getSurname() + ";" + user.getSex() + ";" + user.getBirthDate() + ";" + user.getRole() + ";" + user.getFee() + ";" + user.getPoints() + "\n";
+				
+				out.write(s);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (out != null) {
+				try {
+					out.close();
+				} catch (Exception e) {
+				}
+			}
+		}
+
 	}
 	
 	/*
@@ -115,18 +155,10 @@ public class UserCommonDAO {
 	
 	// SVE METODE KOJE VRSE UPITE NAD PODACIMA
 	
-	private void loadUsers(String contextPath) throws JsonParseException, JsonMappingException, IOException {
-		
-		ObjectMapper mapper = new ObjectMapper();
-		
-		List<UserCommon> userList = Arrays.asList(mapper.readValue(new File(contextPath + "/users.json"), UserCommon[].class));
-		
-		for (UserCommon u : userList) {
-			users.put((""+u.getId()), u);
-		}
-	}
+	
 	
 	private void loadUsers2(String contextPath) {
+		this.contextPath = contextPath;
 		BufferedReader in = null;
 		try {
 			File file = new File(contextPath + "/users.txt");
@@ -149,7 +181,7 @@ public class UserCommonDAO {
 					int role = Integer.parseInt(st.nextToken().trim());
 					float fee = Float.parseFloat(st.nextToken().trim());
 					int points = Integer.parseInt(st.nextToken().trim());
-					users.put(userName, new UserCommon(id, userName, password, name, surname, sex, birthDate, role, fee, points));
+					users.put(id, new UserCommon(id, userName, password, name, surname, sex, birthDate, role, fee, points));
 				}
 				
 			}

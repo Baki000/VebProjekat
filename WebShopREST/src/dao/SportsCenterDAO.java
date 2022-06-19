@@ -1,5 +1,6 @@
 package dao;
 import java.io.File;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,11 +12,16 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import beans.Location;
 import beans.SportsCenter;
+
+import dao.LocationDAO;
+import services.LocationService;
 
 public class SportsCenterDAO {
 	
 	private HashMap<String, SportsCenter> centers = new HashMap<String, SportsCenter>();
+	public LocationService ls = new LocationService();
 	
 	public SportsCenterDAO() {}
 	
@@ -88,5 +94,19 @@ public class SportsCenterDAO {
 			centers.put((""+s.getId()), s);
 		}
 	}
+	
+//	public void connectSportskiObjekatLokacija() {
+//		ArrayList<Location> lokacije = new ArrayList<Location>(ls.getLocationDAO().getAllLocations());
+//		for(SportsCenter sportskiObjekat : centers.values()) {
+//			int idTrazeni = sportskiObjekat.getLocation().getId();
+//			
+//			for(Location lokacija : lokacije) {
+//				if(lokacija.getId() == idTrazeni) {
+//					sportskiObjekat.setLocation(lokacija);
+//					break;
+//				}
+//			}
+//		}
+//	}
 	
 }

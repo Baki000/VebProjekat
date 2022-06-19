@@ -62,12 +62,13 @@ public class UserCommonService {
 		System.out.println("usao sam");
 		UserCommonDAO userDao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
 		UserCommon loggedUser = userDao.find(user.getUserName(), user.getPassword());
-		if (loggedUser != null) {
+		if (loggedUser == null) {
 			return Response.status(400).entity("Invalid username and/or password").build();
 		}
 		request.getSession().setAttribute("user", loggedUser);
 		return Response.status(200).build();
 	}
+	
 	
 	@POST
 	@Path("/registration")
