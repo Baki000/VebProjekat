@@ -23,6 +23,7 @@ public class SportsCenterDAO {
 		try {
 			loadSportsCenters(contextPath);
 		} catch(Exception e){
+			System.out.println("okeej");
 			return;
 		}
 		
