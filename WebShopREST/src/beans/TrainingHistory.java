@@ -5,14 +5,14 @@ import java.time.LocalDateTime;
 public class TrainingHistory {
 	private LocalDateTime date;
 	private Training training;
-	private UserCustomer customer;
-	private UserTrainer trainer;
+	private UserCommon customer;
+	private UserCommon trainer;
 	
 	public TrainingHistory() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public TrainingHistory(LocalDateTime date, Training training, UserCustomer customer, UserTrainer trainer) {
+	public TrainingHistory(LocalDateTime date, Training training, UserCommon customer, UserCommon trainer) {
 		super();
 		this.date = date;
 		this.training = training;
@@ -31,16 +31,16 @@ public class TrainingHistory {
 	public void setTraining(Training training) {
 		this.training = training;
 	}
-	public UserCustomer getCustomer() {
+	public UserCommon getCustomer() {
 		return customer;
 	}
-	public void setCustomer(UserCustomer customer) {
+	public void setCustomer(UserCommon customer) {
 		this.customer = customer;
 	}
-	public UserTrainer getTrainer() {
+	public UserCommon getTrainer() {
 		return trainer;
 	}
-	public void setTrainer(UserTrainer trainer) {
+	public void setTrainer(UserCommon trainer) {
 		this.trainer = trainer;
 	}
 

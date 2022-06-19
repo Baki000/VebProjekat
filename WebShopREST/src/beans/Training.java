@@ -7,7 +7,7 @@ public class Training {
 	private TrainingType trainingType;
 	private SportsCenter sportsCenter;
 	private int duration;
-	private UserTrainer trainer;
+	private UserCommon trainer;
 	private String description;
 	private String imagePath;
 	
@@ -16,7 +16,7 @@ public class Training {
 		// TODO Auto-generated constructor stub
 	}
 	public Training(String name, TrainingType trainingType, SportsCenter sportsCenter, int duration,
-			UserTrainer trainer, String description, String imagePath) {
+			UserCommon trainer, String description, String imagePath) {
 		super();
 		this.name = name;
 		this.trainingType = trainingType;
@@ -50,10 +50,10 @@ public class Training {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-	public UserTrainer getTrainer() {
+	public UserCommon getTrainer() {
 		return trainer;
 	}
-	public void setTrainer(UserTrainer trainer) {
+	public void setTrainer(UserCommon trainer) {
 		this.trainer = trainer;
 	}
 	public String getDescription() {

@@ -1,12 +1,14 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import beans.CustomerType;
 import enums.Role;
 
 public class UserCommon {
-	private String id;
+	
+	private int id;
 	private String userName;
 	private String password;
 	private String name;
@@ -15,13 +17,63 @@ public class UserCommon {
 	private Date birthDate;
 	private Role role;
 	private CustomerType customerType;
+	//customer
+	private float fee;
+	private int points;
+	private ArrayList<SportsCenter> visitedCenters;
+	public float getFee() {
+		return fee;
+	}
+
+	public void setFee(float fee) {
+		this.fee = fee;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+	public ArrayList<SportsCenter> getVisitedCenters() {
+		return visitedCenters;
+	}
+
+	public void setVisitedCenters(ArrayList<SportsCenter> visitedCenters) {
+		this.visitedCenters = visitedCenters;
+	}
+
+	public SportsCenter getSportsCenter() {
+		return sportsCenter;
+	}
+
+	public void setSportsCenter(SportsCenter sportsCenter) {
+		this.sportsCenter = sportsCenter;
+	}
+
+	public ArrayList<TrainingHistory> getTrainingHistory() {
+		return trainingHistory;
+	}
+
+	public void setTrainingHistory(ArrayList<TrainingHistory> trainingHistory) {
+		this.trainingHistory = trainingHistory;
+	}
+	//manager
+	private SportsCenter sportsCenter;
+	//trainer
+	private ArrayList<TrainingHistory> trainingHistory;
+
 	
 	public UserCommon() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UserCommon(String id, String userName, String password, String name, String surname, String sex, Date birthDate,
-			Role role, CustomerType customerType) {
+	
+	public UserCommon(int id, String userName, String password, String name, String surname, String sex, Date birthDate,
+			Role role, CustomerType customerType, float fee, int points, ArrayList<SportsCenter> visitedCenters,
+			SportsCenter sportsCenter, ArrayList<TrainingHistory> trainingHistory) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -32,7 +84,13 @@ public class UserCommon {
 		this.birthDate = birthDate;
 		this.role = role;
 		this.customerType = customerType;
+		this.fee = fee;
+		this.points = points;
+		this.visitedCenters = visitedCenters;
+		this.sportsCenter = sportsCenter;
+		this.trainingHistory = trainingHistory;
 	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -81,10 +139,10 @@ public class UserCommon {
 	public void setCustomerType(CustomerType customerType) {
 		this.customerType = customerType;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
