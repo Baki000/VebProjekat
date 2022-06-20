@@ -20,6 +20,7 @@ var app = new Vue({
 			axios.post('rest/users/login', this.userToLogin)
 				.then((response) => {
 					alert('Uspesno ste se ulogovali')
+					window.open("products.html");
 				})
 			event.preventDefault();
 		}

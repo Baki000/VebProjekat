@@ -10,14 +10,14 @@ public class SportsCenter {
 	private CenterType centerType;
 	private String content;
 	private boolean status;
-	private int location;
+	private Location location;
 	private String imagePath;
 	private float averageGrade;
 	private String workingHours;
 	
 	public SportsCenter() {}
 	public SportsCenter(int id, String name, CenterType centerType, String content, boolean status,
-			int location, String imagePath, float averageGrade, String workingHours) {
+			Location location, String imagePath, float averageGrade, String workingHours) {
 		super();
 		this.setId(id);
 		this.name = name;
@@ -53,10 +53,10 @@ public class SportsCenter {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public int getLocation() {
+	public Location getLocation() {
 		return location;
 	}
-	public void setLocation(int location) {
+	public void setLocation(Location location) {
 		this.location = location;
 	}
 	public String getImagePath() {

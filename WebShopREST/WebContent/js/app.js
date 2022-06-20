@@ -2,7 +2,7 @@ var app = new Vue({
 	el: '#sports_centers',
 	data: {
 		sports_centers: null,
-		title: "Primer Vue.js tehnologije na spisku proizvoda",
+		title: "Sports Centers Preview",
 		mode: "BROWSE",
 		error: '',
 		backup : null,

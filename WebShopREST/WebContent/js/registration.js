@@ -2,7 +2,7 @@ var app = new Vue({
 	el: '#registration',
 	data: {
 		products: null,
-		title: "Primer Vue.js tehnologije na spisku proizvoda",
+		title: "User Registration",
 		selectedProduct: {},
 		error: ''
 	},

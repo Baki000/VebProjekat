@@ -7,7 +7,6 @@
 <script src="js/toast.js"></script>
 </head>
 <body>
-	<p>HAAAOS</p>
 	<div id="sports_centers">
 		<h3>{{title}}</h3>
 
@@ -33,8 +32,8 @@
 				<td>{{sc.centerType}}</td>
 				<td>{{sc.content}}</td>
 				<td>{{sc.status}}</td>
-				<td>{{sc.location}}</td>
-				<td>{{sc.imagePath}}</td>
+				<td>{{sc.location.street}}, {{sc.location.city}}</td>
+				<td><img src="sc.imagePath"/></td>
 				<td>{{sc.averageGrade}}</td>
 				<td>{{sc.workingHours}}</td>
 
