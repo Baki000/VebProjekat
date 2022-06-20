@@ -97,30 +97,60 @@ public class SportsCenterDAO {
 	}
 
 	public ArrayList<SportsCenter> pretrazi(String tekst){
+		String[] parts = tekst.split(",");
+		System.out.println(parts[1]);
 		System.out.println("PRETRAZI DAO");
 		ArrayList<SportsCenter> returnList = new ArrayList<SportsCenter>();
-		for (SportsCenter l : centers.values()) {
-			if (l.sadrziTekst(tekst)) {
-				returnList.add(l);
+		switch(parts[1]) {
+		case "name":
+			for (SportsCenter l : centers.values()) {
+				if (l.containsName(parts[0])) {
+					returnList.add(l);
+				}
 			}
+			break;
+		case "type":
+			for (SportsCenter l : centers.values()) {
+				if (l.containsType(parts[0])) {
+					returnList.add(l);
+				}
+			}
+			break;
+		case "location":
+			for (SportsCenter l : centers.values()) {
+				if (l.containsLocation(parts[0])) {
+					returnList.add(l);
+				}
+			}
+			break;
+		case "average":
+			for (SportsCenter l : centers.values()) {
+				if (l.containsAverage(parts[0])) {
+					returnList.add(l);
+				}
+			}
+			break;
 		}
+		
+		
+		
 		
 		return returnList;
 	}
 	
-
-//	public void connectSportskiObjekatLokacija() {
-//		ArrayList<Location> lokacije = new ArrayList<Location>(ls.getLocationDAO().getAllLocations());
-//		for(SportsCenter sportskiObjekat : centers.values()) {
-//			int idTrazeni = sportskiObjekat.getLocation().getId();
-//			
-//			for(Location lokacija : lokacije) {
-//				if(lokacija.getId() == idTrazeni) {
-//					sportskiObjekat.setLocation(lokacija);
-//					break;
-//				}
-//			}
-//		}
-//	}
+/*
+	public void connectSCandLocation() {
+		ArrayList<Location> lokacije = new ArrayList<Location>(ls.getLocationDAO().getAllLocations());
+		for(SportsCenter sportskiObjekat : centers.values()) {
+			int idTrazeni = sportskiObjekat.getLocation().getId();
+			
+			for(Location lokacija : lokacije) {
+				if(lokacija.getId() == idTrazeni) {
+					sportskiObjekat.setLocation(lokacija);
+					break;
+				}
+			}
+		}
+	}*/
 	
 }

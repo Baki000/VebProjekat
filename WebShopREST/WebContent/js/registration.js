@@ -13,7 +13,7 @@ var app = new Vue({
 			this.error = ""
 				axios.post('rest/users/registration', this.selectedProduct)
 					.then((response) => {
-						alert('Novi proizvod uspešno kreiran')
+						alert('Novi korisnik uspešno registrovan')
 						this.products.push(response.data)
 					})
 

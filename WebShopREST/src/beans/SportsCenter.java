@@ -84,8 +84,20 @@ public class SportsCenter {
 		this.id = id;
 	}
 	
-	public boolean sadrziTekst(String tekst) {
+	public boolean containsName(String tekst) {
 		return this.name.toLowerCase().contains(tekst.toLowerCase());
+	}
+	
+	public boolean containsType(String tekst) {
+		return (""+this.centerType).toLowerCase().contains(tekst.toLowerCase());
+	}
+	
+	public boolean containsLocation(String tekst) {
+		return (""+this.location).toLowerCase().contains(tekst.toLowerCase());
+	}
+	
+	public boolean containsAverage(String tekst) {
+		return (""+this.averageGrade).toLowerCase().contains(tekst.toLowerCase());
 	}
 	
 }

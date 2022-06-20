@@ -6,7 +6,25 @@ var app = new Vue({
 		mode: "BROWSE",
 		error: '',
 		backup : null,
-		searchText : null
+		searchText : null,
+		searchBox : {},
+		selected: '',
+	    selectedText: '',
+	    options: [{
+	      text: 'name',
+	      value: 'name'
+	    }, {
+	      text: 'type',
+	      value: 'type'
+	    }, {
+	      text: 'location',
+	      value: 'location'
+	    }, {
+		  text: 'average',
+		  value: 'average'
+		}
+	    
+	    ]
 	},
 	mounted() {
 		axios
@@ -14,7 +32,7 @@ var app = new Vue({
 			.then(response => (this.sports_centers = response.data))
 	},
 	methods: {
-		search : function(tekst){
+		search : function(tekst, val){
 			this.mode = "SEARCH"
 			if(!this.searchText){
 				axios
@@ -23,7 +41,7 @@ var app = new Vue({
 			}
 			else{
 				axios
-				.get('rest/sportsCenters/search/' + this.searchText)
+				.get('rest/sportsCenters/search/' + this.searchText + ',' + this.selected)
 				.then(response => (this.sports_centers = response.data))
 			}
 		},

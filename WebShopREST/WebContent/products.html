@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Products</title>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/toast.js"></script>
+<title>Products</title>
+<script src="js/jquery.min.js"></script>
+<script src="js/toast.js"></script>
 </head>
 <body>
-<p>HAAAOS</p>
-<div id="sports_centers">
+	<p>HAAAOS</p>
+	<div id="sports_centers">
 		<h3>{{title}}</h3>
 
 		<table border="1" id="tabela">
@@ -37,21 +37,27 @@
 				<td>{{sc.imagePath}}</td>
 				<td>{{sc.averageGrade}}</td>
 				<td>{{sc.workingHours}}</td>
-				
+
 			</tr>
-			
+
 		</table>
-		
+
 		<form id="searchForm" onSubmit="return false;" @submit="search">
-			<input type="text" v-model="searchText"></input>
-			<button type="submit" value="Search"></button>
+			<div orientation="vertical">
+				<select name="cars" id="cars" v-model="selected">
+					<option v-for="option in options" v-bind:value="option.value">
+						{{ option.text }}</option>
+				</select> 
+				<input type="text" v-model="searchText"></input>
+				<button width="150px" height="150px" type="submit" value="Search"></button>
+			</div>
 		</form>
-		
-</div>
+
+	</div>
 
 	<script src="js/vue.js"></script>
 	<script src="js/axios.js"></script>
-	
+
 	<script src="js/app.js"></script>
 
 </body>
