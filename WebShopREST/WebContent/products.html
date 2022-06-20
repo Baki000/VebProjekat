@@ -39,7 +39,14 @@
 				<td>{{sc.workingHours}}</td>
 				
 			</tr>
+			
 		</table>
+		
+		<form id="searchForm" onSubmit="return false;" @submit="search">
+			<input type="text" v-model="searchText"></input>
+			<button type="submit" value="Search"></button>
+		</form>
+		
 </div>
 
 	<script src="js/vue.js"></script>

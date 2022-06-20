@@ -95,7 +95,20 @@ public class SportsCenterDAO {
 			centers.put((""+s.getId()), s);
 		}
 	}
+
+	public ArrayList<SportsCenter> pretrazi(String tekst){
+		System.out.println("PRETRAZI DAO");
+		ArrayList<SportsCenter> returnList = new ArrayList<SportsCenter>();
+		for (SportsCenter l : centers.values()) {
+			if (l.sadrziTekst(tekst)) {
+				returnList.add(l);
+			}
+		}
+		
+		return returnList;
+	}
 	
+
 //	public void connectSportskiObjekatLokacija() {
 //		ArrayList<Location> lokacije = new ArrayList<Location>(ls.getLocationDAO().getAllLocations());
 //		for(SportsCenter sportskiObjekat : centers.values()) {

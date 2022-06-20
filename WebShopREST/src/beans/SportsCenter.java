@@ -83,4 +83,9 @@ public class SportsCenter {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public boolean sadrziTekst(String tekst) {
+		return this.name.toLowerCase().contains(tekst.toLowerCase());
+	}
+	
 }
