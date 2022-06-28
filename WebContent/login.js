@@ -19,7 +19,8 @@ var app = new Vue({
 			}
 			axios.post('rest/users/login', this.userToLogin)
 				.then((response) => {
-					alert('Uspesno ste se ulogovali')
+					alert('Welcome ')
+					window.open("products.html", "_self");
 				})
 			event.preventDefault();
 		}

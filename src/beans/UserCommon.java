@@ -83,9 +83,7 @@ public class UserCommon {
 	private ArrayList<TrainingHistory> trainingHistory;
 
 	
-	public UserCommon() {
-		// TODO Auto-generated constructor stub
-	}
+	public UserCommon() {}
 	
 
 
