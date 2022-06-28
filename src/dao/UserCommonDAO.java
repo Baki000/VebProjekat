@@ -75,17 +75,33 @@ public class UserCommonDAO {
 	
 	public UserCommon save(UserCommon user) {
 		System.out.println("SAVEEEEE");
-		Integer maxId = -1;
-		for (int id : users.keySet()) {
-			if (id > maxId) {
-				maxId = id;
+		if(!exists(user)) {
+			Integer maxId = -1;
+			for (int id : users.keySet()) {
+				if (id > maxId) {
+					maxId = id;
+				}
+			}
+			maxId++;
+			user.setId(maxId);
+			users.put(user.getId(), user);
+			saveUsers();
+			return user;
+		}else {
+			return null;
+		}
+		
+	}
+	
+	public boolean exists(UserCommon user) {
+		for(UserCommon u : users.values()) {
+			System.out.println(u.getUserName());
+			if((u.getUserName()).equals(user.getUserName())) {
+				return true;
 			}
 		}
-		maxId++;
-		user.setId(maxId);
-		users.put(user.getId(), user);
-		saveUsers();
-		return user;
+		
+		return false;
 	}
 	
 	public void saveUsers() {

@@ -13,8 +13,13 @@ var app = new Vue({
 			this.error = ""
 				axios.post('rest/users/registration', this.selectedProduct)
 					.then((response) => {
-						alert('Novi korisnik uspešno registrovan')
-						this.products.push(response.data)
+						this.products = response.data
+						if(products){
+							alert("User successfuly registered")
+						}else{
+							alert("User already exists")
+						}
+						window.open("login.html", "_self");
 					})
 
 			
