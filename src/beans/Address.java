@@ -1,5 +1,8 @@
 package beans;
 
+
+//proba za push
+
 public class Address {
 	private String streetAndNumber;
 	private String city;
