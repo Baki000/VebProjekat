@@ -1,6 +1,7 @@
 package dao;
+import java.io.BufferedWriter;
 import java.io.File;
-
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,14 +15,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import beans.Location;
 import beans.SportsCenter;
-
+import beans.UserCommon;
 import dao.LocationDAO;
 import services.LocationService;
 
 public class SportsCenterDAO {
 	
-	private HashMap<String, SportsCenter> centers = new HashMap<String, SportsCenter>();
+	private HashMap<Integer, SportsCenter> centers = new HashMap<Integer, SportsCenter>();
 	public LocationService ls = new LocationService();
+	private static String contextPath = "";
 	
 	public SportsCenterDAO() {}
 	
@@ -92,7 +94,7 @@ public class SportsCenterDAO {
 		List<SportsCenter> centersList = Arrays.asList(mapper.readValue(new File(contextPath + "/sports_centers.json"), SportsCenter[].class));
 		
 		for (SportsCenter s : centersList) {
-			centers.put((""+s.getId()), s);
+			centers.put((s.getId()), s);
 		}
 	}
 
@@ -136,6 +138,63 @@ public class SportsCenterDAO {
 		
 		
 		return returnList;
+	}
+	
+	public SportsCenter save(SportsCenter user) {
+		System.out.println("SAVEEEEECntr");
+		if(!exists(user)) {
+			Integer maxId = -1;
+			for (int id : centers.keySet()) {
+				if (id > maxId) {
+					maxId = id;
+				}
+			}
+			maxId++;
+			user.setId(maxId);
+			centers.put(user.getId(), user);
+			saveUsers();
+			return user;
+		}else {
+			return null;
+		}
+		
+	}
+	
+	public boolean exists(SportsCenter user) {
+		for(SportsCenter u : centers.values()) {
+			System.out.println(u.getLocation().getStreet());
+			if((u.getLocation().getStreet()).equals(user.getLocation().getStreet())) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	//zameniti sa pisanjem u .json file ako posalje Glajbara
+	public void saveUsers() {
+		BufferedWriter out = null;
+		try {
+			File file = new File(contextPath + "users.txt");
+			System.out.println(file.getCanonicalPath());
+			out = new BufferedWriter(new FileWriter(file));
+
+			for(SportsCenter user : centers.values()) {
+				String s = user.getId() + ";" + user.getUserName() + ";" + user.getPassword() + ";" + user.getName() + ";" + user.getSurname() + ";" + user.getSex() + ";" + user.getBirthDate() + ";" + user.getRole() + ";" + user.getFee() + ";" + user.getPoints() + "\n";
+				
+				out.write(s);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (out != null) {
+				try {
+					out.close();
+				} catch (Exception e) {
+				}
+			}
+		}
+
 	}
 	
 /*

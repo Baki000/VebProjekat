@@ -51,7 +51,25 @@ var app = new Vue({
             axios
             .get('rest/sportsCenters/getAll')
             .then(response => (this.sports_centers = response.data))
-        }
+        },
+        
+        addCenter: function (event) {
+			this.error = ""
+				axios.post('rest/users/registration', this.selectedProduct)
+					.then((response) => {
+						this.products = response.data
+						if(products){
+							alert("User successfuly registered")
+						}else{
+							alert("User already exists")
+						}
+						window.open("login.html", "_self");
+					})
+
+			
+
+			event.preventDefault();
+		}
 
     }
 

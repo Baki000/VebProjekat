@@ -93,7 +93,7 @@ public class SportsCenter {
 	}
 	
 	public boolean containsLocation(String tekst) {
-		return (""+this.location).toLowerCase().contains(tekst.toLowerCase());
+		return (this.location.getStreet()).toLowerCase().contains(tekst.toLowerCase());
 	}
 	
 	public boolean containsAverage(String tekst) {

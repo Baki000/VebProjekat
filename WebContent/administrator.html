@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Products</title>
+<script src="js/jquery.min.js"></script>
+<script src="js/toast.js"></script>
+</head>
+<body>
+    <div id="sports_centers">
+        <h3>{{title}}</h3>
+
+        <table border="1" id="tabela">
+            <thead>
+                <tr bgcolor="lightgrey">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Content</th>
+                    <th>Status</th>
+                    <th>Location</th>
+                    <th>Image</th>
+                    <th>Average Grade</th>
+                    <th>Working Hours</th>
+                </tr>
+            </thead>
+
+            <tr v-for="sc in sports_centers">
+
+                <td>{{sc.id}}</td>
+                <td>{{sc.name}}</td>
+                <td>{{sc.centerType}}</td>
+                <td>{{sc.content}}</td>
+                <td>{{sc.status}}</td>
+                <td>{{sc.location.street}}, {{sc.location.city}}</td>
+                <td><img src="sc.imagePath"/></td>
+                <td>{{sc.averageGrade}}</td>
+                <td>{{sc.workingHours}}</td>
+
+            </tr>
+
+        </table>
+
+        <form id="searchForm" onSubmit="return false;" @submit="search">
+            <div orientation="vertical">
+                <select name="cars" id="cars" v-model="selected">
+                    <option v-for="option in options" v-bind:value="option.value">
+                        {{ option.text }}</option>
+                </select> 
+                <input type="text" v-model="searchText"></input>
+                <button width="150px" height="150px" type="submit" value="Search">Search</button>
+            </div>
+        </form>
+        <form id="addCenter" onSubmit="return false;" @submit="addCenter">
+         	<button width="150px" height="150px" onClick="showForm()" value="Add new">Add new</button>
+		</form>
+		
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
