@@ -18,11 +18,13 @@ import beans.SportsCenter;
 import beans.UserCommon;
 import dao.SportsCenterDAO;
 import dao.UserCommonDAO;
+import startup.OnStartUp;
 
 @Path("/sportsCenters")
 public class SportsCenterService {
 
 	@Context
+	static
 	ServletContext ctx;
 	
 	public SportsCenterService() {}
@@ -33,11 +35,12 @@ public class SportsCenterService {
 		if (ctx.getAttribute("sportsCenterDAO") == null) {
 			String contextPath = ctx.getRealPath("");
 			ctx.setAttribute("sportsCenterDAO", new SportsCenterDAO(contextPath));
+			OnStartUp.getInstance(contextPath);
 		}
 		
 	}
 	
-	private SportsCenterDAO getSportsCenterDAO() {
+	public static SportsCenterDAO getSportsCenterDAO() {
 		return (SportsCenterDAO) ctx.getAttribute("sportsCenterDAO");
 	}
 	

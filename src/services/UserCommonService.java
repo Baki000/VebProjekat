@@ -21,10 +21,12 @@ import beans.UserCommon;
 import dao.ProductDAO;
 import dao.UserCommonDAO;
 import dao.UserDAO;
+import startup.OnStartUp;
 
 @Path("/users")
 public class UserCommonService {
 	@Context
+	static
 	ServletContext ctx;
 	
 	public UserCommonService() {
@@ -39,10 +41,12 @@ public class UserCommonService {
 		if (ctx.getAttribute("userCommonDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
 			ctx.setAttribute("userCommonDAO", new UserCommonDAO(contextPath));
+			OnStartUp.getInstance(contextPath);
 		}
+		
 	}
 	
-	private UserCommonDAO getUserCommonDAO() {
+	public static UserCommonDAO getUserCommonDAO() {
 		return (UserCommonDAO) ctx.getAttribute("userCommonDAO");
 	}
 	

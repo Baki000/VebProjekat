@@ -12,6 +12,11 @@ public class Location {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    public Location(int id) {
+    	super();
+    	this.id = id;
+    }
 
     public Location(int id, String streetAndNumber, String city, int postalCode, String longitudeLength,
             String latitudeWidth) {

@@ -8,6 +8,7 @@ public class SportsCenter {
 	private int id;
 	private String name;
 	private CenterType centerType;
+	private UserCommon manager;
 	private String content;
 	private boolean status;
 	private Location location;
@@ -16,18 +17,25 @@ public class SportsCenter {
 	private String workingHours;
 	
 	public SportsCenter() {}
-	public SportsCenter(int id, String name, CenterType centerType, String content, boolean status,
+	public SportsCenter(int id, String name, CenterType centerType, UserCommon manager, String content, boolean status,
 			Location location, String imagePath, float averageGrade, String workingHours) {
 		super();
 		this.setId(id);
 		this.name = name;
 		this.centerType = centerType;
+		this.manager = manager;
 		this.content = content;
 		this.status = status;
 		this.location = location;
 		this.imagePath = imagePath;
 		this.averageGrade = averageGrade;
 		this.workingHours = workingHours;
+	}
+	public UserCommon getManager() {
+		return manager;
+	}
+	public void setManager(UserCommon manager) {
+		this.manager = manager;
 	}
 	public String getName() {
 		return name;
@@ -47,7 +55,7 @@ public class SportsCenter {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public boolean isStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 	public void setStatus(boolean status) {

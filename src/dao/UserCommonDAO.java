@@ -173,7 +173,7 @@ public class UserCommonDAO {
 	
 	
 	
-	private void loadUsers2(String contextPath) {
+	public void loadUsers2(String contextPath) {
 		this.contextPath = contextPath;
 		BufferedReader in = null;
 		try {

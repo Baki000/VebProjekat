@@ -148,7 +148,7 @@ public class LocationDAO {
 	
 	
 	
-	private void loadLocations(String contextPath) {
+	public void loadLocations(String contextPath) {
 		this.contextPath = contextPath;
 		BufferedReader in = null;
 		try {

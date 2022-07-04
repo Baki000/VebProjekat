@@ -2,6 +2,7 @@ var app = new Vue({
     el: '#sports_centers',
     data: {
         sports_centers: null,
+        users: null,
         title: "Sports Centers Preview",
         mode: "BROWSE",
         error: '',
@@ -52,6 +53,9 @@ var app = new Vue({
             .get('rest/sportsCenters/getAll')
             .then(response => (this.sports_centers = response.data))
         },
+        showAdd : function() {
+			this.mode = "EDIT"
+		},
         
         addCenter: function (event) {
 			this.error = ""
@@ -74,3 +78,11 @@ var app = new Vue({
     }
 
 });
+
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
