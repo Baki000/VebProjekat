@@ -17,15 +17,15 @@ private OnStartUp(String contextPath) {
 ClanarinaDAO.getInstance().loadClanarine(contextPath);
 IstorijaTreningaDAO.getInstance().loadIstorijeTreninga(contextPath);
 KomentarDAO.getInstance().loadKomentari(contextPath);*/
-UserCommonService.getUserCommonDAO().loadUsers2(contextPath);
-LocationService.getLocationDAO().loadLocations(contextPath);
-SportsCenterService.getSportsCenterDAO().loadCenters(contextPath);
+//UserCommonService.getUserCommonDAO().loadUsers2(contextPath);
+LocationDAO.getInstance().loadLocations(contextPath);
+SportsCenterDAO.getInstance().loadCenters(contextPath);
 /*
 TipKupcaDAO.getInstance().loadTipoviKupca(contextPath);
 TreningDAO.getInstance().loadTreninzi(contextPath);*/
 
 
-SportsCenterService.getSportsCenterDAO().connectSCandLocation();
+SportsCenterDAO.getInstance().connectSCandLocation();
 /*
 KorisnikDAO.getInstance().connectKorisnikClanarina();
 KorisnikDAO.getInstance().connectKorisnikSportskiObjekat();

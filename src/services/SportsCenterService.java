@@ -24,7 +24,6 @@ import startup.OnStartUp;
 public class SportsCenterService {
 
 	@Context
-	static
 	ServletContext ctx;
 	
 	public SportsCenterService() {}
@@ -34,13 +33,14 @@ public class SportsCenterService {
 		
 		if (ctx.getAttribute("sportsCenterDAO") == null) {
 			String contextPath = ctx.getRealPath("");
-			ctx.setAttribute("sportsCenterDAO", new SportsCenterDAO(contextPath));
 			OnStartUp.getInstance(contextPath);
+			ctx.setAttribute("sportsCenterDAO", SportsCenterDAO.getInstance());
+			
 		}
 		
 	}
 	
-	public static SportsCenterDAO getSportsCenterDAO() {
+	public SportsCenterDAO getSportsCenterDAO() {
 		return (SportsCenterDAO) ctx.getAttribute("sportsCenterDAO");
 	}
 	

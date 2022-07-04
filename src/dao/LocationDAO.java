@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.StringTokenizer;
@@ -17,6 +18,7 @@ public class LocationDAO {
 	
 	private HashMap<Integer, Location> locations = new HashMap<Integer, Location>();
 	private static String contextPath = "";
+	private static LocationDAO locInstance = null;
 	
 	public LocationDAO() {}
 	
@@ -28,6 +30,15 @@ public class LocationDAO {
 		}
 		
 	}
+	
+	public static LocationDAO getInstance()
+    {
+        if (locInstance == null) {
+        	locInstance = new LocationDAO();
+        }
+ 
+        return locInstance;
+    }
 	
 	public Collection<Location> getAllLocations(){
 		
@@ -153,6 +164,8 @@ public class LocationDAO {
 		BufferedReader in = null;
 		try {
 			File file = new File(contextPath + "/locations.txt");
+			System.out.println("UPAO U LOAD LOC");
+			System.out.println(contextPath);
 			in = new BufferedReader(new FileReader(file));
 			String line;
 			StringTokenizer st;
@@ -170,8 +183,14 @@ public class LocationDAO {
 					String width = st.nextToken().trim();
 					
 					locations.put(id, new Location(id, street, city, postal, length, width));
+					
 				}
 				
+			}
+			for(Integer id : locations.keySet()) {
+				String key = id.toString();
+				String value = locations.get(id).getStreet();
+				System.out.println(key + " " + value);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

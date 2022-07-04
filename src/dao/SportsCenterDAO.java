@@ -27,8 +27,9 @@ import services.LocationService;
 public class SportsCenterDAO {
 
 	private HashMap<Integer, SportsCenter> centers = new HashMap<Integer, SportsCenter>();
-	public LocationService ls = new LocationService();
 	private static String contextPath = "";
+	private static SportsCenterDAO scInstance = null;
+	
 
 	public SportsCenterDAO() {
 	}
@@ -44,9 +45,17 @@ public class SportsCenterDAO {
 
 	}
 
+	public static SportsCenterDAO getInstance() {
+		if (scInstance == null) {
+			scInstance = new SportsCenterDAO();
+		}
+
+		return scInstance;
+	}
 	
 
 	public Collection<SportsCenter> getAllSportsCenters() {
+		
 		return centers.values();
 	}
 
@@ -56,17 +65,7 @@ public class SportsCenterDAO {
 
 	// SVE METODE KOJE VRSE UPITE NAD PODACIMA
 
-	private void loadSportsCenters(String contextPath) throws JsonParseException, JsonMappingException, IOException {
-
-		ObjectMapper mapper = new ObjectMapper();
-
-		List<SportsCenter> centersList = Arrays
-				.asList(mapper.readValue(new File(contextPath + "/sports_centers.json"), SportsCenter[].class));
-
-		for (SportsCenter s : centersList) {
-			centers.put((s.getId()), s);
-		}
-	}
+	
 
 	public ArrayList<SportsCenter> pretrazi(String tekst) {
 		String[] parts = tekst.split(",");
@@ -218,7 +217,8 @@ public class SportsCenterDAO {
 	}
 
 	public void connectSCandLocation() {
-		ArrayList<Location> lokacije = new ArrayList<Location>(ls.getLocationDAO().getAllLocations());
+		System.out.println("UPAO U CONNECT");
+		ArrayList<Location> lokacije = new ArrayList<Location>(LocationDAO.getInstance().getAllLocations());
 		for (SportsCenter sportskiObjekat : centers.values()) {
 			int idTrazeni = sportskiObjekat.getLocation().getId();
 
@@ -228,6 +228,11 @@ public class SportsCenterDAO {
 					break;
 				}
 			}
+		}
+		for(Integer id : centers.keySet()) {
+			String key = id.toString();
+			String value = centers.get(id).getLocation().getStreet();
+			System.out.println(key + " " + value);
 		}
 	}
 

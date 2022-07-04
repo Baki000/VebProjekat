@@ -11,7 +11,6 @@ import startup.OnStartUp;
 @Path("/locations")
 public class LocationService {
 	@Context
-	static
 	ServletContext ctx;
 	
 	public LocationService() {}
@@ -22,12 +21,12 @@ public class LocationService {
 		if (ctx.getAttribute("locationDAO") == null) {
 			String contextPath = ctx.getRealPath("");
 			ctx.setAttribute("locationDAO", new LocationDAO(contextPath));
-			OnStartUp.getInstance(contextPath);
+			
 		}
 		
 	}
 	
-	public static LocationDAO getLocationDAO() {
+	public LocationDAO getLocationDAO() {
 		return (LocationDAO) ctx.getAttribute("locationDAO");
 	}
 	
