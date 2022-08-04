@@ -9,6 +9,10 @@ var app = new Vue({
         backup : null,
         searchText : null,
         searchBox : {},
+        newCenter: {},
+        newLocation: {},
+        managerToRegister: {},
+        freeManagers: null,
         selected: '',
         selectedText: '',
         options: [{
@@ -31,6 +35,15 @@ var app = new Vue({
         axios
             .get('rest/sportsCenters/getAll')
             .then(response => (this.sports_centers = response.data))
+            
+        
+								
+	 	this.newCenter = {
+			id: '', name: null, centerType: null, manager: null, content: null,  status: false, location: null,
+			imagePath: null, averageGrade: null, workingHours: null}
+		this.newLocation = {id: '', street: null, city: null, postalCode: null, longitudeLength: null, latitudeWidth: null}
+		this.managerToRegister = {id: '', userName: null, password: null, name: null, surname: null, sex: null, birthDate: null, role: 2}
+		
     },
     methods: {
         search : function(tekst, val){
@@ -59,10 +72,10 @@ var app = new Vue({
         
         addCenter: function (event) {
 			this.error = ""
-				axios.post('rest/users/registration', this.selectedProduct)
+				axios.post('rest/sports_centers/addCenter', this.selectedCenter)
 					.then((response) => {
-						this.products = response.data
-						if(products){
+						this.sports_centers = response.data
+						if(sports_centers){
 							alert("User successfuly registered")
 						}else{
 							alert("User already exists")
@@ -74,8 +87,6 @@ var app = new Vue({
 
 			event.preventDefault();
 		}
-		
-	
 
     }
 

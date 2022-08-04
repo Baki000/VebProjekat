@@ -1,2 +1,2 @@
-1;Flex;1;kurac;true;2;"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg";4.5;08-19
-2;Energym;2;spa;true;1;dsagsdada;3.5;08-19
+1;Flex;SPA;kurac;true;2;"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg";4.5;08-19
+2;Energym;GYM;spa;true;1;dsagsdada;3.5;08-19

@@ -3,11 +3,12 @@ package beans;
 import java.util.ArrayList;
 
 import enums.CenterType;
+import enums.CenterType2;
 
 public class SportsCenter {
 	private int id;
 	private String name;
-	private CenterType centerType;
+	private String centerType;
 	private UserCommon manager;
 	private String content;
 	private boolean status;
@@ -17,7 +18,7 @@ public class SportsCenter {
 	private String workingHours;
 	
 	public SportsCenter() {}
-	public SportsCenter(int id, String name, CenterType centerType, UserCommon manager, String content, boolean status,
+	public SportsCenter(int id, String name, String centerType, UserCommon manager, String content, boolean status,
 			Location location, String imagePath, float averageGrade, String workingHours) {
 		super();
 		this.setId(id);
@@ -43,10 +44,10 @@ public class SportsCenter {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public CenterType getCenterType() {
+	public String getCenterType() {
 		return centerType;
 	}
-	public void setCenterType(CenterType centerType) {
+	public void setCenterType(String centerType) {
 		this.centerType = centerType;
 	}
 	public String getContent() {

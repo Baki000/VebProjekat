@@ -56,12 +56,57 @@
 			height="150px">Add new</button>
 
 
-		<form id="forma" @submit='addCenter'>
-			<table v-bind:hidden="mode == 'BROWSE'">
-				<tr>dadadsadsadasdasdas</tr>
-				<tr>jdasdjadsajjskajdsakjdsa</tr>
+		<form v-bind:hidden="mode == 'BROWSE'" id="forma" @submit='addCenter'>
+			<table>
+				<tr>
+					<td>Name</td>
+					<td><input type="text" name="name"
+						v-model="selectedCenter.name"></td>
+				</tr>
+				<tr>
+					<td>Center Type:</td>
+					<td><select name="centerType" id="centerType"
+						v-model="selectedCenter.centerType">
+							<option value="gym">Gym</option>
+							<option value="pool">Pool</option>
+							<option value="spa">SPA</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Manger</td>
+					<td><input type="text" name="name"
+						v-model="selectedCenter.manager"></td>
+				</tr>
+
+				<tr>
+					<td>Street and Num</td>
+					<td><input type="text" name="street"
+						v-model="selectedCenter.location.street"></td>
+				</tr>
+				<tr>
+					<td>City</td>
+					<td><input type="text" name="city"
+						v-model="selectedCenter.location.city"></td>
+				</tr>
+				<tr>
+					<td>Postal Code:</td>
+					<td><input type="number" name="postalCode"
+						v-model="selectedCenter.location.postalCode"></td>
+				</tr>
+				<tr>
+					<td>Longitude:</td>
+					<td><input type="text" name="longitudeLength"
+						v-model="selectedCenter.location.longitudeLength"></td>
+				</tr>
+				<tr>
+					<td>Latitude:</td>
+					<td><input type="text" name="latitudeWidth"
+						v-model="selectedCenter.location.latitudeWidth"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Add Center">Add Center</td>
+				</tr>
 			</table>
-			<p id="error">{{error}}</p>
 		</form>
 
 
@@ -86,9 +131,9 @@
 
 
 	</div>
-	
+
 	<div class="split right">
-		<table border="1" >
+		<table border="1">
 			<thead>
 				<tr bgcolor="lightgrey">
 					<th>ID</th>
@@ -105,12 +150,14 @@
 				<td>{{u.surname}}</td>
 				<td>{{u.birthDate}}</td>
 				<td>{{u.role}}</td>
-				
+
 
 			</tr>
 
 		</table>
 	</div>
+
+
 
 	<script src="js/vue.js"></script>
 	<script src="js/axios.js"></script>

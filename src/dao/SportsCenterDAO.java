@@ -22,6 +22,7 @@ import beans.SportsCenter;
 import beans.UserCommon;
 import dao.LocationDAO;
 import enums.CenterType;
+import enums.CenterType2;
 import services.LocationService;
 
 public class SportsCenterDAO {
@@ -183,8 +184,7 @@ public class SportsCenterDAO {
 				while (st.hasMoreTokens()) {
 					int id = Integer.parseInt(st.nextToken().trim());
 					String name = st.nextToken().trim();
-
-					int ct = Integer.parseInt(st.nextToken().trim());
+					String ct = st.nextToken().trim();
 					UserCommon u = new UserCommon();
 					String content = st.nextToken().trim();
 					boolean status = Boolean.parseBoolean(st.nextToken().trim());
@@ -199,7 +199,7 @@ public class SportsCenterDAO {
 					String hours = st.nextToken().trim();
 					//Location l = new Location(locID, street, city, pc, longitude, latitude);
 
-					centers.put(id, new SportsCenter(id, name, CenterType.values()[ct], u, content, status, loc, imgPath,
+					centers.put(id, new SportsCenter(id, name, ct, u, content, status, loc, imgPath,
 							avg, hours));
 				}
 
