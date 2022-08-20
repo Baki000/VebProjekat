@@ -56,7 +56,7 @@
 			height="150px">Add new</button>
 
 
-		<form v-bind:hidden="mode == 'BROWSE'" id="forma" @submit='addCenter'>
+		<form    v-bind:hidden="mode == 'BROWSE'"   id="forma" @submit='addCenter'>
 			<table>
 				<tr>
 					<td>Name</td>
@@ -81,27 +81,27 @@
 				<tr>
 					<td>Street and Num</td>
 					<td><input type="text" name="street"
-						v-model="selectedCenter.location.street"></td>
+						v-model="selectedLocation.street"></td>
 				</tr>
 				<tr>
 					<td>City</td>
 					<td><input type="text" name="city"
-						v-model="selectedCenter.location.city"></td>
+						v-model="selectedLocation.city"></td>
 				</tr>
 				<tr>
 					<td>Postal Code:</td>
 					<td><input type="number" name="postalCode"
-						v-model="selectedCenter.location.postalCode"></td>
+						v-model="selectedLocation.postalCode"></td>
 				</tr>
 				<tr>
 					<td>Longitude:</td>
 					<td><input type="text" name="longitudeLength"
-						v-model="selectedCenter.location.longitudeLength"></td>
+						v-model="selectedLocation.longitudeLength"></td>
 				</tr>
 				<tr>
 					<td>Latitude:</td>
 					<td><input type="text" name="latitudeWidth"
-						v-model="selectedCenter.location.latitudeWidth"></td>
+						v-model="selectedLocation.latitudeWidth"></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="Add Center">Add Center</td>

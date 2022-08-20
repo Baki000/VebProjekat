@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,10 +18,15 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import beans.CustomerType;
+import beans.Fee;
 import beans.Product;
+import beans.SportsCenter;
+import beans.TrainingHistory;
 import beans.User;
 import beans.UserCommon;
 import enums.Role;
+import formats.DateFormat;
 
 public class UserCommonDAO {
 	
@@ -48,6 +54,8 @@ public class UserCommonDAO {
 		return users.get(id);
 	}
 	
+	
+	//ODLICAN
 	public UserCommon find(String username, String password) {
 //		if (!users.containsKey(username)) {
 //			return null;
@@ -72,7 +80,7 @@ public class UserCommonDAO {
 		return pronadjen;
 	}
 	
-	
+	// ODLICAN
 	public UserCommon save(UserCommon user) {
 		System.out.println("SAVEEEEE");
 		if(!exists(user)) {
@@ -93,6 +101,7 @@ public class UserCommonDAO {
 		
 	}
 	
+	//ODLiCAN
 	public boolean exists(UserCommon user) {
 		for(UserCommon u : users.values()) {
 			System.out.println(u.getUserName());
@@ -110,9 +119,9 @@ public class UserCommonDAO {
 			File file = new File(contextPath + "users.txt");
 			System.out.println(file.getCanonicalPath());
 			out = new BufferedWriter(new FileWriter(file));
-
+			//output
 			for(UserCommon user : users.values()) {
-				String s = user.getId() + ";" + user.getUserName() + ";" + user.getPassword() + ";" + user.getName() + ";" + user.getSurname() + ";" + user.getSex() + ";" + user.getBirthDate() + ";" + user.getRole() + ";" + user.getFee() + ";" + user.getPoints() + "\n";
+				String s = user.getId() + ";" + user.getUserName() + ";" + user.getPassword() + ";" + user.getName() + ";" + user.getSurname() + ";" + user.getSex() + ";" + DateFormat.stringToDate(user.getBirthDate()) + ";" + user.getRole() + ";" + ((user.getFee() == null)?-1:user.getFee().getId()) + ";" + user.getPoints() + ";" + ((user.getCustomerType() == null)?-1:user.getCustomerType().getId()) + ";" + ((user.getSportsCenter() == null)?-1:user.getSportsCenter().getId()) + "\n";                            
 				
 				out.write(s);
 			}
@@ -129,47 +138,7 @@ public class UserCommonDAO {
 
 	}
 	
-	/*
-	public UserCommon updateCena(UserCommon letovanje) {
-		UserCommon updateLetovanje = getById(letovanje.getId());
-		updateLetovanje.setCena(letovanje.getCena());
-		return updateLetovanje;
-	}
 	
-	public Letovanje rezervisi(String id) {
-		Letovanje updateLetovanje = letovanja.get(id);
-		if (updateLetovanje == null) {
-			return null;
-		}
-		
-		updateLetovanje.rezervisi();
-		return updateLetovanje;
-		
-	}
-	
-	public Letovanje otkazi(String id) {
-		Letovanje updateLetovanje = letovanja.get(id);
-		if (updateLetovanje == null) {
-			return null;
-		}
-		
-		updateLetovanje.odustani();
-		return updateLetovanje;
-		
-	}
-	
-	public ArrayList<UserCommon> pretrazi(String tekst){
-		ArrayList<UserCommon> returnList = new ArrayList<UserCommon>();
-		for (UserCommon u : users.values()) {
-			if (u.sadrziTekst(tekst)) {
-				returnList.add(u);
-			}
-		}
-		
-		return returnList;
-	}*/
-	
-	// SVE METODE KOJE VRSE UPITE NAD PODACIMA
 	
 	
 	
@@ -180,24 +149,52 @@ public class UserCommonDAO {
 			File file = new File(contextPath + "/users.txt");
 			in = new BufferedReader(new FileReader(file));
 			String line;
+			//LocalDate birthDate = LocalDate.now();
+			int id = -1;
 			StringTokenizer st;
+			
 			while ((line = in.readLine()) != null) {
 				line = line.trim();
 				if (line.equals("") || line.indexOf('#') == 0)
 					continue;
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
-					int id = Integer.parseInt(st.nextToken().trim());
+					id = Integer.parseInt(st.nextToken().trim());
 					String userName = st.nextToken().trim();
 					String password = st.nextToken().trim();
 					String name = st.nextToken().trim();
 					String surname = st.nextToken().trim();
 					String sex = st.nextToken().trim();
-					String birthDate = st.nextToken().trim();
-					int role = Integer.parseInt(st.nextToken().trim());
-					float fee = Float.parseFloat(st.nextToken().trim());
-					int points = Integer.parseInt(st.nextToken().trim());
-					users.put(id, new UserCommon(id, userName, password, name, surname, sex, birthDate, role, fee, points));
+					LocalDate birthDate = DateFormat.stringToDate(st.nextToken().trim());
+					String role = st.nextToken().trim();
+					
+					Fee fee = null;
+					int feeID = Integer.parseInt(st.nextToken().trim());
+					if(feeID != -1) {
+						fee = new Fee(feeID);
+					}
+					
+					double points = Double.parseDouble(st.nextToken().trim());
+					
+					CustomerType customerType = null;
+					int customerID = Integer.parseInt(st.nextToken().trim());
+					if(customerID != -1) {
+						customerType = new CustomerType(customerID);
+					}
+					
+					SportsCenter sc = null;
+					int scID = Integer.parseInt(st.nextToken().trim());
+					if(scID != -1) {
+						sc = new SportsCenter(scID);
+					}
+					
+					List<TrainingHistory> trainingHistory = new ArrayList<TrainingHistory>();
+					
+					List<SportsCenter> visitedCenters = new ArrayList<SportsCenter>();
+					
+					
+					
+					users.put(id, new UserCommon(id, userName, password, name, surname, sex, birthDate, role, fee, points, visitedCenters, customerType,  trainingHistory,  sc));
 				}
 				
 			}

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,7 +23,8 @@ import beans.SportsCenter;
 import beans.UserCommon;
 import dao.LocationDAO;
 import enums.CenterType;
-import enums.CenterType2;
+
+import formats.TimeFormat;
 import services.LocationService;
 
 public class SportsCenterDAO {
@@ -107,9 +109,9 @@ public class SportsCenterDAO {
 		return returnList;
 	}
 
-	public SportsCenter save(SportsCenter user) {
+	public SportsCenter save(SportsCenter sc) {
 		System.out.println("SAVEEEEECntr");
-		if (!exists(user)) {
+		if (!exists(sc)) {
 			Integer maxId = -1;
 			for (int id : centers.keySet()) {
 				if (id > maxId) {
@@ -117,10 +119,13 @@ public class SportsCenterDAO {
 				}
 			}
 			maxId++;
-			user.setId(maxId);
-			centers.put(user.getId(), user);
+			sc.setId(maxId);
+			
+			//dodati za lokaciju
+			
+			centers.put(sc.getId(), sc);
 			saveUsers();
-			return user;
+			return sc;
 		} else {
 			return null;
 		}
@@ -148,11 +153,9 @@ public class SportsCenterDAO {
 
 			for (SportsCenter center : centers.values()) {
 				String s = center.getId() + ";" + center.getName() + ";" + center.getCenterType() + ";"
-						+ center.getContent() + ";" + center.getStatus() + ";" + center.getLocation().getId() + ";"
-						+ center.getLocation().getStreet() + ";" + center.getLocation().getCity() + ";"
-						+ center.getLocation().getPostalCode() + ";" + center.getLocation().getLongitudeLength() + ";"
-						+ center.getLocation().getLatitudeWidth() + ";" + center.getImagePath() + ";"
-						+ center.getAverageGrade() + ";" + center.getWorkingHours();
+						+ center.getStatus() + ";" + center.getLocation().getId() + ";"
+					    + center.getImagePath() + ";"
+						+ center.getAverageGrade() + ";" + center.getOpens() + ";" + center.getCloses();
 				out.write(s);
 			}
 		} catch (Exception e) {
@@ -185,9 +188,8 @@ public class SportsCenterDAO {
 					int id = Integer.parseInt(st.nextToken().trim());
 					String name = st.nextToken().trim();
 					String ct = st.nextToken().trim();
-					UserCommon u = new UserCommon();
-					String content = st.nextToken().trim();
-					boolean status = Boolean.parseBoolean(st.nextToken().trim());
+					List<String> content = new ArrayList<String>();
+					String status = st.nextToken().trim();
 					// location:
 					int locID = Integer.parseInt(st.nextToken().trim());
 					//
@@ -195,12 +197,13 @@ public class SportsCenterDAO {
 
 					String imgPath = st.nextToken().trim();
 
-					float avg = Float.parseFloat(st.nextToken().trim());
-					String hours = st.nextToken().trim();
+					double avg = Double.parseDouble(st.nextToken().trim());
+					LocalTime opens = TimeFormat.stringToTime(st.nextToken().trim());
+					LocalTime closes = TimeFormat.stringToTime(st.nextToken().trim());
 					//Location l = new Location(locID, street, city, pc, longitude, latitude);
 
-					centers.put(id, new SportsCenter(id, name, ct, u, content, status, loc, imgPath,
-							avg, hours));
+					centers.put(id, new SportsCenter(id, name, ct, status, content, loc, imgPath,
+							avg, opens, closes));
 				}
 
 			}

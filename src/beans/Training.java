@@ -1,9 +1,9 @@
 package beans;
 
-import enums.TrainingType;
+
 
 public class Training {
-	private String name;
+	/*private String name;
 	private TrainingType trainingType;
 	private SportsCenter sportsCenter;
 	private int duration;
@@ -67,6 +67,6 @@ public class Training {
 	}
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
-	}
+	}*/
 
 }

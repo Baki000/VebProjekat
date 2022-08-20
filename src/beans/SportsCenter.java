@@ -1,42 +1,54 @@
 package beans;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
-import enums.CenterType;
-import enums.CenterType2;
+import formats.TimeFormat;
 
 public class SportsCenter {
 	private int id;
 	private String name;
 	private String centerType;
-	private UserCommon manager;
-	private String content;
-	private boolean status;
+	private List<String> content;
+	private String status;
 	private Location location;
 	private String imagePath;
-	private float averageGrade;
-	private String workingHours;
+	private double averageGrade;
+	private LocalTime opens;
+	private LocalTime closes;
 	
-	public SportsCenter() {}
-	public SportsCenter(int id, String name, String centerType, UserCommon manager, String content, boolean status,
-			Location location, String imagePath, float averageGrade, String workingHours) {
+	public SportsCenter() {
+		super();
+		this.content = new ArrayList<String>();
+	}
+	
+	public SportsCenter(int id) {
+		super();
+		this.id = id;
+	}
+	
+	public SportsCenter(int id, String name, String centerType, String status, List<String> content,
+			Location location, String imagePath, double averageGrade, LocalTime opens, LocalTime closes) {
 		super();
 		this.setId(id);
 		this.name = name;
 		this.centerType = centerType;
-		this.manager = manager;
+		
 		this.content = content;
 		this.status = status;
 		this.location = location;
 		this.imagePath = imagePath;
 		this.averageGrade = averageGrade;
-		this.workingHours = workingHours;
+		this.opens = opens;
+		this.closes = closes;
 	}
-	public UserCommon getManager() {
-		return manager;
+	
+	public int getId() {
+		return id;
 	}
-	public void setManager(UserCommon manager) {
-		this.manager = manager;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;
@@ -50,16 +62,16 @@ public class SportsCenter {
 	public void setCenterType(String centerType) {
 		this.centerType = centerType;
 	}
-	public String getContent() {
+	public List<String> getContent() {
 		return content;
 	}
-	public void setContent(String content) {
+	public void setContent(List<String> content) {
 		this.content = content;
 	}
-	public boolean getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public Location getLocation() {
@@ -74,24 +86,31 @@ public class SportsCenter {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
-	public float getAverageGrade() {
+	public double getAverageGrade() {
 		return averageGrade;
 	}
-	public void setAverageGrade(float averageGrade) {
+	public void setAverageGrade(double averageGrade) {
 		this.averageGrade = averageGrade;
 	}
-	public String getWorkingHours() {
-		return workingHours;
+	
+	public String getOpens() {
+		return TimeFormat.timeToString(opens);
 	}
-	public void setWorkingHours(String workingHours) {
-		this.workingHours = workingHours;
+
+	public void setOpens(String opens) {
+		this.opens = TimeFormat.stringToTime(opens);
 	}
-	public int getId() {
-		return id;
+
+	public String getCloses() {
+		return TimeFormat.timeToString(closes);
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setCloses(String closes) {
+		this.closes = TimeFormat.stringToTime(closes);
 	}
+	
+	
+	
 	
 	public boolean containsName(String tekst) {
 		return this.name.toLowerCase().contains(tekst.toLowerCase());

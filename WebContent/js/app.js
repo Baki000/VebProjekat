@@ -8,7 +8,11 @@ var app = new Vue({
         error: '',
         backup : null,
         searchText : null,
+        selectedCenter: {},
+        selectedLocation: {},
+        selectedManager: {},
         searchBox : {},
+        
         newCenter: {},
         newLocation: {},
         managerToRegister: {},
@@ -72,6 +76,9 @@ var app = new Vue({
         
         addCenter: function (event) {
 			this.error = ""
+			this.selectedCenter.id = 1;
+			
+			this.selectedCenter.location = this.selectedLocation
 				axios.post('rest/sports_centers/addCenter', this.selectedCenter)
 					.then((response) => {
 						this.sports_centers = response.data
