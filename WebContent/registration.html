@@ -14,44 +14,38 @@
 
 		
 
-		<form id="forma"  @submit='createOrEditProduct'>
+		<form id="forma"  @submit='registerUser'>
 			<table>
 				<tr>
 					<td>Username</td>
-					<td><input type="text" name="userName" v-model="selectedProduct.userName"></td>
+					<td><input type="text" name="userName" v-model="user.userName"></td>
 				</tr>
 				<tr>
 					<td>Password</td>
-					<td><input type="password" name="password" v-model="selectedProduct.password"></td>
+					<td><input type="password" name="password" v-model="user.password"></td>
 				</tr>
 				<tr>
 					<td>Name</td>
-					<td><input type="text" name="name" v-model="selectedProduct.name"></td>
+					<td><input type="text" name="name" v-model="user.name"></td>
 				</tr>
 				<tr>
 					<td>Surname</td>
-					<td><input type="text" name="surname" v-model="selectedProduct.surname"></td>
+					<td><input type="text" name="surname" v-model="user.surname"></td>
 				</tr>
 				<tr>
-					<td>Sex</td>
-					<td><input type="text" name="sex" v-model="selectedProduct.sex"></td>
+					<td>Sex:</td>
+					<td><input type="radio" id="male" name="sex"
+						value="male" v-model="user.sex"> <label
+						for="male">Male</label> 
+						<input type="radio" id="female"
+						name="sex" value="female" v-model="user.sex">
+						<label for="female">Female</label></td>
 				</tr>
 				<tr>
 					<td>Birth Date</td>
-					<td><input type="text" name="birthDate" v-model="selectedProduct.birthDate"></td>
+					<td><input type="date" name="birthDate" v-model="user.birthDate"></td>
 				</tr>
-				<tr>
-					<td>Role</td>
-					<td><input type="number" name="role" v-model="selectedProduct.role"></td>
-				</tr>
-				<tr>
-					<td>Fee</td>
-					<td><input type="number" name="fee" v-model="selectedProduct.fee"></td>
-				</tr>
-				<tr>
-					<td>Points</td>
-					<td><input type="number" name="points" v-model="selectedProduct.points"></td>
-				</tr>
+				
 				<tr>
 					<td><input type="submit" value="Register"></td>
 				</tr>

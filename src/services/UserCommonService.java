@@ -25,8 +25,8 @@ import startup.OnStartUp;
 
 @Path("/users")
 public class UserCommonService {
+	
 	@Context
-	static
 	ServletContext ctx;
 	
 	public UserCommonService() {
@@ -40,22 +40,21 @@ public class UserCommonService {
 		// Inicijalizacija treba da se obavi samo jednom
 		if (ctx.getAttribute("userCommonDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
-			ctx.setAttribute("userCommonDAO", new UserCommonDAO(contextPath));
-			OnStartUp.getInstance(contextPath);
+	    	OnStartUp.getInstance(contextPath);
+			ctx.setAttribute("userCommonDAO", UserCommonDAO.getInstance());
+			
 		}
 		
 	}
 	
-	public static UserCommonDAO getUserCommonDAO() {
-		return (UserCommonDAO) ctx.getAttribute("userCommonDAO");
-	}
+	
 	
 	@GET
 	@Path("/getAll")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<UserCommon> getAllUsers(){
 		System.out.println("DOBIO SAM ZAHTEV");
-		return getUserCommonDAO().getAllUsers();
+		return UserCommonDAO.getInstance().getAllUsers();
 	}
 	
 	@POST
@@ -63,10 +62,11 @@ public class UserCommonService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response login(UserCommon user, @Context HttpServletRequest request) {
-		System.out.println("usao sam");
+		System.out.println("service: upao u login");
 		UserCommonDAO userDao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
 		UserCommon loggedUser = userDao.find(user.getUserName(), user.getPassword());
 		if (loggedUser == null) {
+			System.out.println("service: nall je");
 			return Response.status(400).entity("Invalid username and/or password").build();
 		}
 		request.getSession().setAttribute("user", loggedUser);
@@ -79,7 +79,7 @@ public class UserCommonService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public UserCommon newProduct(UserCommon user) {
-		System.out.println("UPAOOOO");
+		System.out.println("service: upao u registration");
 		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
 		return dao.save(user);
 	}

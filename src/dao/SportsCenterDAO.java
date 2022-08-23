@@ -58,7 +58,7 @@ public class SportsCenterDAO {
 	
 
 	public Collection<SportsCenter> getAllSportsCenters() {
-		
+		System.out.println("Upao u getall");
 		return centers.values();
 	}
 
@@ -221,20 +221,20 @@ public class SportsCenterDAO {
 
 	public void connectSCandLocation() {
 		System.out.println("UPAO U CONNECT");
-		ArrayList<Location> lokacije = new ArrayList<Location>(LocationDAO.getInstance().getAllLocations());
-		for (SportsCenter sportskiObjekat : centers.values()) {
-			int idTrazeni = sportskiObjekat.getLocation().getId();
+		ArrayList<Location> locations = new ArrayList<Location>(LocationDAO.getInstance().getAllLocations());
+		for (SportsCenter sc : centers.values()) {
+			int id = sc.getLocation().getId();
 
-			for (Location lokacija : lokacije) {
-				if (lokacija.getId() == idTrazeni) {
-					sportskiObjekat.setLocation(lokacija);
+			for (Location loc : locations) {
+				if (loc.getId() == id) {
+					sc.setLocation(loc);
 					break;
 				}
 			}
 		}
-		for(Integer id : centers.keySet()) {
-			String key = id.toString();
-			String value = centers.get(id).getLocation().getStreet();
+		for(Integer id2 : centers.keySet()) {
+			String key = id2.toString();
+			String value = centers.get(id2).getLocation().getStreet();
 			System.out.println(key + " " + value);
 		}
 	}

@@ -30,6 +30,7 @@ import formats.DateFormat;
 
 public class UserCommonDAO {
 	
+	private static UserCommonDAO userInstance = null;
 	private HashMap<Integer, UserCommon> users = new HashMap<Integer, UserCommon>();
 	private static String contextPath = "";
 	
@@ -42,6 +43,13 @@ public class UserCommonDAO {
 			return;
 		}
 		
+	}
+	
+	public static UserCommonDAO getInstance() {
+		if(userInstance == null) {
+			userInstance = new UserCommonDAO();
+		}
+		return userInstance;
 	}
 	
 	public Collection<UserCommon> getAllUsers(){
@@ -57,26 +65,24 @@ public class UserCommonDAO {
 	
 	//ODLICAN
 	public UserCommon find(String username, String password) {
-//		if (!users.containsKey(username)) {
-//			return null;
-//		}
-//		UserCommon user = users.get(username);
-//		if (!user.getPassword().equals(password)) {
-//			return null;
-//		}
-//		return user;
+
+		System.out.println("DAO: upao u find");
 		UserCommon pronadjen = null;
 		for(int intId : users.keySet()) {
 			UserCommon korisnik = users.get(intId);
 			if(korisnik.getUserName().equals(username)) {
 				pronadjen  = korisnik;
+				System.out.println("PRONADJEN");
 			}
 		}
 		if(pronadjen != null) {
 			if(!pronadjen.getPassword().equals(password)) {
+				System.out.println("NIJE PRONADJEN");
 				pronadjen = null;
 			}
 		}
+		//System.out.println(pronadjen.getUserName());
+		//System.out.println(pronadjen.getPassword());
 		return pronadjen;
 	}
 	

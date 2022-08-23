@@ -13,10 +13,9 @@
         <table border="1" id="tabela">
             <thead>
                 <tr bgcolor="lightgrey">
-                    <th>ID</th>
+                    
                     <th>Name</th>
                     <th>Type</th>
-                    <th>Content</th>
                     <th>Status</th>
                     <th>Location</th>
                     <th>Image</th>
@@ -27,15 +26,14 @@
 
             <tr v-for="sc in sports_centers">
 
-                <td>{{sc.id}}</td>
+                
                 <td>{{sc.name}}</td>
                 <td>{{sc.centerType}}</td>
-                <td>{{sc.content}}</td>
                 <td>{{sc.status}}</td>
                 <td>{{sc.location.street}}, {{sc.location.city}}</td>
-                <td><img src={{sc.imagePath}}/></td>
+                <td>kurac></td>
                 <td>{{sc.averageGrade}}</td>
-                <td>{{sc.workingHours}}</td>
+                <td>{{sc.opens}}-{{sc.closes}}</td>
 
             </tr>
 

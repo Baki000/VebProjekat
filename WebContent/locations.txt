@@ -1,3 +1,3 @@
-1;saddsa;BG;213;90;20
-2;asas;NS;213;90;20
-3;fasf;KG;213;90;20
+1;Sutjeska 44;NS;21000;90;20
+2;Sumadijska;NS;21000;90;25
+3;Knez Mihailova;BG;11000;45;35

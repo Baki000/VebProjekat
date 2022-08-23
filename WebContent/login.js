@@ -1,8 +1,8 @@
 var app = new Vue({
 	el: '#loginForm',
 	data: {
-		userToLogin: {},
-		error: ''
+		userToLogin: {}
+		
 	},
 	mounted() {
 		this.userToLogin = {
@@ -14,15 +14,21 @@ var app = new Vue({
 			this.error = ""
 			if (!this.userToLogin.userName || !this.userToLogin.password) {
 				this.error = "Sva polja moraju biti uneta!";
+				alert("Sva polja moraju biti uneta!")
 				event.preventDefault();
 				return;
 			}
 			axios.post('rest/users/login', this.userToLogin)
 				.then((response) => {
-					alert('Welcome ')
+					alert('Welcome ' + this.userToLogin.userName)
 					window.open("products.html", "_self");
+				}).catch(() =>{
+					alert('Invalid username or password!')
+					event.preventDefault()
+					return;
 				})
 			event.preventDefault();
+			return;
 		}
 	}
 });

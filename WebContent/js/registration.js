@@ -1,30 +1,36 @@
 var app = new Vue({
 	el: '#registration',
 	data: {
-		products: null,
 		title: "User Registration",
-		selectedProduct: {},
+		user: {},
 		error: ''
 	},
 	
 	methods: {
 		
-		createOrEditProduct: function (event) {
+		registerUser: function (event) {
 			this.error = ""
-				axios.post('rest/users/registration', this.selectedProduct)
-					.then((response) => {
-						this.products = response.data
-						if(products){
-							alert("User successfuly registered")
-						}else{
-							alert("User already exists")
-						}
-						window.open("login.html", "_self");
-					})
+			if (!this.user.userName || !this.user.password || !this.user.name || !this.user.surname
+			 			|| !this.user.sex || !this.user.birthDate) {
+				this.error = "All fields must be filled!";
+				event.preventDefault();
+				return;
+			}
+			axios.post('rest/users/registration', this.user)
+				.then((response) => {
+					this.products = response.data
+					if(products){
+						alert("User successfuly registered")
+					}else{
+						alert("User already exists")
+					}
+					window.open("login.html", "_self");
+				})
 
 			
 
 			event.preventDefault();
+			return;
 		}
 	}
 });

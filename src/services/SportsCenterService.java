@@ -48,7 +48,7 @@ public class SportsCenterService {
 	@Path("/getAll")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<SportsCenter> getAllSportsCenters(){
-		System.out.println("DOBIO SAM ZAHTEV");
+		System.out.println("DOBIO SAM ZAHTEV getAll");
 		return getSportsCenterDAO().getAllSportsCenters();
 	}
 	

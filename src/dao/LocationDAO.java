@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
 
 import beans.Location;
 import beans.UserCommon;
+import formats.DateFormat;
 
 public class LocationDAO {
 
@@ -50,112 +51,81 @@ public class LocationDAO {
 		return locations.get(id);
 	}
 	
-//	public UserCommon find(String username, String password) {
-////		if (!users.containsKey(username)) {
-////			return null;
-////		}
-////		UserCommon user = users.get(username);
-////		if (!user.getPassword().equals(password)) {
-////			return null;
-////		}
-////		return user;
-//		Location pronadjen = null;
-//		for(int intId : locations.keySet()) {
-//			Location korisnik = locations.get(intId);
-//			if(korisnik.getUserName().equals(username)) {
-//				pronadjen  = korisnik;
-//			}
-//		}
-//		if(pronadjen != null) {
-//			if(!pronadjen.getPassword().equals(password)) {
-//				pronadjen = null;
-//			}
-//		}
-//		return pronadjen;
-//	}
+
 	
 	
-//	public UserCommon save(UserCommon user) {
-//		System.out.println("SAVEEEEE");
-//		Integer maxId = -1;
-//		for (int id : users.keySet()) {
-//			if (id > maxId) {
-//				maxId = id;
-//			}
-//		}
-//		maxId++;
-//		user.setId(maxId);
-//		users.put(user.getId(), user);
-//		saveUsers();
-//		return user;
-//	}
 	
-//	public void saveUsers() {
-//		BufferedWriter out = null;
-//		try {
-//			File file = new File(contextPath + "users.txt");
-//			System.out.println(file.getCanonicalPath());
-//			out = new BufferedWriter(new FileWriter(file));
-//
-//			for(UserCommon user : users.values()) {
-//				String s = user.getId() + ";" + user.getUserName() + ";" + user.getPassword() + ";" + user.getName() + ";" + user.getSurname() + ";" + user.getSex() + ";" + user.getBirthDate() + ";" + user.getRole() + ";" + user.getFee() + ";" + user.getPoints() + "\n";
-//				
-//				out.write(s);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (out != null) {
-//				try {
-//					out.close();
-//				} catch (Exception e) {
-//				}
-//			}
-//		}
-//
-//	}
-	
-	/*
-	public UserCommon updateCena(UserCommon letovanje) {
-		UserCommon updateLetovanje = getById(letovanje.getId());
-		updateLetovanje.setCena(letovanje.getCena());
-		return updateLetovanje;
-	}
-	
-	public Letovanje rezervisi(String id) {
-		Letovanje updateLetovanje = letovanja.get(id);
-		if (updateLetovanje == null) {
-			return null;
-		}
-		
-		updateLetovanje.rezervisi();
-		return updateLetovanje;
-		
-	}
-	
-	public Letovanje otkazi(String id) {
-		Letovanje updateLetovanje = letovanja.get(id);
-		if (updateLetovanje == null) {
-			return null;
-		}
-		
-		updateLetovanje.odustani();
-		return updateLetovanje;
-		
-	}
-	
-	public ArrayList<UserCommon> pretrazi(String tekst){
-		ArrayList<UserCommon> returnList = new ArrayList<UserCommon>();
-		for (UserCommon u : users.values()) {
-			if (u.sadrziTekst(tekst)) {
-				returnList.add(u);
+	// ODLICAN
+		public Location save(Location loc) {
+			System.out.println("SAVEEEEE");
+			if(!exists(loc)) {
+				Integer maxId = -1;
+				for (int id : locations.keySet()) {
+					if (id > maxId) {
+						maxId = id;
+					}
+				}
+				maxId++;
+				loc.setId(maxId);
+				locations.put(loc.getId(), loc);
+				saveLocations();
+				return loc;
+			}else {
+				return null;
 			}
+			
 		}
 		
-		return returnList;
-	}*/
+		//ODLiCAN
+		public boolean exists(Location loc) {
+			for(Location l : locations.values()) {
+				System.out.println(l.getStreet());
+				if((l.getStreet()).equals(loc.getStreet()) && (l.getCity()).equals(loc.getCity())) {
+					return true;
+				}
+				if(l.getLatitudeWidth() == loc.getLatitudeWidth() && l.getLongitudeLength() == loc.getLongitudeLength()) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+		
+		public void saveLocations() {
+			BufferedWriter out = null;
+			try {
+				File file = new File(contextPath + "users.txt");
+				System.out.println(file.getCanonicalPath());
+				out = new BufferedWriter(new FileWriter(file));
+				//output
+				for(Location loc : locations.values()) {
+					String s = loc.getId() + ";" + loc.getStreet() + "l" + loc.getCity() + ";" + loc.getPostalCode() + ";" + loc.getLongitudeLength() + ";" + loc.getLatitudeWidth() + "\n";                            
+					
+					out.write(s);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (out != null) {
+					try {
+						out.close();
+					} catch (Exception e) {
+					}
+				}
+			}
+
+		}
+		
+		public Location update(Location loc) {
+			locations.put(loc.getId(), loc);
+			return loc;
+		}
+		// DA LI TREBA ID DA BUDE STRING?????
+		public void delete(Integer id) {
+			this.locations.remove(id);
+		}
 	
-	// SVE METODE KOJE VRSE UPITE NAD PODACIMA
+	
 	
 	
 	

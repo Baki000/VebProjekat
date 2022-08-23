@@ -1,2 +1,2 @@
-1;pera;pera;Pera;Peric;sex;211212;2;2.5;2
-2;baki;baki;Pera;Peric;sex;211212;2;2.5;2
+1;pera;pera;Pera;Peric;MALE;2000-12-11;ADMIN;1;20.0;1;2
+2;baki;baki;Pera;Peric;FEMALE;2001-05-17;MANAGER;2;15.0;2;1
