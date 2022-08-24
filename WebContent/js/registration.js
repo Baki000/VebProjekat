@@ -9,6 +9,7 @@ var app = new Vue({
 	methods: {
 		
 		registerUser: function (event) {
+			this.user.role = "customer"
 			this.error = ""
 			if (!this.user.userName || !this.user.password || !this.user.name || !this.user.surname
 			 			|| !this.user.sex || !this.user.birthDate) {
@@ -18,11 +19,12 @@ var app = new Vue({
 			}
 			axios.post('rest/users/registration', this.user)
 				.then((response) => {
-					this.products = response.data
-					if(products){
-						alert("User successfuly registered")
-					}else{
+					
+					if(response.data === ""){
 						alert("User already exists")
+						
+					}else{
+						alert("User successfuly registered")
 					}
 					window.open("login.html", "_self");
 				})
