@@ -64,9 +64,9 @@ public class SportsCenterService {
 	@Path("/addCenter")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SportsCenter newCenter(SportsCenter user) {
+	public SportsCenter newCenter(SportsCenter sc) {
 		System.out.println("UPAOOOO");
 		SportsCenterDAO dao = (SportsCenterDAO) ctx.getAttribute("sportsCenterDAO");
-		return dao.save(user);
+		return dao.save(sc);
 	}
 }

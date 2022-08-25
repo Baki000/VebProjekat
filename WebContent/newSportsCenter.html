@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>New Sports Center</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+	
+	<div id="newSC" class="container">
+		<h1 class="title">Create new sports center:</h1>
+		<form  @submit='createSportsCenter' class="registartion-form">
+			<table>
+				<tr>
+					<td>Name:</td>
+					<td><input type="text" name="name"
+						v-model="newSC.name"></td>
+				</tr>
+				<tr>
+					<td>Center Type:</td>
+					<td><select name="centerType" id="centerType"
+						v-model="newSC.centerType">
+							<option value="gym">Gym</option>
+							<option value="pool">Pool</option>
+							<option value="sportski centar">Sports Center</option>
+							<option value="fitness center">Fitness Center</option>
+					</select></td>
+				</tr>
+				
+				
+				<tr>
+					<td>Street and num:</td>
+					<td><input type="text" name="street"
+						v-model="newLocation.street"></td>
+				</tr>
+				
+				<tr>
+					<td>City:</td>
+					<td><input type="text" name="city"
+						v-model="newLocation.city"></td>
+				</tr>
+				
+				<tr>
+					<td>Postal code:</td>
+					<td><input type="text" name="postalCode"
+						v-model="newLocation.postalCode"></td>
+				</tr>
+				<tr>
+					<td>Longitude length:</td>
+					<td><input type="number" name="longitudeLength"
+						v-model="newLocation.longitudeLength"></td>
+				</tr>
+				<tr>
+					<td>Latitude width:</td>
+					<td><input type="number" name="latitudeWidth"
+						v-model="newLocation.latitudeWidth"></td>
+				</tr>
+				
+				
+				
+
+				
+
+				
+
+				<tr>
+					<td>Opens:</td>
+					<td><input type="time" name="opens"
+						v-model="newSC.opens"></td>
+				</tr>
+
+				<tr>
+					<td>Closes:</td>
+					<td><input type="time" name="closes"
+						v-model="newSC.closes"></td>
+				</tr>
+				
+				<tr>
+					<td>Logo:</td>
+					<td><input type="file"
+								accept="image/*" @change="uploadImage($event)">
+					</td>
+				</tr>
+
+				<tr>
+					<td>Manager:</td>
+					<td><select v-model="chosenManager" v-bind:hidden="freeManagers === null || freeManagers == 0">
+							<option v-for="fm in freeManagers" :value="fm">{{fm.name}}
+								{{fm.surname}} {{fm.username}}</option>
+					</select>
+					<div class="button1"
+							v-bind:hidden="freeManagers !== null && freeManagers.length != 0"
+							v-on:click="showForm()">
+							<button type="button">Add Manager</button>
+					</div>
+					
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Add"></td>
+				</tr>
+			</table>
+			
+			<p id="error">{{error}}</p>
+		</form>
+
+		<div class="registration-form" v-bind:hidden="prikaziFormu == false">
+
+			<div class="input-box">
+				<span class="details">Name</span> <input v-model="chosenManager.name" type="text" name="name">
+			</div>
+
+			<div class="input-box">
+				<span class="details">Surname</span> <input v-model="chosenManager.surname" type="text"
+					name="surname">
+			</div>
+
+			<div class="input-box">
+				<span class="details">Birth date</span> <input v-model="chosenManager.birthDate" type="date"
+					name="birthDate">
+			</div>
+
+
+			<div class="input-box">
+				<span class="details">Sex</span> 
+				<input type="radio" id="male" name="pol"
+						value="male" v-model="chosenManager.sex"> <label
+						for="male">Male</label> <input type="radio" id="female"
+						name="pol" value="female" v-model="chosenManager.sex">
+						<label for="female">Female</label>
+			</div>
+
+			<div class="input-box">
+				<span class="details">Username</span> <input v-model="chosenManager.username" type="text"
+					name="username">
+			</div>
+
+			<div class="input-box">
+				<span class="details">Password</span> <input v-model="chosenManager.password" type="password"
+					name="password">
+			</div>
+
+			<div class="button">
+				<button type="button" v-on:click="createUser">Register</button>
+			</div>
+
+
+		</div>
+	</div>
+
+
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/newSportsCenter.js"></script>
+</body>
+</html>

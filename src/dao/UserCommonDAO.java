@@ -144,7 +144,43 @@ public class UserCommonDAO {
 
 	}
 	
+	public ArrayList<UserCommon> getFreeManagers() {
+		ArrayList<UserCommon> freeManagers = new ArrayList<UserCommon>();
+
+		for (UserCommon u : users.values()) {
+			if (u.getRole().equals(Role.MANAGER)) {
+				if (u.getSportsCenter() == null) {
+					freeManagers.add(u);
+				}
+			}
+		}
+		return freeManagers;
+
+	}
 	
+	
+	
+	public UserCommon update(UserCommon korisnik) {
+		/*
+		if (korisnik.getSportskiObjekat() != null) { 
+			int id = korisnik.getSportskiObjekat().getIntId();
+			
+			SportskiObjekat sportskiObjekat = SportskiObjekatDAO.getInstance().findObjekat(id);
+			korisnik.setSportskiObjekat(sportskiObjekat);
+		}
+		if (korisnik.getClanarina() != null) {
+			int id = korisnik.getClanarina().getIntId();
+			Clanarina clanarina = ClanarinaDAO.getInstance().findClanarina(id);
+			korisnik.setClanarina(clanarina);
+		}*/
+		users.put(korisnik.getId(), korisnik);
+		saveUsers();
+		return korisnik;
+	}
+
+	public void delete(int id) {
+		this.users.remove(id);
+	}
 	
 	
 	

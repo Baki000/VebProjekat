@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -99,5 +100,25 @@ public class UserCommonService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public UserCommon login(@Context HttpServletRequest request) {
 		return (UserCommon) request.getSession().getAttribute("user");
+	}
+	
+	
+	@PUT
+	@Path("/update")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public UserCommon changeOne(UserCommon user) {
+		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
+		return dao.update(user);
+	}
+	
+	
+	@GET
+	@Path("/getFreeManagers")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<UserCommon> getFreeManagers() {
+		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
+		return dao.getFreeManagers();
 	}
 }
