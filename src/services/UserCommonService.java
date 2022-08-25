@@ -90,8 +90,9 @@ public class UserCommonService {
 	@Path("/logout")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void logout(@Context HttpServletRequest request) {
+	public Response logout(@Context HttpServletRequest request) {
 		request.getSession().invalidate();
+		return Response.status(200).build();
 	}
 	
 	@GET
