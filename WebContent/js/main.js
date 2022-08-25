@@ -12,27 +12,50 @@ var app = new Vue({
 		error: "",
 		intId: "",
 		isOpen: "closed",
-		filterStatus: ""
+		filterStatus: "",
+		 options: [{
+          text: 'name',
+          value: 'name'
+        }, {
+          text: 'type',
+          value: 'type'
+        }, {
+          text: 'location',
+          value: 'location'
+        }, {
+          text: 'average',
+          value: 'average'
+        }
+
+
+
+       ]
 	},
 	mounted() {
-		axios.get('rest/sportsCenters/getAll')
-			.then((response) => {
-				this.tmp = response.data; 
-				for(let s of this.tmp){
-					if(s.status === 'open'){
-						this.sportsCenters.push(s);
-					}
-				}
-				for(let s of this.tmp){
-					if(s.status === 'closed'){
-						this.sportsCenters.push(s);
-					}
-				}
-			})
+		
+		
+		
 		axios.get('rest/users/currentUser').then((response) => {
 			this.loggedUser = response.data
 			this.logovan = true
 			})
+			
+			
+		axios.get('rest/sportsCenters/getAll')
+			.then((response) => {
+				this.tmp = response.data; 
+				for(let s of this.tmp){
+					if(s.status === 'Opened'){
+						this.sportsCenters.push(s);
+					}
+				}
+				for(let s of this.tmp){
+					if(s.status === 'Closed'){
+						this.sportsCenters.push(s);
+					}
+				}
+			})
+		
 	},
 	methods: {
 		search : function(tekst, val){

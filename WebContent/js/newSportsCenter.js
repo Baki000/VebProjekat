@@ -51,14 +51,14 @@ var app = new Vue({
 						.then((response) => {
 							alert('Sportski objekat dodat menadzeru')
 						}).catch(() => {
-							alert('Korisnicko name vec postoji');
-							this.error = "This sport object already exists.";
+							alert('Korisnicko name vec postoji1');
+							this.error = "This sport object already exists.1";
 							event.preventDefault();
 							return;
 						})
 				}).catch(() =>{
-					alert('This sport object already exists.')
-					 this.error = "This sport object already exists.";
+					alert('This sport object already exists2.')
+					 this.error = "This sport object already exists2.";
 					 event.preventDefault();
 					 return;
 				})
@@ -73,7 +73,7 @@ var app = new Vue({
 	   },
 	   createUser: function() {
 		this.error = ""
-			if (!this.chosenManager.username || !this.chosenManager.password || !this.chosenManager.name || !this.chosenManager.surname
+			if (!this.chosenManager.userName || !this.chosenManager.password || !this.chosenManager.name || !this.chosenManager.surname
 			 			|| !this.chosenManager.sex || !this.chosenManager.birthDate) {
 				this.error = "Sva polja moraju biti uneta!";
 				event.preventDefault();

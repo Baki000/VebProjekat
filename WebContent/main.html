@@ -51,18 +51,7 @@
 					</p>
 					
 					
-					<p>
-						<form id="searchForm" onSubmit="return false;" @submit="search">
-				            <div orientation="vertical">
-				                <select name="cars" id="cars" v-model="selected">
-				                    <option v-for="option in options" v-bind:value="option.value">
-				                        {{ option.text }}</option>
-				                </select> 
-				                <input type="text" v-model="searchText"></input>
-				                <button width="150px" height="150px" type="submit" value="Search">Search</button>
-				            </div>
-				        </form>
-					</p>
+					
 					<table border="1" id="tabela" class="table" style="margin-top:10px">
 						<thead>
 							<tr bgcolor="lightgrey">
@@ -79,14 +68,23 @@
 						<tr v-for="sc in sportsCenters" v-on:click="Selected(sc)">
 							<td style="font-size: 15px">{{sc.name }}</td>
 							<td style="font-size: 15px">{{sc.centerType }}</td>
-							<td style="font-size: 15px">{{sc.statis }}</td>
-							<td style="font-size: 15px">{{sc.location.street}} ,
-								{{sc.location.city}}</td>
+							<td style="font-size: 15px">{{sc.status}}</td>
+							<td style="font-size: 15px">{{sc.location.street}} , {{sc.location.city}}</td>
 							<td style="font-size: 15px"><img width="90" height="90" v-bind:src="'images/' + sc.imagePath" alt="No picture found"></td>
 							<td style="font-size: 15px">{{sc.averageGrade}}</td>
 							<td style="font-size: 15px">{{sc.opens}}-{{sc.closes}}</td>
 						</tr>
 					</table>
+					<form id="searchForm" onSubmit="return false;" @submit="search">
+				            <div orientation="vertical">
+				                <select name="cars" id="cars" v-model="selected">
+				                    <option v-for="option in options" v-bind:value="option.value">
+				                        {{ option.text }}</option>
+				                </select> 
+				                <input type="text" v-model="searchText"></input>
+				                <button width="150px" height="150px" type="submit" value="Search">Search</button>
+				            </div>
+				        </form>
 
 
 				</div>
@@ -95,7 +93,7 @@
 	</div>
 	<script src="js/vue.js"></script>
 	<script src="js/axios.js"></script>
-	<script src="js/sportObjects.js"></script>
+	<script src="js/main.js"></script>
 </body>
 
 </html>

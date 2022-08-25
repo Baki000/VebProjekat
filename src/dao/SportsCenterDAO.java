@@ -110,9 +110,9 @@ public class SportsCenterDAO {
 	}
 
 	public SportsCenter save(SportsCenter sc) {
-		System.out.println("SAVEEEEECntr");
+		System.out.println("sc dao upao u save");
 		if (!exists(sc)) {
-			Integer maxId = -1;
+			Integer maxId = 0;
 			for (int id : centers.keySet()) {
 				if (id > maxId) {
 					maxId = id;
@@ -121,7 +121,16 @@ public class SportsCenterDAO {
 			maxId++;
 			sc.setId(maxId);
 			
-			//dodati za lokaciju
+			LocationDAO.getInstance().save(sc.getLocation());
+			if (sc.getLocation() != null) {
+				System.out.println("sc dao save: lokacija nije null");
+				Collection<Location> lokacije = LocationDAO.getInstance().getAllLocations();
+				ArrayList<Location> lokacije1 = new ArrayList<Location>();
+				for (Location l : lokacije) {
+					lokacije1.add(l);
+				}
+				sc.setLocation(lokacije1.get(lokacije1.size() - 1));
+			}
 			
 			centers.put(sc.getId(), sc);
 			saveUsers();
@@ -136,10 +145,11 @@ public class SportsCenterDAO {
 		for (SportsCenter u : centers.values()) {
 			System.out.println(u.getLocation().getStreet());
 			if ((u.getLocation().getStreet()).equals(user.getLocation().getStreet())) {
+				System.out.println("sc dao exists: poklapa se sa: " + u.getLocation().getStreet());
 				return true;
 			}
 		}
-
+		System.out.println("sc dao exists: ne poklapaju se");
 		return false;
 	}
 
@@ -149,13 +159,14 @@ public class SportsCenterDAO {
 		try {
 			File file = new File(contextPath + "sports_centers.txt");
 			System.out.println(file.getCanonicalPath());
+			System.out.println("sc dao upao u save users");
 			out = new BufferedWriter(new FileWriter(file));
 
 			for (SportsCenter center : centers.values()) {
 				String s = center.getId() + ";" + center.getName() + ";" + center.getCenterType() + ";"
 						+ center.getStatus() + ";" + center.getLocation().getId() + ";"
 					    + center.getImagePath() + ";"
-						+ center.getAverageGrade() + ";" + center.getOpens() + ";" + center.getCloses();
+						+ center.getAverageGrade() + ";" + center.getOpens() + ";" + center.getCloses() + "\n";
 				out.write(s);
 			}
 		} catch (Exception e) {

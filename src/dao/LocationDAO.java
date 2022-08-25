@@ -57,9 +57,10 @@ public class LocationDAO {
 	
 	// ODLICAN
 		public Location save(Location loc) {
-			System.out.println("SAVEEEEE");
+			System.out.println("loc dao upao u save");
+			System.out.println(loc.getStreet() + loc.getCity());
 			if(!exists(loc)) {
-				Integer maxId = -1;
+				Integer maxId = 0;
 				for (int id : locations.keySet()) {
 					if (id > maxId) {
 						maxId = id;
@@ -94,12 +95,13 @@ public class LocationDAO {
 		public void saveLocations() {
 			BufferedWriter out = null;
 			try {
-				File file = new File(contextPath + "users.txt");
+				File file = new File(contextPath + "locations.txt");
 				System.out.println(file.getCanonicalPath());
+				System.out.println("loc dao upao u save locations");
 				out = new BufferedWriter(new FileWriter(file));
 				//output
 				for(Location loc : locations.values()) {
-					String s = loc.getId() + ";" + loc.getStreet() + "l" + loc.getCity() + ";" + loc.getPostalCode() + ";" + loc.getLongitudeLength() + ";" + loc.getLatitudeWidth() + "\n";                            
+					String s = loc.getId() + ";" + loc.getStreet() + ";" + loc.getCity() + ";" + loc.getPostalCode() + ";" + loc.getLongitudeLength() + ";" + loc.getLatitudeWidth() + "\n";                            
 					
 					out.write(s);
 				}

@@ -19,7 +19,7 @@ var app = new Vue({
         freeManagers: null,
         selected: '',
         selectedText: '',
-        options: [{
+         options: [{
           text: 'name',
           value: 'name'
         }, {
@@ -33,7 +33,10 @@ var app = new Vue({
           value: 'average'
         }
 
-        ]
+
+
+       ]
+         
     },
     mounted() {
         axios
