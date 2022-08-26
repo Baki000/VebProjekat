@@ -16,16 +16,16 @@
 				<div id="sportskiObjekti">
 
 					<h3 style="text-align: right;">
-					    <label v-bind:hidden="loggedUser.username==undefined">{{loggedUser.username}}</label>
-						<label v-bind:hidden="loggedUser.username!=undefined"><a
+					    <label v-bind:hidden="loggedUser.userName==undefined">{{loggedUser.username}}</label>
+						<label v-bind:hidden="loggedUser.userName!=undefined"><a
 							href="login.html">Log in</a> </label> <label
-							v-bind:hidden="loggedUser.username!=undefined"><a
+							v-bind:hidden="loggedUser.userName!=undefined"><a
 							href="registration.html">Register</a> </label> <label
-							v-bind:hidden="loggedUser.username==undefined"><a
+							v-bind:hidden="loggedUser.userName==undefined"><a
 							href="#">My profile</a> </label>
 							<label v-bind:hidden="loggedUser.role!='manager'"><a
 							href="#menadzerovObjekat.html">My object</a></label>
-							<label v-bind:hidden="loggedUser.username==undefined"><button type="button" class="button" v-on:click="logOut()">Log out</button> </label>
+							<label v-bind:hidden="loggedUser.userName==undefined"><button type="button" class="button" v-on:click="logOut()">Log out</button> </label>
 		</h3>
 					
 

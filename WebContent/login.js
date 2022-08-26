@@ -21,7 +21,7 @@ var app = new Vue({
 			axios.post('rest/users/login', this.userToLogin)
 				.then((response) => {
 					alert('Welcome ' + this.userToLogin.userName)
-					window.open("products.html", "_self");
+					window.open("main.html", "_self");
 				}).catch(() =>{
 					alert('Invalid username or password!')
 					event.preventDefault()

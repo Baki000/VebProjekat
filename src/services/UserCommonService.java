@@ -6,9 +6,11 @@ import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -18,6 +20,9 @@ import javax.ws.rs.core.Response;
 
 import beans.Product;
 import beans.User;
+import formats.TimeFormat;
+import formats.DateFormat;
+import formats.DateTimeFormat;
 import beans.UserCommon;
 import dao.ProductDAO;
 import dao.UserCommonDAO;
@@ -86,13 +91,20 @@ public class UserCommonService {
 	}
 	
 	
-	@POST
+	@GET
 	@Path("/logout")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response logout(@Context HttpServletRequest request) {
-		request.getSession().invalidate();
-		return Response.status(200).build();
+		HttpSession session = request.getSession();
+		UserCommon user = (UserCommon) session.getAttribute("user");
+		if(user != null) {
+			session.invalidate();
+			return Response.status(200).build();
+		}else {
+			return Response.status(400).entity("User already logged out!").build();
+		}
+		
 	}
 	
 	@GET

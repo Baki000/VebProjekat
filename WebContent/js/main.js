@@ -118,7 +118,7 @@ var app = new Vue({
 		logOut: function() {
 			axios.get('rest/users/logout').then((response)=>{
 				alert('Odjavili ste se!')
-				window.location.href = 'http://localhost:8080/WebShopREST/main.html';
+				window.open("main.html", "_self");
 			}).catch(() =>{
 					alert('Korisnik je vec odjavljen!')
 					event.preventDefault();
