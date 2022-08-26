@@ -287,7 +287,7 @@ public class UserCommonDAO {
 		}
 	}
 	
-<<<<<<< HEAD
+
 //	Implementirati checkIn na trening zavisno od isteka trajanje clanarine!!!
 
 	public boolean checkIn(int id) {
@@ -302,8 +302,7 @@ public class UserCommonDAO {
 		}
 		return false;
 	}
-=======
-	
+
 	
 	public void connectUserandSC() {
 		ArrayList<SportsCenter> sportskiObjekti = new ArrayList<SportsCenter>(
@@ -324,6 +323,6 @@ public class UserCommonDAO {
 	}
 	
 	
->>>>>>> c7b690354bbd526894be6a011d66907526643351
+
 
 }
