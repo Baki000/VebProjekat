@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Users</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<script src="jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+<div class="main">
+		<div class="inner2">
+			<div class="welcome">All users</div>
+	<div id="users">
+
+		<nav style="text-align: right;" >
+			<label style="margin-right: 1300px" ><a href="main.html">Main Page</a></label>
+			<label v-bind:hidden="loggedUser.userName==undefined">Current user:</label> 
+			<label v-bind:hidden="loggedUser.userName==undefined">{{loggedUser.userName}}</label>
+			<label v-bind:hidden="loggedUser.userName==undefined"><a href="profil.html" >My profile</a> </label> 
+		</nav>
+
+		
+
+
+
+		<table border="1" id="tabela" class="table2">
+			<thead>
+				<tr bgcolor="yellow">
+				    <th v-on:click="Sort(0)">Username</th>
+					<th v-on:click="Sort(1)">Name</th>
+					<th v-on:click="Sort(2)">Surname</th>
+					<th>Sex</th>
+					<th>Birth Date</th>
+					<th>Role</th>
+					<th v-on:click="Sort(6)">Points</th>
+				</tr>
+			</thead>
+
+			<tr v-for="u in users">
+				<td>{{u.userName }}</td>
+				<td>{{u.name }}</td>
+				<td>{{u.surname }}</td>
+				<td>{{u.sex }}</td>
+				<td>{{u.birthDate}} </td>
+				<td>{{u.role}}</td>
+				<td>{{u.points}}</td>
+			</tr>
+		</table>
+		
+		<form id="searchForm" onSubmit="return false;" @submit="search">
+			<div orientation="vertical">
+				<select name="cars" id="cars" v-model="selected">
+					<option v-for="option in options" v-bind:value="option.value">
+						{{ option.text }}</option>
+				</select> <input type="text" v-model="searchText"></input>
+				<button width="150px" height="150px" type="submit" value="Search">Search</button>
+			</div>
+		</form>
+
+		</div>
+		</div>
+	</div>
+	</div>
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/users.js"></script>
+</body>
+
+</html>

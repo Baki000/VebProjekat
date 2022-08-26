@@ -144,6 +144,41 @@ public class UserCommonDAO {
 
 	}
 	
+	
+	public ArrayList<UserCommon> search(String tekst) {
+		String[] parts = tekst.split(",");
+		System.out.println(parts[1]);
+		System.out.println("PRETRAZI DAO");
+		ArrayList<UserCommon> returnList = new ArrayList<UserCommon>();
+		switch (parts[1]) {
+		case "name":
+			for (UserCommon l : users.values()) {
+				if (l.containsName(parts[0])) {
+					returnList.add(l);
+				}
+			}
+			break;
+		case "surname":
+			for (UserCommon l : users.values()) {
+				if (l.containsSurname(parts[0])) {
+					returnList.add(l);
+				}
+			}
+			break;
+		case "username":
+			for (UserCommon l : users.values()) {
+				if (l.containsUsername(parts[0])) {
+					returnList.add(l);
+				}
+			}
+			break;
+		
+		
+		}
+
+		return returnList;
+	}
+	
 	public ArrayList<UserCommon> getFreeManagers() {
 		ArrayList<UserCommon> freeManagers = new ArrayList<UserCommon>();
 
@@ -252,6 +287,7 @@ public class UserCommonDAO {
 		}
 	}
 	
+<<<<<<< HEAD
 //	Implementirati checkIn na trening zavisno od isteka trajanje clanarine!!!
 
 	public boolean checkIn(int id) {
@@ -266,5 +302,28 @@ public class UserCommonDAO {
 		}
 		return false;
 	}
+=======
+	
+	
+	public void connectUserandSC() {
+		ArrayList<SportsCenter> sportskiObjekti = new ArrayList<SportsCenter>(
+				SportsCenterDAO.getInstance().getAllSportsCenters());
+		for (UserCommon korisnik : users.values()) {
+			if (korisnik.getSportsCenter() == null) {
+				continue;
+			}
+			int idTrazeni = korisnik.getSportsCenter().getId();
+
+			for (SportsCenter sportskiObjekat : sportskiObjekti) {
+				if (sportskiObjekat.getId() == idTrazeni) {
+					korisnik.setSportsCenter(sportskiObjekat);
+					break;
+				}
+			}
+		}
+	}
+	
+	
+>>>>>>> c7b690354bbd526894be6a011d66907526643351
 
 }

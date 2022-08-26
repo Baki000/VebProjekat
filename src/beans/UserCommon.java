@@ -206,6 +206,16 @@ public class UserCommon {
 	}
 
 	
+	public boolean containsName(String tekst) {
+		return this.name.toLowerCase().contains(tekst.toLowerCase());
+	}
 	
+	public boolean containsSurname(String tekst) {
+		return this.surname.toLowerCase().contains(tekst.toLowerCase());
+	}
+	
+	public boolean containsUsername(String tekst) {
+		return this.userName.toLowerCase().contains(tekst.toLowerCase());
+	}
 	
 }

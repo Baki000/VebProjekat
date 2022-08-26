@@ -16,7 +16,7 @@
 				<div id="sportskiObjekti">
 
 					<h3 style="text-align: right;">
-					    <label v-bind:hidden="loggedUser.userName==undefined">{{loggedUser.username}}</label>
+					    <label v-bind:hidden="loggedUser.userName==undefined">bilo sta</label>
 						<label v-bind:hidden="loggedUser.userName!=undefined"><a
 							href="login.html">Log in</a> </label> <label
 							v-bind:hidden="loggedUser.userName!=undefined"><a
@@ -31,9 +31,9 @@
 
 					<p>
 						<label v-bind:hidden="loggedUser.role!='admin'"><a
-							href="#korisnici.html">All users</a></label><br>
+							href="users.html">All users</a></label><br>
 						<label v-bind:hidden="loggedUser.role!='admin'"><a
-							href="kreiranjeTrenera.html">Add new trainer</a></label><br>
+							href="registerTrainer.html">Add new trainer</a></label><br>
 						<label v-bind:hidden="loggedUser.role!='admin'"><a
 							href="newSportsCenter.html">Create new sports center</a></label>		
 					</p>
