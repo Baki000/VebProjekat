@@ -21,6 +21,8 @@ SportsCenterDAO.getInstance().loadCenters(contextPath);
 
 
 SportsCenterDAO.getInstance().connectSCandLocation();
+UserCommonDAO.getInstance().connectUserandSC();
+
 
 }
 

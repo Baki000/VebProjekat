@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
@@ -13,18 +14,23 @@ import javax.ws.rs.POST;
 
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import beans.Product;
+import beans.SportsCenter;
 import beans.User;
 import formats.TimeFormat;
 import formats.DateFormat;
 import formats.DateTimeFormat;
+import dto.UserCommonDTO;
 import beans.UserCommon;
 import dao.ProductDAO;
+import dao.SportsCenterDAO;
 import dao.UserCommonDAO;
 import dao.UserDAO;
 import startup.OnStartUp;
@@ -54,13 +60,24 @@ public class UserCommonService {
 	}
 	
 	
+	public UserCommonDAO getUserCommonDAO() {
+		return (UserCommonDAO) ctx.getAttribute("userCommonDAO");
+	}
+	
 	
 	@GET
 	@Path("/getAll")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<UserCommon> getAllUsers(){
-		System.out.println("DOBIO SAM ZAHTEV");
-		return UserCommonDAO.getInstance().getAllUsers();
+	public Collection<UserCommonDTO> getAllUsers(){
+		System.out.println("uc service: upao u getallUsers");
+		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
+		Collection<UserCommon> usersi = dao.getAllUsers();
+		ArrayList<UserCommonDTO> usersDTO = new ArrayList<UserCommonDTO>();
+		for(UserCommon u : usersi) {
+			usersDTO.add(new UserCommonDTO(u));
+		}
+		return usersDTO;
+		
 	}
 	
 	@POST
@@ -133,5 +150,14 @@ public class UserCommonService {
 	public Collection<UserCommon> getFreeManagers() {
 		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
 		return dao.getFreeManagers();
+	}
+	
+	
+	@GET
+	@Path("/search/{tekst}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<UserCommon> pretrazi(@PathParam("tekst") String tekst){
+		System.out.println("Search usao Service");
+		return getUserCommonDAO().search(tekst);
 	}
 }
