@@ -251,5 +251,20 @@ public class UserCommonDAO {
 			}
 		}
 	}
+	
+//	Implementirati checkIn na trening zavisno od isteka trajanje clanarine!!!
+
+	public boolean checkIn(int id) {
+		for (UserCommon korisnik : users.values()) {
+			if (korisnik.getId() == id) {
+				if (LocalDate.now().isBefore(korisnik.getFee().getDateEnd())
+						&& korisnik.getFee().getEntries() > 0) {
+					FeeDAO.getInstance().smanjiBrojTermina(korisnik.getFee().getId());
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 }

@@ -2,6 +2,7 @@ package beans;
 
 import java.time.LocalDate;
 
+import enums.FeeStatus;
 import formats.DateFormat;
 
 public class Fee {
@@ -128,10 +129,6 @@ public class Fee {
 	}
 
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 
 	public int getEntries() {
 		return entries;
@@ -140,6 +137,17 @@ public class Fee {
 
 	public void setEntries(int entries) {
 		this.entries = entries;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public String convertToString() {
+		return id + ";" + feeType + ";" + DateFormat.dateToString(payDay) + ";" + DateFormat.dateToString(dateStart) + ";" + DateFormat.dateToString(dateEnd) + ";" + price + ";" 
+				+ customer.getId() + ";" + status + ";" + entries;
 	}
 	
 	

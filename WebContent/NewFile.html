@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+		<div class="main">
+		<div class="inner2">
+			<div class="welcome"></div>
+			<div class="registration_options">
+
+				<div id="viewSO">
+					<label><a href="main.html">Main page</a></label>
+					
+						<table class="table" style="width: 50%">
+							<tr>
+								<td>
+									Ime:
+								</td>
+								<td>
+									<input type="text" name="name"
+										v-model="so.ime"
+										pattern="[A-Za-z]{1,32}" disabled>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									Tip:
+								</td>
+								<td>
+									<input type="text"
+										name="surname" 
+										v-model="so.tipObjekta" pattern="[A-Za-z]{1,32}" disabled>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									Status:
+								</td>
+								<td>
+									<input type="text"
+										name="birthday"
+										v-model="so.status" disabled>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									Ulica:
+								</td>
+								<td>
+									<input type="text"
+										v-model="so.lokacija.ulica" width="15" disabled>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									Broj:
+								</td>
+								<td>
+									<input type="text"
+										v-model="so.lokacija.broj" width="15" disabled>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									Mesto:
+								</td>
+								<td>
+									<input type="text"
+										v-model="so.lokacija.mesto" width="15" disabled>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									Prosecna ocena:
+								</td>
+								<td>
+									<input type="text"
+										name="grade" 
+										v-model="so.prosecnaOcena" disabled>
+								</td>
+							</tr>
+						</table>
+						<br>
+
+						<table  id="tabela" class="table2">
+							<caption style="background:yellow;">Treninzi</caption>
+							<thead>
+								<tr bgcolor="lightgrey">
+									<th>Slika</th>
+									<th>Tip treninga</th>
+									<th>Opis</th>
+									<th>Naziv trenera</th>
+									<th>Doplata</th>
+									<th>Prijava</th>
+								</tr>
+							</thead>
+
+							<tr v-for="t in treninzi" v-bind:hidden="t.tipTreninga=='personalni'">
+								<td><img width="90" height="90" v-bind:src="'images/' + t.slika" alt="No picture found"></td>
+								<td>{{t.tipTreninga }}</td>
+								<td>{{t.opis }}</td>
+								<td>{{t.trener}}</td>
+								<td>0</td>
+								<td><button type="button" v-on:click="prijavaNaTrening(t)">Prijava</button></td>
+							</tr>
+						</table>
+					
+						
+					<button type="button" v-on:click="zakaziPersonalni()">Zakazi personalni trening</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/oneCenter.js"></script>
+</body>
+</html>

@@ -134,4 +134,20 @@ public class UserCommonService {
 		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
 		return dao.getFreeManagers();
 	}
+	
+	@PUT
+	@Path("/checkIn")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response checkIn(@Context HttpServletRequest request) {
+		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
+		UserCommon loged = (UserCommon) request.getSession().getAttribute("user");
+		if(dao.checkIn(loged.getId())) {        
+			return Response.status(200).build();
+		} else {
+			return Response.status(400).build();
+		}
+		
+	}
+	
 }

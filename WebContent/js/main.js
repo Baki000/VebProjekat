@@ -72,8 +72,8 @@ var app = new Vue({
         },
 		
 		Selected: function(sp) {
-			axios.post('rest/sportskiObjekti/setSelected', { intId: sp.intId } ).then((response)=>{
-				window.location.href = 'http://localhost:8080/WebShopREST/sportskiObjekat.html';
+			axios.post('rest/sportsCenters/setSelected', { intId: sp.intId } ).then((response)=>{
+				window.location.href = 'http://localhost:8080/WebShopREST/oneCenter.html';
 			})
 			
 		},
