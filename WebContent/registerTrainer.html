@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<title>Trainer Registration</title>
+</head>
+<body>
+
+
+<div class="container">
+	<p style="text-align: right;"><a href="main.html">Main Page</a></p>
+	<form id="registerTrainer" @submit='registerTrainer' class="registartion-form">
+			<table>
+				<tr>
+					<td>Username: </td>
+					<td><input type="text" name="username" v-model="userToRegister.userName"></td>
+				</tr>
+				<tr>
+					<td>Password: </td>
+					<td><input type="password" name="password" v-model="userToRegister.password"></td>
+				</tr>
+				<tr>
+					<td>Name: </td>
+					<td><input type="text" name="name" v-model="userToRegister.name"></td>
+				</tr>
+				<tr>
+					<td>Surname: </td>
+					<td><input type="text" name="surname" v-model="userToRegister.surname"></td>
+				</tr>
+				<tr>
+					<td>Sex: </td>
+					<td>
+						<input type="radio" id="male" name="sex" value="male" v-model="userToRegister.sex">
+						<label for="male">Male</label>
+						<input type="radio" id="female" name="sex" value="female" v-model="userToRegister.sex">
+						<label for="female">Female</label>
+						
+					</td>
+				</tr>
+				<tr>
+					<td>Birth Date: </td>
+					<td><input type="date" name="birthDate" v-model="userToRegister.birthDate"></td>
+				</tr>
+				
+				<tr>
+					<td><input type="submit" value="Register"></td>
+				</tr>
+			</table>
+
+		<p id = "error">{{error}}</p>
+	</form>
+</div>
+	
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/registerTrainer.js"></script>
+</body>
+</html>
