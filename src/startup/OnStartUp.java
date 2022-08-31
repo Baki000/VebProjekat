@@ -1,36 +1,33 @@
 package startup;
+
 import dao.LocationDAO;
 import dao.SportsCenterDAO;
+import dao.TrainingDAO;
 import dao.UserCommonDAO;
-import services.LocationService;
-import services.SportsCenterService;
-import services.UserCommonService;
 
 public class OnStartUp {
 
-private static OnStartUp pokretanjeInstance = null;
+	private static OnStartUp pokretanjeInstance = null;
 
+	private OnStartUp(String contextPath) {
 
-private OnStartUp(String contextPath) {
-	
+		UserCommonDAO.getInstance().loadUsers2(contextPath);
+		LocationDAO.getInstance().loadLocations(contextPath);
+		SportsCenterDAO.getInstance().loadCenters(contextPath);
+		TrainingDAO.getInstance().loadTrainings(contextPath);
 
-UserCommonDAO.getInstance().loadUsers2(contextPath);
-LocationDAO.getInstance().loadLocations(contextPath);
-SportsCenterDAO.getInstance().loadCenters(contextPath);
+		SportsCenterDAO.getInstance().connectSCandLocation();
+		UserCommonDAO.getInstance().connectUserandSC();
+		TrainingDAO.getInstance().connectTrainingSportsCenter();
+		TrainingDAO.getInstance().connectTrainingTrener();
 
+	}
 
+	public static OnStartUp getInstance(String contextPath) {
+		if (pokretanjeInstance == null) {
+			pokretanjeInstance = new OnStartUp(contextPath);
+		}
 
-SportsCenterDAO.getInstance().connectSCandLocation();
-UserCommonDAO.getInstance().connectUserandSC();
-
-
-}
-
-public static OnStartUp getInstance(String contextPath) {
-if (pokretanjeInstance == null) {
-pokretanjeInstance = new OnStartUp(contextPath);
-}
-
-return pokretanjeInstance;
-}
+		return pokretanjeInstance;
+	}
 }

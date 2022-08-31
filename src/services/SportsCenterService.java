@@ -82,4 +82,13 @@ public class SportsCenterService {
 		request.getSession().setAttribute("selected", objekat);
 		return Response.status(200).build();
 	}
+	
+	@GET
+	@Path("/getSelected")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public SportsCenter getSelected( @Context HttpServletRequest request) {
+		SportsCenter objekat = (SportsCenter)request.getSession().getAttribute("selected");
+		return objekat;
+	}
 }

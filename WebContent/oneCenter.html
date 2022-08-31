@@ -79,7 +79,7 @@
 								</td>
 							</tr>
 						</table>
-						<br>
+		
 
 						<table  id="tabela" class="table2">
 							<caption style="background:yellow;">Treninzi</caption>
@@ -94,11 +94,11 @@
 								</tr>
 							</thead>
 
-							<tr v-for="t in treninzi" v-bind:hidden="t.tipTreninga=='personalni'">
-								<td><img width="90" height="90" v-bind:src="'images/' + t.slika" alt="No picture found"></td>
-								<td>{{t.tipTreninga }}</td>
-								<td>{{t.opis }}</td>
-								<td>{{t.trener}}</td>
+							<tr v-for="t in trainings" v-bind:hidden="t.trainingType=='personal'">
+								<td><img width="90" height="90" v-bind:src="t.pictureURL" alt="No picture found"></td>
+								<td>{{t.trainingType }}</td>
+								<td>{{t.description }}</td>
+								<td>{{t.trainer}}</td>
 								<td>0</td>
 								<td><button type="button" v-on:click="prijavaNaTrening(t)">Prijava</button></td>
 							</tr>

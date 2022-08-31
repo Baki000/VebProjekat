@@ -1,0 +1,1 @@
+1;Joga;personal;1;2.1;-1;opis: nesto nesto;slika.jpg
