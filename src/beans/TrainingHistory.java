@@ -3,6 +3,8 @@ package beans;
 import java.time.LocalDateTime;
 
 public class TrainingHistory {
+	
+	private int id;
 	private LocalDateTime date;
 	private Training training;
 	private UserCommon customer;
@@ -12,12 +14,22 @@ public class TrainingHistory {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public TrainingHistory(LocalDateTime date, Training training, UserCommon customer, UserCommon trainer) {
+	public TrainingHistory(int id, LocalDateTime date, Training training, UserCommon customer, UserCommon trainer) {
 		super();
+		this.id = id;
 		this.date = date;
 		this.training = training;
 		this.customer = customer;
 		this.trainer = trainer;
+	}
+	
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public LocalDateTime getDate() {
 		return date;

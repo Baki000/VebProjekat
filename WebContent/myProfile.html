@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<title>My Profile</title>
+</head>
+
+<body>
+	<div class="container" id="mojProfil">
+		
+		
+		<h1 class="title">My profile</h1>
+		<label><a href="main.html" class="lnkbtn">Main page</a></label>
+		<form @submit='updateUser' class="registartion-form">
+			<table>
+				<tr>
+					<td>
+						Name:
+					</td>
+					<td>
+						<input type="text" name="name"
+							placeholder="Enter your name" required v-model="newUser.name"
+							pattern="[A-Za-z]{1,32}" >
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Surname:
+					</td>
+					<td>
+						<input type="text"
+							name="surname" placeholder="Enter your surname" required
+							v-model="newUser.surname" pattern="[A-Za-z]{1,32}">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Birth Date:
+					</td>
+					<td>
+						<input type="date"
+							name="birthDate" placeholder="Enter your birth date" required
+							v-model="newUser.birthDate">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Sex:
+					</td>
+					<td>
+						<select type="combobox"
+							class="combobox" width="15" required
+							v-model="newUser.sex" size=1
+							style="width: 300px; height: 40px; border-radius: 5px; font-size: 16px">
+							<option value="female">Female</option>
+							<option value="male">Male</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Username:
+					</td>
+					<td>
+						<input type="text"
+							name="userName" placeholder="Enter your username" required
+							v-model="newUser.userName">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Password:
+					</td>
+					<td>
+						<input type="password"
+							name="password" placeholder="Enter your password" required
+							v-model="newUser.password">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+
+					</td>
+					<td>
+						<input type="submit" value="Update" class="submit">
+					</td>
+				</tr>
+			</table>
+		</form>
+
+		<div class="input-box" v-bind:hidden="newUser.uloga!='kupac'">
+			<label><a href="#uplataClanarine.html" class="lnkbtn">Uplati clanarinu</a></label>
+		</div>
+
+		<p> {{error }} </p>
+		<h3 v-bind:hidden="newUser.role!='customer'">Treninzi</h3>
+		<p v-bind:hidden="newUser.role!='customer'">
+			<label>Sports Center:</label>
+			<input type="text" name="objekat" v-model="searchObjekat"><br>
+			<label>Date:</label>
+			<input type="date" name="pocetni datum" v-model="pocetniDatum">
+			<input type="time" name="pocetno vreme" v-model="pocetnoVreme">
+			<label>-</label>
+			<input type="date" name="krajni datum" v-model="krajnjiDatum">
+			<input type="time" name="krajnje vreme" v-model="krajnjeVreme">
+			<button value="Pretrazi" v-on:click="pretraziTreninge">Pretrazi</button>
+		</p>
+
+		<table border="1" id="tabela" v-bind:hidden="newUser.uloga!='kupac'" class="table2">
+			<caption style="background:pink;">Teninzi</caption>
+			<thead>
+				<tr bgcolor="lightgrey">
+					<th>Naziv</th>
+					<th>Sportski objekat</th>
+					<th>Datum i vreme</th>
+				</tr>
+			</thead>
+
+			<tr v-for="it in istorijeTreninga">
+				<td>{{it.trening.naziv }}</td>
+				<td>{{it.trening.objekatGdePripada.ime }}</td>
+				<td>{{it.datumVremePrijave}}</td>
+			</tr>
+		</table>
+		
+		<h3 v-bind:hidden="newUser.uloga!='trener'">Personalni treninzi</h3>
+		
+		<table border="1" id="tabelaPersonalni" v-bind:hidden="newUser.uloga!='trener'" class="table2">
+			<caption style="background:pink;">Personalni treninzi</caption>
+			<thead>
+				<tr bgcolor="lightgrey">
+					<th>Termin</th>
+					<th>Kupac</th>
+					<th>Sportski objekat</th>
+				</tr>
+			</thead>
+
+			<tr v-for="pt in personalniTreninzi">
+				<td>{{pt.terminTreninga }}</td>
+				<td>{{pt.imeKupca }}</td>
+				<td>{{pt.imeObjekta}}</td>
+				<td><button type="button" v-on:click="otkaziTrening(pt)">Otkazi</button></td>
+			</tr>
+		</table>
+		
+		<h3 v-bind:hidden="newUser.uloga!='trener'">Grupni treninzi</h3>
+		
+		<table border="1" id="tabelaGrupni" v-bind:hidden="newUser.uloga!='trener'" class="table2">
+			<caption style="background:pink;">Grupni treninzi</caption>
+			<thead>
+				<tr bgcolor="lightgrey">
+					<th>Naziv</th>
+					<th>Tip</th>
+					<th>Sportski objekat</th>
+					<th>Trajanje</th>
+					<th>Opis</th>
+				</tr>
+			</thead>
+
+			<tr v-for="gt in grupniTreninzi">
+				<td>{{gt.naziv }}</td>
+				<td>{{gt.tipTreninga }}</td>
+				<td>{{gt.objekatGdePripada.ime}}</td>
+				<td>{{gt.trajanje }}</td>
+				<td>{{gt.opis }}</td>
+			</tr>
+		</table>
+		
+	</div>
+
+
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/profil.js"></script>
+
+</body>
+</html>
