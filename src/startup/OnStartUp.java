@@ -8,7 +8,7 @@ import dao.UserCommonDAO;
 
 public class OnStartUp {
 
-	private static OnStartUp pokretanjeInstance = null;
+	private static OnStartUp startuUpInstance = null;
 
 	private OnStartUp(String contextPath) {
 
@@ -29,11 +29,11 @@ public class OnStartUp {
 	}
 
 	public static OnStartUp getInstance(String contextPath) {
-		if (pokretanjeInstance == null) {
-			pokretanjeInstance = new OnStartUp(contextPath);
+		if (startuUpInstance == null) {
+			startuUpInstance = new OnStartUp(contextPath);
 		}
 
 
-		return pokretanjeInstance;
+		return startuUpInstance;
 	}
 }
