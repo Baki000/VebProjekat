@@ -62,7 +62,7 @@ public class SportsCenterDAO {
 		return centers.values();
 	}
 
-	public SportsCenter getById(String id) {
+	public SportsCenter getById(int id) {
 		return centers.get(id);
 	}
 

@@ -19,10 +19,8 @@
 								<td>
 									Name:
 								</td>
-								<td>
-									<input type="text" name="name"
-										v-model="sc.name"
-										pattern="[A-Za-z]{1,32}" disabled>
+								<td style="font-size: 15px">
+									{{sc.name}}
 								</td>
 							</tr>
 
@@ -31,30 +29,16 @@
 									Type:
 								</td>
 								<td>
-									<input type="text"
-										name="surname" 
-										v-model="sc.centerType" pattern="[A-Za-z]{1,32}" disabled>
+									{{sc.centerType}}
 								</td>
 							</tr>
-
-							<tr>
-								<td>
-									Status:
-								</td>
-								<td>
-									<input type="text"
-										name="birthday"
-										v-model="sc.status" disabled>
-								</td>
-							</tr>
-
+							
 							<tr>
 								<td>
 									Street:
 								</td>
 								<td>
-									<input type="text"
-										v-model="sc.location.street" width="15" disabled>
+									{{sc.centerType}}
 								</td>
 							</tr>
 
@@ -63,19 +47,27 @@
 									City:
 								</td>
 								<td>
-									<input type="text"
-										v-model="sc.location.city" width="15" disabled>
+									{{sc.centerType}}
 								</td>
 							</tr>
+
+							<tr>
+								<td>
+									Status:
+								</td>
+								<td>
+									{{sc.status}}
+								</td>
+							</tr>
+
+							
 
 							<tr>
 								<td>
 									Average grade:
 								</td>
 								<td>
-									<input type="text"
-										name="grade" 
-										v-model="sc.averageGrade" disabled>
+									{{sc.averageGrade}}
 								</td>
 							</tr>
 						</table>

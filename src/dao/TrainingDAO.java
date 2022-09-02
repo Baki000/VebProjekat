@@ -116,10 +116,17 @@ public class TrainingDAO {
 	}
 	
 	public ArrayList<Training> getTrainingsForObject(int idSC) {
+		System.out.println("trDAO upao u getTRforOBJ");
 		ArrayList<Training> TrainingsForObject = new ArrayList<Training>();
-		for (Training Training : trainings.values()) {
-			if (Training.getSportsCenter().getId() == idSC) {
-				TrainingsForObject.add(Training);
+		int i = 0;
+		int j = 0;
+		for (Training tr : trainings.values()) {
+			System.out.println("I je " + i);
+			System.out.println("idSC je " + idSC);
+			System.out.println("ID TRENUTNI JE " + tr.getSportsCenter().getId());
+			if (tr.getSportsCenter().getId() == idSC) {
+				System.out.println("J je: " + j);
+				TrainingsForObject.add(tr);
 			}
 		}
 		return TrainingsForObject;
@@ -144,6 +151,7 @@ public class TrainingDAO {
 
 	
 	public void connectTrainingSportsCenter() {
+		System.out.println("UPAO U KONEKT TRENING SC");
 		ArrayList<SportsCenter> sportsCenters = new ArrayList<SportsCenter>(
 				SportsCenterDAO.getInstance().getAllSportsCenters());
 		for (Training Training : trainings.values()) {
@@ -156,7 +164,21 @@ public class TrainingDAO {
 				}
 			}
 		}
+		for(Integer id2 : trainings.keySet()) {
+			String key = id2.toString();
+			String value = trainings.get(id2).getSportsCenter().getName();
+			Integer value2 = trainings.get(id2).getSportsCenter().getId();
+			System.out.println(key + " " + value + " " + value2);
+		}
+		
 	}
+	/*
+	for(Integer id2 : centers.keySet()) {
+			String key = id2.toString();
+			String value = centers.get(id2).getLocation().getStreet();
+			System.out.println(key + " " + value);
+		}
+	*/
 	
 	public void saveTrainings() {
 		BufferedWriter out = null;
