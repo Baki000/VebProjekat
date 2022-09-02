@@ -5,6 +5,8 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import beans.Training;
+import beans.UserCommon;
 import dao.TrainingDAO;
 import dto.TrainingDTO;
 import startup.OnStartUp;
@@ -56,6 +59,9 @@ public class TrainingService {
 		}
 		return treninziDTO;
 	}
+	
+	
+	
 	
 
 }

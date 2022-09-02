@@ -68,7 +68,7 @@ public class UserCommonService {
 	@GET
 	@Path("/getAll")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<UserCommonDTO> getAllUsers(){
+	public Collection<UserCommon> getAllUsers(){
 		System.out.println("uc service: upao u getallUsers");
 		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
 		Collection<UserCommon> usersi = dao.getAllUsers();
@@ -76,7 +76,7 @@ public class UserCommonService {
 		for(UserCommon u : usersi) {
 			usersDTO.add(new UserCommonDTO(u));
 		}
-		return usersDTO;
+		return usersi;
 		
 	}
 	

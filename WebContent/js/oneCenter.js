@@ -2,12 +2,14 @@ var app = new Vue({
 	el: '#viewSO',
 	data: {
 		sc: {},
+		location: {},
 		error: '',
 		trainings:[]
 	},
 	mounted() {
 		axios.get('rest/sportsCenters/getSelected')
 		.then((response) => {this.sc = response.data;
+			this.location = this.sc.location
 			axios.get('rest/training/getAllTrainings', { params: { idSportskogObjekta: this.sc.id } }).
 			then((response) => {
 				this.trainings = response.data;

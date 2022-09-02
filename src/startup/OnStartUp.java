@@ -1,13 +1,14 @@
 package startup;
 
 import dao.LocationDAO;
+import dao.TrainingHistoryDAO;
 import dao.SportsCenterDAO;
 import dao.TrainingDAO;
 import dao.UserCommonDAO;
 
 public class OnStartUp {
 
-	private static OnStartUp pokretanjeInstance = null;
+	private static OnStartUp startuUpInstance = null;
 
 	private OnStartUp(String contextPath) {
 
@@ -15,19 +16,24 @@ public class OnStartUp {
 		LocationDAO.getInstance().loadLocations(contextPath);
 		SportsCenterDAO.getInstance().loadCenters(contextPath);
 		TrainingDAO.getInstance().loadTrainings(contextPath);
+		TrainingHistoryDAO.getInstance().loadTrainingHistories(contextPath);
+
 
 		SportsCenterDAO.getInstance().connectSCandLocation();
 		UserCommonDAO.getInstance().connectUserandSC();
 		TrainingDAO.getInstance().connectTrainingSportsCenter();
 		TrainingDAO.getInstance().connectTrainingTrener();
+		TrainingHistoryDAO.getInstance().connectTHandCustomer();
+		TrainingHistoryDAO.getInstance().connectTHandTrainer();
 
 	}
 
 	public static OnStartUp getInstance(String contextPath) {
-		if (pokretanjeInstance == null) {
-			pokretanjeInstance = new OnStartUp(contextPath);
+		if (startuUpInstance == null) {
+			startuUpInstance = new OnStartUp(contextPath);
 		}
 
-		return pokretanjeInstance;
+
+		return startuUpInstance;
 	}
 }
