@@ -1,1 +1,4 @@
-1;Joga;personal;1;2.1;-1;opis: nesto nesto;slika.jpg
+1;Joga;personal;1;2.1;-1;opis: nesto nesto;slika
+2;Joga2;personal;2;2.1;-1;opis: nesto nesto;slika
+3;Joga3;personal;3;2.1;-1;opis: nesto nesto;slika
+4;Joga4;personal;4;2.1;-1;opis: nesto nesto;slika

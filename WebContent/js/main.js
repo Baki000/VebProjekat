@@ -72,7 +72,7 @@ var app = new Vue({
         },
 		
 		Selected: function(sp) {
-			axios.post('rest/sportsCenters/setSelected', { intId: sp.intId } ).then((response)=>{
+			axios.post('rest/sportsCenters/setSelected', { id: sp.id } ).then((response)=>{
 				window.location.href = 'http://localhost:8080/WebShopREST/oneCenter.html';
 			})
 			

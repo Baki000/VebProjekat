@@ -77,8 +77,8 @@ public class SportsCenterService {
 	@Path("/setSelected")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response setSelected(SportsCenter obj, @Context HttpServletRequest request) {
-		SportsCenter objekat = SportsCenterDAO.getInstance().getById("" + obj.getId());
+	public Response setSelected(SportsCenter sc, @Context HttpServletRequest request) {
+		SportsCenter objekat = SportsCenterDAO.getInstance().getById(sc.getId());
 		request.getSession().setAttribute("selected", objekat);
 		return Response.status(200).build();
 	}
@@ -91,4 +91,5 @@ public class SportsCenterService {
 		SportsCenter objekat = (SportsCenter)request.getSession().getAttribute("selected");
 		return objekat;
 	}
+	
 }
