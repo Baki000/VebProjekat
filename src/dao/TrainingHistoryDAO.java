@@ -127,7 +127,7 @@ public class TrainingHistoryDAO {
 			out = new BufferedWriter(new FileWriter(file));
 
 			for(TrainingHistory th : histories.values()) {
-				String s = th.getId() + ";" + DateTimeFormat.dateTimeToString(th.getDate()) + ";" + th.getTraining().getIntId() + ";" + th.getCustomer().getId() + ";" + ((th.getTrainer() == null) ? -1 : th.getTrainer().getId());
+				String s = th.getId() + ";" + th.getDate() + ";" + th.getTraining().getIntId() + ";" + th.getCustomer().getId() + ";" + ((th.getTrainer() == null) ? -1 : th.getTrainer().getId());
 				out.write(s);
 			}
 		} catch (Exception e) {
@@ -179,18 +179,18 @@ public class TrainingHistoryDAO {
 			}
 		}
 	}
-	/*
-	public void connectTrainingHistoryTrening() {
-		ArrayList<Training> treninzi = new ArrayList<Training>(TreningDAO.getInstance().findAll());
+	
+	public void connectTHandTraining() {
+		ArrayList<Training> treninzi = new ArrayList<Training>(TrainingDAO.getInstance().findAll());
 		for(TrainingHistory TrainingHistory : histories.values()) {
-			if(TrainingHistory.getTrening() == null) {
+			if(TrainingHistory.getTraining() == null) {
 				continue;
 			}
-			int idTrazeni = TrainingHistory.getTrening().getIntId();
+			int idTrazeni = TrainingHistory.getTraining().getIntId();
 			
 			for(Training trening : treninzi) {
 				if(trening.getIntId() == idTrazeni) {
-					TrainingHistory.setTrening(trening);
+					TrainingHistory.setTraining(trening);
 					break;
 				}
 			}
@@ -198,7 +198,63 @@ public class TrainingHistoryDAO {
 	}
 	
 	
-	*/
+	public Collection<TrainingHistory> getTHforUser(int userID){
+		ArrayList<TrainingHistory> trainings = new ArrayList<TrainingHistory>();
+		System.out.println("UPAO U GETTH FOR USER u dao");
+		System.out.println("Prosledjeni id je " + userID);
+		
+		for(TrainingHistory th : histories.values()) {
+			System.out.println("Trenutni id je " + th.getCustomer().getId());
+			if(th.getCustomer().getId() == userID) {
+				trainings.add(th);
+			}
+		}
+		return trainings;
+	}
+	
+
+	/*
+	public IstorijaTreninga check(Trening trening, Korisnik korisnik) {
+		Integer maxId = -1;
+		for (int id : istorijeTreninga.keySet()) {
+			if (id > maxId) {
+				maxId = id;
+			}
+		}
+		maxId++;
+		Trening tr = new Trening();
+		for(Trening t : TreningDAO.getInstance().treninzi.values()) {
+			if(t.getIntId() == trening.getIntId()) {
+				tr = t;
+				break;
+			}
+		}
+		
+		IstorijaTreninga it = new IstorijaTreninga(maxId, LocalDateTime.now(), tr, korisnik, tr.getTrener());
+		istorijeTreninga.put(it.getIntId(), it);
+		tr.getTrener().getIstorijaTreninga().add(it);
+		sacuvajIstorijeTreninga();
+		return it;
+	}
+	
+	public ArrayList<IstorijaTreninga> search(String searchObjekat, LocalDateTime pocetno, LocalDateTime krajnje, Korisnik korisnik){
+		ArrayList<IstorijaTreninga> pronadjeni = new ArrayList<IstorijaTreninga>();
+		
+		for(IstorijaTreninga it : istorijeTreninga.values() ) {
+			if(it.getKupac().getIntId() == korisnik.getIntId()) {
+				if(it.getTrening().getObjekatGdePripada().getIme().contains(searchObjekat)) {
+					if(it.getDatumVremePrijave().isAfter(pocetno) && it.getDatumVremePrijave().isBefore(krajnje)) {
+						pronadjeni.add(it);
+					}
+				}
+			}
+		}
+		
+		return pronadjeni;
+	} */
+	
+	
+	
 	
 	
 }

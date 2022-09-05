@@ -15,14 +15,14 @@ var app = new Vue({
 		krajnje: ""
 	},
 	mounted() {
-		axios.get('rest/korisnik1/currentUser')
+		axios.get('rest/users/currentUser')
 			.then((response) => {
 				this.newUser = response.data;
-				axios.get('rest/istorijaTreninga/getITforUser', { params: { idKorisnika: this.newUser.intId } }).
+				axios.get('rest/trainingHistory/getTHforUser', { params: { idKorisnika: this.newUser.id } }).
 					then((response) => {
 						this.istorijeTreninga = response.data;
 					})
-
+/*
 				axios.get('rest/zakazanTrening/getPersonalTrainings', { params: { idKorisnika: this.newUser.intId } }).
 					then((response) => {
 						this.personalniTreninzi = response.data;
@@ -31,12 +31,12 @@ var app = new Vue({
 				axios.get('rest/trening/getGroupTrainings', { params: { idKorisnika: this.newUser.intId } }).
 					then((response) => {
 						this.grupniTreninzi = response.data;
-					})
+					})*/
 			})
 	},
 	methods: {
 		updateUser: function(event) {
-			axios.put('rest/korisnik1/', this.newUser)
+			axios.put('rest/users/update', this.newUser)
 				.then((response) => {
 					alert('Podaci su uspesno promenjeni ')
 				})

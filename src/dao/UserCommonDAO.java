@@ -288,7 +288,6 @@ public class UserCommonDAO {
 	}
 	
 
-//	Implementirati checkIn na trening zavisno od isteka trajanje clanarine!!!
 
 	public boolean checkIn(int id) {
 		for (UserCommon korisnik : users.values()) {

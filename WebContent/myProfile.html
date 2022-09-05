@@ -94,7 +94,7 @@
 				</tr>
 			</table>
 		</form>
-
+<!-- 
 		<div class="input-box" v-bind:hidden="newUser.uloga!='kupac'">
 			<label><a href="#uplataClanarine.html" class="lnkbtn">Uplati clanarinu</a></label>
 		</div>
@@ -112,8 +112,8 @@
 			<input type="time" name="krajnje vreme" v-model="krajnjeVreme">
 			<button value="Pretrazi" v-on:click="pretraziTreninge">Pretrazi</button>
 		</p>
-
-		<table border="1" id="tabela" v-bind:hidden="newUser.uloga!='kupac'" class="table2">
+-->
+		<table border="1" id="tabela" v-bind:hidden="newUser.role!='customer'" class="table2">
 			<caption style="background:pink;">Teninzi</caption>
 			<thead>
 				<tr bgcolor="lightgrey">
@@ -124,12 +124,13 @@
 			</thead>
 
 			<tr v-for="it in istorijeTreninga">
-				<td>{{it.trening.naziv }}</td>
-				<td>{{it.trening.objekatGdePripada.ime }}</td>
-				<td>{{it.datumVremePrijave}}</td>
+				<td>{{it.training.name }}</td>
+				<td>{{it.training.sportsCenter.name }}</td>
+			
+				<td>{{it.date}}</td>
 			</tr>
 		</table>
-		
+		<!-- 
 		<h3 v-bind:hidden="newUser.uloga!='trener'">Personalni treninzi</h3>
 		
 		<table border="1" id="tabelaPersonalni" v-bind:hidden="newUser.uloga!='trener'" class="table2">
@@ -172,13 +173,13 @@
 				<td>{{gt.opis }}</td>
 			</tr>
 		</table>
-		
+		 -->
 	</div>
 
 
 	<script src="js/vue.js"></script>
 	<script src="js/axios.js"></script>
-	<script src="js/profil.js"></script>
+	<script src="js/myProfile.js"></script>
 
 </body>
 </html>

@@ -128,7 +128,8 @@ public class UserCommonService {
 	@Path("/currentUser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public UserCommon login(@Context HttpServletRequest request) {
+	public UserCommon currentUser(@Context HttpServletRequest request) {
+		
 		return (UserCommon) request.getSession().getAttribute("user");
 	}
 	
