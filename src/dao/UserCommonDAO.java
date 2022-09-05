@@ -69,9 +69,9 @@ public class UserCommonDAO {
 		System.out.println("DAO: upao u find");
 		UserCommon pronadjen = null;
 		for(int intId : users.keySet()) {
-			UserCommon korisnik = users.get(intId);
-			if(korisnik.getUserName().equals(username)) {
-				pronadjen  = korisnik;
+			UserCommon UserCommon = users.get(intId);
+			if(UserCommon.getUserName().equals(username)) {
+				pronadjen  = UserCommon;
 				System.out.println("PRONADJEN");
 			}
 		}
@@ -195,22 +195,22 @@ public class UserCommonDAO {
 	
 	
 	
-	public UserCommon update(UserCommon korisnik) {
+	public UserCommon update(UserCommon UserCommon) {
 		/*
-		if (korisnik.getSportskiObjekat() != null) { 
-			int id = korisnik.getSportskiObjekat().getIntId();
+		if (UserCommon.getSportskiObjekat() != null) { 
+			int id = UserCommon.getSportskiObjekat().getIntId();
 			
 			SportskiObjekat sportskiObjekat = SportskiObjekatDAO.getInstance().findObjekat(id);
-			korisnik.setSportskiObjekat(sportskiObjekat);
+			UserCommon.setSportskiObjekat(sportskiObjekat);
 		}
-		if (korisnik.getClanarina() != null) {
-			int id = korisnik.getClanarina().getIntId();
+		if (UserCommon.getClanarina() != null) {
+			int id = UserCommon.getClanarina().getIntId();
 			Clanarina clanarina = ClanarinaDAO.getInstance().findClanarina(id);
-			korisnik.setClanarina(clanarina);
+			UserCommon.setClanarina(clanarina);
 		}*/
-		users.put(korisnik.getId(), korisnik);
+		users.put(UserCommon.getId(), UserCommon);
 		saveUsers();
-		return korisnik;
+		return UserCommon;
 	}
 
 	public void delete(int id) {
@@ -290,11 +290,11 @@ public class UserCommonDAO {
 
 
 	public boolean checkIn(int id) {
-		for (UserCommon korisnik : users.values()) {
-			if (korisnik.getId() == id) {
-				if (LocalDate.now().isBefore(korisnik.getFee().getDateEnd())
-						&& korisnik.getFee().getEntries() > 0) {
-					FeeDAO.getInstance().smanjiBrojTermina(korisnik.getFee().getId());
+		for (UserCommon UserCommon : users.values()) {
+			if (UserCommon.getId() == id) {
+				if (LocalDate.now().isBefore(UserCommon.getFee().getDateEnd())
+						&& UserCommon.getFee().getEntries() > 0) {
+					FeeDAO.getInstance().smanjiBrojTermina(UserCommon.getFee().getId());
 					return true;
 				}
 			}
@@ -306,22 +306,30 @@ public class UserCommonDAO {
 	public void connectUserandSC() {
 		ArrayList<SportsCenter> sportskiObjekti = new ArrayList<SportsCenter>(
 				SportsCenterDAO.getInstance().getAllSportsCenters());
-		for (UserCommon korisnik : users.values()) {
-			if (korisnik.getSportsCenter() == null) {
+		for (UserCommon UserCommon : users.values()) {
+			if (UserCommon.getSportsCenter() == null) {
 				continue;
 			}
-			int idTrazeni = korisnik.getSportsCenter().getId();
+			int idTrazeni = UserCommon.getSportsCenter().getId();
 
 			for (SportsCenter sportskiObjekat : sportskiObjekti) {
 				if (sportskiObjekat.getId() == idTrazeni) {
-					korisnik.setSportsCenter(sportskiObjekat);
+					UserCommon.setSportsCenter(sportskiObjekat);
 					break;
 				}
 			}
 		}
 	}
 	
-	
+	public Collection<UserCommon> getTrainers(){
+		ArrayList<UserCommon> trainers = new ArrayList<UserCommon>();
+		for(UserCommon u : users.values()) {
+			if(u.getRole().equals("TRAINER")) {
+				trainers.add(u);
+			}
+		}
+		return trainers;
+	}
 
 
 }

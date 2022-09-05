@@ -4,7 +4,7 @@ import beans.SportsCenter;
 import beans.Training;
 
 public class TrainingDTO {
-	private int intID;
+	private int id;
 	private String name;
 	private String trainigType;
 	private SportsCenter sportsCenter;
@@ -18,7 +18,7 @@ public class TrainingDTO {
 
 	public TrainingDTO(Training training) {
 		super();
-		this.intID = training.getIntId();
+		this.id = training.getIntId();
 		this.name = training.getName();
 		this.trainigType = training.getTrainingType();
 		this.sportsCenter = training.getSportsCenter();
@@ -30,7 +30,7 @@ public class TrainingDTO {
 	}
 	
 	public TrainingDTO(int id) {
-		this.intID = id;
+		this.id = id;
 	}
 	
 	public TrainingDTO() {
@@ -40,10 +40,10 @@ public class TrainingDTO {
 
 
 	public int getIntID() {
-		return intID;
+		return id;
 	}
 	public void setIntID(int intID) {
-		this.intID = intID;
+		this.id = intID;
 	}
 	public String getName() {
 		return name;

@@ -30,7 +30,7 @@ var app = new Vue({
 			})
 		},
 		zakaziPersonalni: function(){
-			window.location.href = 'http://localhost:8080/WebShopREST/zakazivanjePersonalnogTreninga.html';
+			window.location.href = 'http://localhost:8080/WebShopREST/bookPersonalTraining.html';
 		} 
 	}
 });

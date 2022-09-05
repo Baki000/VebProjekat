@@ -196,6 +196,8 @@ public class TrainingHistoryDAO {
 			}
 		}
 	}
+
+
 	
 	
 	public Collection<TrainingHistory> getTHforUser(int userID){
@@ -253,8 +255,6 @@ public class TrainingHistoryDAO {
 		return pronadjeni;
 	} */
 	
-	
-	
-	
+
 	
 }

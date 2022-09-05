@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div class="container" id="trainingBooking">
+		<h1 class="title">Personal Training Booking Page</h1>
+		<form @submit='bookTraining' class="registartion-form">
+			<table>
+				<tr>
+					<td>
+						Date:
+					</td>
+					<td>
+						<input type="date" name="date" required
+						v-model="date">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Time:
+					</td>
+					<td>
+						<input type="time" name="time" required
+						v-model="time">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Trainer:
+					</td>
+					<td>
+						<select v-model="selectedTrainer" 
+					v-bind:hidden="trainers === null || trainers.length == 0">
+					<option v-for="t in trainers" :value="t"  >
+						{{t.name}} {{t.surname}} {{t.userName}}</option>
+				</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Sports Center:
+					</td>
+					<td>
+						<select v-model="selectedCenter" 
+					v-bind:hidden="centers === null || centers.length == 0">
+					<option v-for="o in centers" :value="o"  >
+						{{o.name}}</option>
+				</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+
+					</td>
+					<td>
+						<input type="submit" value="Book" class="submit">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/bookPersonalTraining.js"></script>
+
+</body>
+</html>
