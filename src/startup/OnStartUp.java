@@ -25,6 +25,7 @@ public class OnStartUp {
 		TrainingDAO.getInstance().connectTrainingTrener();
 		TrainingHistoryDAO.getInstance().connectTHandCustomer();
 		TrainingHistoryDAO.getInstance().connectTHandTrainer();
+		TrainingHistoryDAO.getInstance().connectTHandTraining();
 
 	}
 

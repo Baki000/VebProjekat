@@ -179,26 +179,24 @@ public class TrainingHistoryDAO {
 			}
 		}
 	}
-	/*
-	public void connectTrainingHistoryTrening() {
-		ArrayList<Training> treninzi = new ArrayList<Training>(TreningDAO.getInstance().findAll());
-		for(TrainingHistory TrainingHistory : histories.values()) {
-			if(TrainingHistory.getTrening() == null) {
-				continue;
-			}
-			int idTrazeni = TrainingHistory.getTrening().getIntId();
-			
-			for(Training trening : treninzi) {
-				if(trening.getIntId() == idTrazeni) {
-					TrainingHistory.setTrening(trening);
-					break;
-				}
-			}
-		}
-	}
 	
 	
-	*/
+	public void connectTHandTraining() {
+        ArrayList<Training> treninzi = new ArrayList<Training>(TrainingDAO.getInstance().findAll());
+        for(TrainingHistory TrainingHistory : histories.values()) {
+            if(TrainingHistory.getTraining() == null) {
+                continue;
+            }
+            int idTrazeni = TrainingHistory.getTraining().getIntId();
+            
+            for(Training trening : treninzi) {
+                if(trening.getIntId() == idTrazeni) {
+                    TrainingHistory.setTraining(trening);
+                    break;
+                }
+            }
+        }
+    }
 	
 	
 }

@@ -177,4 +177,18 @@ public class UserCommonService {
 		System.out.println("Search usao Service");
 		return getUserCommonDAO().search(tekst);
 	}
+	
+	@GET
+	@Path("/getAllTrainers")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<UserCommonDTO> getTrainers() {
+		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
+		Collection<UserCommon> treneri = dao.getTrainers();
+		ArrayList<UserCommonDTO> treneriDTO = new ArrayList<UserCommonDTO>();
+		for(UserCommon t : treneri) {
+			treneriDTO.add(new UserCommonDTO(t));
+		}
+		return treneriDTO;
+	}
 }
