@@ -120,11 +120,11 @@ public class FeeDAO {
 	
 	public Fee newFee(Fee fee) {
 		if(fee.getFeeType().equals(FeeType.DAILY)) {
-			fee.setDateEnd(DateFormat.dateToString( fee.getDateStart().plusDays(1)));
+			fee.setDateEnd(DateFormat.dateToString(DateFormat.stringToDate(fee.getDateStart()).plusDays(1))); 
 		}else if(fee.getFeeType().equals(FeeType.MONTHLY)) {
-			fee.setDateEnd(DateFormat.dateToString( fee.getDateStart().plusMonths(1)));
+			fee.setDateEnd(DateFormat.dateToString( DateFormat.stringToDate(fee.getDateStart()).plusMonths(1)));
 		}else {
-			fee.setDateEnd(DateFormat.dateToString( fee.getDateStart().plusYears(1)));
+			fee.setDateEnd(DateFormat.dateToString( DateFormat.stringToDate(fee.getDateStart()).plusYears(1)));
 		}
 		
 		fee = save(fee);
@@ -156,7 +156,7 @@ public class FeeDAO {
 			}else {
 				entries = 360;
 			}
-			if(fee.getDateEnd().isBefore(currentDate)){
+			if(DateFormat.stringToDate(fee.getDateEnd()).isBefore(currentDate)){ 
 				int broj_iskoristenih_termina = entries - fee.getEntries();
 				double broj_bodova = (fee.getPrice() / 1000) * (broj_iskoristenih_termina);
 				double broj_izgubljenih_bodova = 0;
