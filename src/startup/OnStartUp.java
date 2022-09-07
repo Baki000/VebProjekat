@@ -1,5 +1,6 @@
 package startup;
 
+import dao.BookedTrainingDAO;
 import dao.CustomerTypeDAO;
 import dao.FeeDAO;
 import dao.LocationDAO;
@@ -19,9 +20,9 @@ public class OnStartUp {
 		SportsCenterDAO.getInstance().loadCenters(contextPath);
 		TrainingDAO.getInstance().loadTrainings(contextPath);
 		TrainingHistoryDAO.getInstance().loadTrainingHistories(contextPath);
+		BookedTrainingDAO.getInstance().loadBookedTrainings(contextPath);
 		FeeDAO.getInstance().loadFees(contextPath);
 		CustomerTypeDAO.getInstance().loadCustomerTypes(contextPath);
-		
 
 
 		SportsCenterDAO.getInstance().connectSCandLocation();
@@ -34,6 +35,8 @@ public class OnStartUp {
 		TrainingHistoryDAO.getInstance().connectTHandCustomer();
 		TrainingHistoryDAO.getInstance().connectTHandTrainer();
 		TrainingHistoryDAO.getInstance().connectTHandTraining();
+		BookedTrainingDAO.getInstance().connectBookedTrainingTrainer();
+		BookedTrainingDAO.getInstance().connectBookedTrainingCustomer();
 
 	}
 

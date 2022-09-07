@@ -59,7 +59,7 @@ public class UserCommonDAO {
 		return users.values();
 	}
 	
-	public UserCommon getById(String id)
+	public UserCommon getById(int id)
 	{
 		return users.get(id);
 	}
@@ -387,7 +387,7 @@ public class UserCommonDAO {
 				while (st.hasMoreTokens()) {
 					int userID = Integer.parseInt(st.nextToken().trim());
 					int scID = Integer.parseInt(st.nextToken().trim());
-					UserCommon user = getById("" + userID);
+					UserCommon user = getById(userID);
 					SportsCenter sc = SportsCenterDAO.getInstance().getById(scID);
 
 					user.getVisitedCenters().add(sc);
