@@ -17,7 +17,7 @@ public class CustomerType {
 		this.id = id;
 	}
 	
-	public CustomerType(int id, String typeName, int discount, int pointsNeeded) {
+	public CustomerType(int id, String typeName, double discount, double pointsNeeded) {
 		super();
 		this.id = id;
 		this.typeName = typeName;

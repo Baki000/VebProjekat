@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<title>Fee Payment</title>
+</head>
+<body>
+	<div class="container" id="fee">
+		
+		<h1 class="title">Membership</h1>
+		<label><a href="main.html">Main Page</a></label>
+		
+		<form @submit='payFee' class="registartion-form">
+			<table>
+				<tr>
+					<td>
+						ID
+					</td>
+					<td>
+						<input
+						v-model="fee.id" type="text" name="name"
+						disabled>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Fee Type:
+					</td>
+					<td>
+						<input
+						v-model="fee.feeType" type="text" name="name"
+						disabled>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Price:
+					</td>
+					<td>
+						<input
+						v-model="fee.price" type="text" name="surname" disabled>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Pay Day:
+					</td>
+					<td>
+						{{fee.payDay}}
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Start Date:
+					</td>
+					<td>
+						<input
+						v-model="fee.dateStart" type="date" v-bind:min="min" name="birthday" required>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+
+					</td>
+					<td>
+						<input type="submit" value="Plati" class="submit">
+					</td>
+				</tr>
+			</table>
+		</form>
+
+	</div>
+
+
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/payFee2.js"></script>
+</body>
+</html>

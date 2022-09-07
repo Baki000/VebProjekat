@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<title>Fee payment</title>
+</head>
+<body>
+	<div class="main">
+		<div class="inner2">
+			<div class="welcome"></div>
+			<div class="registration_options">
+				<label><a href="main.html">Main Page</a></label>
+				<div id="payFee">
+
+					<table border="1" id="tabela" class="table2" style="width: 50%">
+						<thead>
+							<tr bgcolor="lightgrey">
+								<th>Fee Type</th>
+								<th>Price</th>
+								<th>Entries</th>
+								<th>Discount price</th>
+							</tr>
+						</thead>
+
+						<tr v-for="f in fees" v-on:click="chooseFee(f)">
+							<td>{{f.feeType }}</td>
+							<td>{{f.price }}</td>
+							<td>{{f.entries }}</td>
+							<td>{{f.price *(1 - (loggedUser.customerType.discount)/100) }}</td>
+						</tr>
+					</table>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/payFee.js"></script>
+</body>
+</html>

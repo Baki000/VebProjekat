@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+	<div class="main">
+		<div class="inner2">
+			<div class="welcome"></div>
+			<div class="registration_options">
+				<div id="managersCenter">
+					<table class="table" style="width: 50%">
+							<tr>
+								<td>
+									Name:
+								</td>
+								<td style="font-size: 15px">
+									{{loggedUser.sportsCenter.name}}
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									Type:
+								</td>
+								<td>
+									{{loggedUser.sportsCenter.centerType}}
+								</td>
+							</tr>
+							
+							<tr>
+								<td>
+									Street:
+								</td>
+								<td>
+									{{loggedUser.sportsCenter.location.street}}
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									City:
+								</td>
+								<td>
+									{{loggedUser.sportsCenter.location.city}}
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									Status:
+								</td>
+								<td>
+									{{loggedUser.sportsCenter.status}}
+								</td>
+							</tr>
+
+							
+
+							<tr>
+								<td>
+									Average grade:
+								</td>
+								<td>
+									{{loggedUser.sportsCenter.averageGrade}}
+								</td>
+							</tr>
+							
+							<tr>
+								<td>
+									Opens:
+								</td>
+								<td>
+									{{loggedUser.sportsCenter.opens}}
+								</td>
+							</tr>
+							
+							<tr>
+								<td>
+									Closes:
+								</td>
+								<td>
+									{{loggedUser.sportsCenter.closes}}
+								</td>
+							</tr>
+						</table><br>
+					
+					
+					<table  id="tabela1" class="table2" >
+						<caption style="background:yellow;">Trainers</caption>
+						<thead>
+							<tr bgcolor="lightgrey">
+								<th>Name</th>
+								<th>Surname</th>
+								<th>Username</th>
+							</tr>
+						</thead>
+
+						<tr v-for="t in trainers">
+							<td>{{t.name }}</td>
+							<td>{{t.surname }}</td>
+							<td>{{t.userName }}</td>
+						</tr>
+					</table>
+						<br>	
+					
+					<table border="1" id="tabela2" class="table2">
+					<caption style="background:yellow;">Customers</caption>
+						<thead>
+							<tr bgcolor="lightgrey">
+								<th>Name</th>
+								<th>Surname</th>
+								<th>Username</th>
+							</tr>
+						</thead>
+
+						<tr v-for="c in customers">
+							<td>{{c.name}}</td>
+							<td>{{c.surname}}</td>
+							<td>{{c.userName }}</td>
+						</tr>
+					</table>
+
+					<br>
+					<table border="1" id="tabela3" class="table2">
+					<caption style="background:yellow; ;">Trainings</caption>
+						<thead>
+							<tr bgcolor="lightgrey">
+								<th>Name</th>
+								<th>Type</th>
+								<th>Duration</th>
+								<th>Description</th>
+								<th></th>
+							</tr>
+						</thead>
+
+						<tr v-for="tr in trainings">
+							<td>{{tr.name }}</td>
+							<td>{{tr.trainingType }}</td>
+							<td>{{tr.duration }}</td>
+							<td>{{tr.description }}</td>
+							<td><button type="button" class="button" v-on:click="changeTraining(tr)">Change</button></td>
+						</tr>
+					</table>
+					<p style="margin-left: 400px">
+					<label ><a href="dodavanjeTreninga.html"  class="lnkbtn">Add Training</a></label>
+					</p> 
+							
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/managersCenter.js"></script>
+	
+</body>
+</html>

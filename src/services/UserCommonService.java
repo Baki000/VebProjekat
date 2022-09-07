@@ -128,9 +128,15 @@ public class UserCommonService {
 	@Path("/currentUser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public UserCommon currentUser(@Context HttpServletRequest request) {
+	public UserCommonDTO currentUser(@Context HttpServletRequest request) {
 		
-		return (UserCommon) request.getSession().getAttribute("user");
+		UserCommon logovani = (UserCommon) request.getSession().getAttribute("user");
+		if(logovani == null) {
+			return null;
+		} else {
+			UserCommonDTO logovaniDTO = new UserCommonDTO(logovani);
+			return logovaniDTO;
+		}
 	}
 	
 	
@@ -151,6 +157,14 @@ public class UserCommonService {
 	public Collection<UserCommon> getFreeManagers() {
 		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
 		return dao.getFreeManagers();
+	}
+	
+	@GET
+	@Path("/getCustomersforSC")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<UserCommon> getCustomersforSC(@QueryParam("scID") int scID) {
+		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
+		return dao.getCustomersforSC(scID);
 	}
 	
 

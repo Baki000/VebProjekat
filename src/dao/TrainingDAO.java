@@ -115,7 +115,21 @@ public class TrainingDAO {
 
 	}
 	
-	public ArrayList<Training> getTrainingsForObject(int idSC) {
+	public Collection<UserCommon> getTrainersForSC(int scID) {
+		ArrayList<UserCommon> scTrainers = new ArrayList<UserCommon>();
+		for (Training training : trainings.values()) {
+			if (training.getSportsCenter().getId() == scID) {
+				if (training.getTrainer() != null) {
+					if(!scTrainers.contains(training.getTrainer())) {
+						scTrainers.add(training.getTrainer());
+					}
+				}
+			}
+		}
+		return scTrainers;
+	}
+	
+	public ArrayList<Training> getTrainingsForSC(int idSC) {
 		System.out.println("trDAO upao u getTRforOBJ");
 		ArrayList<Training> TrainingsForObject = new ArrayList<Training>();
 		int i = 0;
@@ -172,6 +186,8 @@ public class TrainingDAO {
 		}
 		
 	}
+	
+	
 	/*
 	for(Integer id2 : centers.keySet()) {
 			String key = id2.toString();

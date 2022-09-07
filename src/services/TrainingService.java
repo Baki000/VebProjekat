@@ -18,6 +18,7 @@ import beans.Training;
 import beans.UserCommon;
 import dao.TrainingDAO;
 import dto.TrainingDTO;
+import dto.UserCommonDTO;
 import startup.OnStartUp;
 
 @Path("/training")
@@ -47,12 +48,26 @@ public class TrainingService {
 		return dao.findAll();
 	}
 	
+	
+	@GET
+	@Path("/getTrainers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<UserCommonDTO> getTreneriZaSportskiObjekat(@QueryParam("scID") int scID) {
+		TrainingDAO dao = (TrainingDAO) ctx.getAttribute("trainingDAO");
+		Collection<UserCommon> treneri = dao.getTrainersForSC(scID);
+		ArrayList<UserCommonDTO> treneriDTO = new ArrayList<UserCommonDTO>();
+		for(UserCommon t : treneri) {
+			treneriDTO.add(new UserCommonDTO(t));
+		}
+		return treneriDTO;
+	}
+	
 	@GET
 	@Path("/getAllTrainings")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<TrainingDTO> getTrainingsForObject(@QueryParam("idSportskogObjekta") int idSC) {
+	public Collection<TrainingDTO> getTrainingsForObject(@QueryParam("scID") int scID) {
 		TrainingDAO dao = (TrainingDAO) ctx.getAttribute("trainingDAO");
-		ArrayList<Training> trainings = dao.getTrainingsForObject(idSC);
+		ArrayList<Training> trainings = dao.getTrainingsForSC(scID);
 		ArrayList<TrainingDTO> treninziDTO = new ArrayList<TrainingDTO>();
 		for(Training t : trainings) {
 			treninziDTO.add(new TrainingDTO(t));

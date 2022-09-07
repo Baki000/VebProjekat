@@ -1,8 +1,8 @@
 package enums;
 
 public class FeeType {
-	public static String DAILY = "daily";
-	public static String MONTHLY = "monthly";
-	public static String YEARLY = "yearly";
+	public static String GOLD = "gold";
+	public static String SILVER = "silver";
+	public static String BRONZE = "bronze";
 
 }
