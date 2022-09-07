@@ -57,7 +57,7 @@ public class UserCommonDAO {
 		return users.values();
 	}
 	
-	public UserCommon getById(String id)
+	public UserCommon getById(int id)
 	{
 		return users.get(id);
 	}

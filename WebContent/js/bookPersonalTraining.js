@@ -24,11 +24,11 @@ var app = new Vue({
 	 },
 	 methods: {
 		 bookTraining: function(event) {
-			this.training.termintraininga = this.date + " " + this.time;
-			this.training.trainerId = this.selectedTrainer.Id;
-			this.training.status = 'not canceled';
-			this.training.objekatIntId = this.selectedCenter.intId;
-			axios.post('rest/zakazantraining/', this.training)
+			this.training.trainingDate = this.date + " " + this.time;
+			this.training.trainerId = this.selectedTrainer.id;
+			this.training.trainingStatus = 'not canceled';
+			this.training.centerId = this.selectedCenter.id;
+			axios.post('rest/bookedTraining/', this.training)
 			 .then((response) => {
 				 alert('training successfuly booked!')
 			 })

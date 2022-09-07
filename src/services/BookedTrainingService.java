@@ -18,14 +18,18 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import beans.BookedTraining;
 import beans.SportsCenter;
 import beans.Training;
 import beans.UserCommon;
+import dao.BookedTrainingDAO;
 import dao.SportsCenterDAO;
 import dao.TrainingDAO;
 import dao.UserCommonDAO;
+import dto.BookedTrainingDTO;
 import startup.OnStartUp;
 
+@Path("/bookedTraining")
 public class BookedTrainingService {
 
 	@Context
@@ -48,7 +52,7 @@ public class BookedTrainingService {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Training> getTreninzi() {
-		TrainingDAO dao = (TrainingDAO) ctx.getAttribute("treningDAO");
+		TrainingDAO dao = (TrainingDAO) ctx.getAttribute("trainingDAO");
 		return dao.findAll();
 	}
 	
@@ -56,20 +60,21 @@ public class BookedTrainingService {
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response save(BookedTrainingDTO zakazanTrainingDTO, @Context HttpServletRequest request) {
+	public Response save(BookedTrainingDTO bookedTrainingDTO, @Context HttpServletRequest request) {
 		BookedTrainingDAO dao = (BookedTrainingDAO) ctx.getAttribute("bookedTrainingDAO");
-		BookedTraining zakazanTraining = new BookedTraining();
-		zakazanTraining.setIntID(zakazanTrainingDTO.getIntID());
-		zakazanTraining.setTerminTraininga(zakazanTrainingDTO.getTerminTraininga());
-		zakazanTraining.setStatusTraininga(zakazanTrainingDTO.getStatusTraininga());
-		UserCommon kupac = (UserCommon)request.getSession().getAttribute("user");
-		zakazanTraining.setKupac(kupac);
-		UserCommon trener = UserCommonDAO.getInstance().find(zakazanTrainingDTO.getTrenerIntId());
-		zakazanTraining.setTrener(trener);
-		SportsCenter objekat = SportsCenterDAO.getInstance().findObjekat(zakazanTrainingDTO.getObjekatIntId());
-		zakazanTraining.setObjekatGdePripada(objekat);
+		BookedTraining bookedTraining = new BookedTraining();
+		bookedTraining.setId(bookedTrainingDTO.getId());
+		bookedTraining.setTrainingDate(bookedTrainingDTO.getTrainingDate());
+		bookedTraining.setTrainingStatus(bookedTrainingDTO.getTrainingStatus());
+		UserCommon customer = (UserCommon)request.getSession().getAttribute("user");
+		bookedTraining.setCustomer(customer);
+		UserCommon trainer = UserCommonDAO.getInstance().getById(bookedTrainingDTO.getTrainerId());
+		bookedTraining.setTrainer(trainer);
+		SportsCenter center = SportsCenterDAO.getInstance().getById(bookedTrainingDTO.getCenterId());
+		bookedTraining.setCenterWhereExists(center);
 		
-		dao.save(zakazanTraining);
+		System.out.println("selected treenr iz DTO " + bookedTrainingDTO.getTrainerId() +" "+  trainer.getName());
+		dao.save(bookedTraining);
 			
 		return Response.status(200).build();
 	}	
@@ -77,9 +82,9 @@ public class BookedTrainingService {
 	@GET
 	@Path("/getPersonalTrainings")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<BookedTrainingDTO> getPersonalniTreninziZaTrenera(@QueryParam("idUserCommona") int idUserCommona) {
+	public Collection<BookedTrainingDTO> getPersonalTrainingsForTrainer(@QueryParam("idUserCommon") int idUserCommon) {
 		BookedTrainingDAO dao = (BookedTrainingDAO) ctx.getAttribute("bookedTrainingDAO");
-		ArrayList<BookedTraining> personalniTreninzi = dao.getPersonalniTreninziZaTrenera(idUserCommona);
+		ArrayList<BookedTraining> personalniTreninzi = dao.getPersonalTrainingsForTrainer(idUserCommon);
 		ArrayList<BookedTrainingDTO> personalniTreninziDTO = new ArrayList<BookedTrainingDTO>();
 		for(BookedTraining t : personalniTreninzi) {
 			personalniTreninziDTO.add(new BookedTrainingDTO(t));
