@@ -25,6 +25,7 @@ import beans.SportsCenter;
 import beans.TrainingHistory;
 import beans.User;
 import beans.UserCommon;
+import enums.FeeType;
 import enums.Role;
 import formats.DateFormat;
 
@@ -288,14 +289,13 @@ public class UserCommonDAO {
 	}
 	
 
-//	Implementirati checkIn na trening zavisno od isteka trajanje clanarine!!!
 
 	public boolean checkIn(int id) {
 		for (UserCommon UserCommon : users.values()) {
 			if (UserCommon.getId() == id) {
-				if (LocalDate.now().isBefore(UserCommon.getFee().getDateEnd())
+				if (LocalDate.now().isBefore(DateFormat.stringToDate(UserCommon.getFee().getDateEnd()))
 						&& UserCommon.getFee().getEntries() > 0) {
-					FeeDAO.getInstance().smanjiBrojTermina(UserCommon.getFee().getId());
+					FeeDAO.getInstance().lowerEntries(UserCommon.getFee().getId());
 					return true;
 				}
 			}
@@ -303,6 +303,19 @@ public class UserCommonDAO {
 		return false;
 	}
 
+	
+	public ArrayList<UserCommon> getCustomersforSC(int scID) {
+		ArrayList<UserCommon> customers = new ArrayList<UserCommon>();
+		for (UserCommon u : users.values()) {
+			for (SportsCenter sportskiObjekat : u.getVisitedCenters()) {
+				if (sportskiObjekat.getId() == scID) {
+					customers.add(u);
+					break;
+				}
+			}
+		}
+		return customers;
+	}
 	
 	public void connectUserandSC() {
 		ArrayList<SportsCenter> sportskiObjekti = new ArrayList<SportsCenter>(
@@ -322,14 +335,103 @@ public class UserCommonDAO {
 		}
 	}
 	
+	public void connectUserandFee() {
+		ArrayList<Fee> fees = new ArrayList<Fee>(FeeDAO.getInstance().getAllFees());
+		for (UserCommon u : users.values()) {
+			if (u.getFee() == null) {
+				continue;
+			}
+			int idTrazeni = u.getFee().getId();
+
+			for (Fee f : fees) {
+				if (f.getId() == idTrazeni) {
+					u.setFee(f);
+					f.setCustomer(u);
+					break;
+				}
+			}
+		}
+	}
+
+	public void connectUserandCT() {
+		ArrayList<CustomerType> types = new ArrayList<CustomerType>(CustomerTypeDAO.getInstance().getAllTypes());
+		for (UserCommon user : users.values()) {
+			if (user.getCustomerType() == null) {
+				continue;
+			}
+			int idTrazeni = user.getCustomerType().getId();
+
+			for (CustomerType ct : types) {
+				if (ct.getId() == idTrazeni) {
+					user.setCustomerType(ct);
+					break;
+				}
+			}
+		}
+	}
+	
+	public void connectUserVisitedCenters(String contextPath) {
+		BufferedReader in = null;
+		try {
+			File file = new File(contextPath + "visitedCenters.txt");
+			System.out.println(file.getCanonicalPath());
+			in = new BufferedReader(new FileReader(file));
+			String line;
+			StringTokenizer st;
+			while ((line = in.readLine()) != null) {
+				line = line.trim();
+				if (line.equals("") || line.indexOf('#') == 0)
+					continue;
+				st = new StringTokenizer(line, ";");
+				while (st.hasMoreTokens()) {
+					int userID = Integer.parseInt(st.nextToken().trim());
+					int scID = Integer.parseInt(st.nextToken().trim());
+					UserCommon user = getById("" + userID);
+					SportsCenter sc = SportsCenterDAO.getInstance().getById(scID);
+
+					user.getVisitedCenters().add(sc);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (Exception e) {
+				}
+			}
+		}
+
+	}
+	
 	public Collection<UserCommon> getTrainers(){
 		ArrayList<UserCommon> trainers = new ArrayList<UserCommon>();
 		for(UserCommon u : users.values()) {
-			if(u.getRole().equals("TRAINER")) {
+			if(u.getRole().equals("trainer")) {
 				trainers.add(u);
 			}
 		}
 		return trainers;
+	}
+	
+	public void setCustomerFeeType() {
+		for(UserCommon u : users.values()) {
+			if(u.getCustomerType() == null) {
+				continue;
+			}
+			double poeni = u.getCustomerType().getPointsNeeded();
+			if(poeni < 500) {
+				u.getCustomerType().setTypeName(FeeType.BRONZE);
+				u.getCustomerType().setDiscount(10);
+			}else if(poeni < 1000) {
+				u.getCustomerType().setTypeName(FeeType.SILVER);
+				u.getCustomerType().setDiscount(20);
+			}else {
+				u.getCustomerType().setTypeName(FeeType.GOLD);
+				u.getCustomerType().setDiscount(30);
+			}
+		}
 	}
 
 

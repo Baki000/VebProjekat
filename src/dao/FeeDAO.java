@@ -29,9 +29,9 @@ public class FeeDAO {
 	}
 	
 	
-//	private FeeDAO(String contextPath) {
-//		loadClanarine(contextPath);
-//	}
+	private FeeDAO(String contextPath) {
+		loadFees(contextPath);
+	}
 	
 	public static FeeDAO getInstance() {
 		if(feeInstance == null) {
@@ -41,12 +41,12 @@ public class FeeDAO {
 		return feeInstance;
 	}
 	
-	public Collection<Fee> findAll(){
+	public Collection<Fee> getAllFees(){
 		return fees.values();
 	}
 	
-	public Fee findFee(int id) {
-		return fees.containsKey(id) ? fees.get(id) : null;
+	public Fee getById(int id) {
+		return fees.get(id);
 	}
 	
 	public Fee update(Fee fee) {
@@ -71,19 +71,17 @@ public class FeeDAO {
 		this.contextPath = contextPath;
 		BufferedReader in = null;
 		try {
-			File file = new File(contextPath + "/files/fees.txt"); //paket
+			File file = new File(contextPath + "fees.txt"); 
 			System.out.println(file.getCanonicalPath());
 			in = new BufferedReader(new FileReader(file));
-			String line, ID = "", tipClanarine = "", status = "";
-			LocalDate datumPlacanja = LocalDate.now();
-			LocalDate pocetniDatumVazenja = LocalDate.now();
-			LocalDate krajnjiDatumVazenja = LocalDate.now();
-			double punaCena = -1;
-			int brojTermina = -1;
-			int intId = -1;
-			UserCommon korisnik = null;
-			//Korisnik korisnik = new Korisnik();
-			
+			String line, feeType = "", status = "";
+			LocalDate payDay = LocalDate.now();
+			LocalDate dateStart = LocalDate.now();
+			LocalDate dateEnd = LocalDate.now();
+			double price = -1;
+			int entries = -1;
+			int id = -1;
+			UserCommon customer = null;
 			StringTokenizer st;
 			while ((line = in.readLine()) != null) {
 				line = line.trim();
@@ -91,21 +89,21 @@ public class FeeDAO {
 					continue;
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
-					intId = Integer.parseInt(st.nextToken().trim());
-					ID = st.nextToken().trim();
-					tipClanarine = st.nextToken().trim();
-					datumPlacanja = DateFormat.stringToDate(st.nextToken().trim());
-					pocetniDatumVazenja = DateFormat.stringToDate(st.nextToken().trim());
-					krajnjiDatumVazenja = DateFormat.stringToDate(st.nextToken().trim());
-					punaCena = Double.parseDouble(st.nextToken().trim());
-					int korisnikId = Integer.parseInt(st.nextToken().trim());
-					if(korisnikId != -1) {
-						korisnik = new UserCommon(korisnikId);
+					id = Integer.parseInt(st.nextToken().trim());
+					
+					feeType = st.nextToken().trim();
+					payDay = DateFormat.stringToDate(st.nextToken().trim());
+					dateStart = DateFormat.stringToDate(st.nextToken().trim());
+					dateEnd = DateFormat.stringToDate(st.nextToken().trim());
+					price = Double.parseDouble(st.nextToken().trim());
+					int customerId = Integer.parseInt(st.nextToken().trim());
+					if(customerId != -1) {
+						customer = new UserCommon(customerId);
 					}
 					status = st.nextToken().trim();
-					brojTermina = Integer.parseInt(st.nextToken().trim());
+					entries = Integer.parseInt(st.nextToken().trim());
 				}
-				fees.put(intId, new Fee(intId, tipClanarine,datumPlacanja, pocetniDatumVazenja, krajnjiDatumVazenja, punaCena, korisnik, status, brojTermina)); //Drugi konstruktor
+				fees.put(id, new Fee(id, feeType,payDay, dateStart, dateEnd, price, customer, status, entries)); 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,11 +120,11 @@ public class FeeDAO {
 	
 	public Fee newFee(Fee fee) {
 		if(fee.getFeeType().equals(FeeType.DAILY)) {
-			fee.setDateEnd(DateFormat.dateToString( fee.getDateStart().plusDays(1)));
+			fee.setDateEnd(DateFormat.dateToString( DateFormat.stringToDate(fee.getDateStart()).plusDays(1)));
 		}else if(fee.getFeeType().equals(FeeType.MONTHLY)) {
-			fee.setDateEnd(DateFormat.dateToString( fee.getDateStart().plusMonths(1)));
+			fee.setDateEnd(DateFormat.dateToString( DateFormat.stringToDate(fee.getDateStart()).plusMonths(1)));
 		}else {
-			fee.setDateEnd(DateFormat.dateToString( fee.getDateStart().plusYears(1)));
+			fee.setDateEnd(DateFormat.dateToString( DateFormat.stringToDate(fee.getDateStart()).plusYears(1)));
 		}
 		
 		fee = save(fee);
@@ -148,21 +146,21 @@ public class FeeDAO {
 			if(fee.getStatus() == FeeStatus.EXPIRED) {
 				continue;
 			}
-			LocalDate trenutniDatum = LocalDate.now();
+			LocalDate currentDate = LocalDate.now();
 			
-			int brojTermina = 0;
+			int entries = 0;
 			if(fee.getFeeType() == FeeType.DAILY) {
-				brojTermina = 1;
+				entries = 1;
 			}else if(fee.getFeeType() == FeeType.MONTHLY) {
-				brojTermina = 30;
+				entries = 30;
 			}else {
-				brojTermina = 360;
+				entries = 360;
 			}
-			if(fee.getDateEnd().isBefore(trenutniDatum)){
-				int broj_iskoristenih_termina = brojTermina - fee.getEntries();
+			if(DateFormat.stringToDate(fee.getDateEnd()).isBefore(currentDate)){
+				int broj_iskoristenih_termina = entries - fee.getEntries();
 				double broj_bodova = (fee.getPrice() / 1000) * (broj_iskoristenih_termina);
 				double broj_izgubljenih_bodova = 0;
-				if(broj_iskoristenih_termina <= brojTermina / 3) {
+				if(broj_iskoristenih_termina <= entries / 3) {
 					broj_izgubljenih_bodova = (fee.getPrice() / 1000) * (133 * 4);
 				}
 				double poeni = fee.getCustomer().getCustomerType().getPointsNeeded();
@@ -178,7 +176,7 @@ public class FeeDAO {
 	public void saveFees() {
 		BufferedWriter out = null;
 		try {
-			File file = new File(contextPath + "/files/fees.txt"); //proveri naziv fajla
+			File file = new File(contextPath + "fees.txt"); 
 			System.out.println(file.getCanonicalPath());
 			out = new BufferedWriter(new FileWriter(file));
 			
@@ -198,10 +196,10 @@ public class FeeDAO {
 		
 	}
 	
-	public void smanjiBrojTermina(int intId) {
-		for(Fee clanarina: fees.values()) {
-			if(clanarina.getId() == intId) {
-				clanarina.setEntries(clanarina.getEntries() - 1);
+	public void lowerEntries(int id) {
+		for(Fee f: fees.values()) {
+			if(f.getId() == id) {
+				f.setEntries(f.getEntries() - 1);
 				saveFees();
 			}
 		}

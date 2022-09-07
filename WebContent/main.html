@@ -22,9 +22,9 @@
 							v-bind:hidden="loggedUser.userName!=undefined"><a
 							href="registration.html">Register</a> </label> <label
 							v-bind:hidden="loggedUser.userName==undefined"><a
-							href="#">My profile</a> </label>
+							href="myProfile.html">My profile</a> </label>
 							<label v-bind:hidden="loggedUser.role!='manager'"><a
-							href="#menadzerovObjekat.html">My object</a></label>
+							href="managersCenter.html">My object</a></label>
 							<label v-bind:hidden="loggedUser.userName==undefined"><button type="button" class="button" v-on:click="logOut()">Log out</button> </label>
 		</h3>
 					

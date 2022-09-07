@@ -95,11 +95,12 @@
 			</table>
 		</form>
 
-		<div class="input-box" v-bind:hidden="newUser.uloga!='kupac'">
-			<label><a href="#uplataClanarine.html" class="lnkbtn">Uplati clanarinu</a></label>
+		<div class="input-box" v-bind:hidden="newUser.role!='customer'">
+			<label><a href="payFee.html" class="lnkbtn">Pay Fee</a></label>
 		</div>
 
 		<p> {{error }} </p>
+		<!-- 
 		<h3 v-bind:hidden="newUser.role!='customer'">Treninzi</h3>
 		<p v-bind:hidden="newUser.role!='customer'">
 			<label>Sports Center:</label>
@@ -112,8 +113,8 @@
 			<input type="time" name="krajnje vreme" v-model="krajnjeVreme">
 			<button value="Pretrazi" v-on:click="pretraziTreninge">Pretrazi</button>
 		</p>
-
-		<table border="1" id="tabela" v-bind:hidden="newUser.uloga!='kupac'" class="table2">
+-->
+		<table border="1" id="tabela" v-bind:hidden="newUser.role!='customer'" class="table2">
 			<caption style="background:pink;">Teninzi</caption>
 			<thead>
 				<tr bgcolor="lightgrey">
@@ -124,21 +125,24 @@
 			</thead>
 
 			<tr v-for="it in istorijeTreninga">
-				<td>{{it.trening.naziv }}</td>
-				<td>{{it.trening.objekatGdePripada.ime }}</td>
-				<td>{{it.datumVremePrijave}}</td>
+				<td>{{it.training.name }}</td>
+				<td>{{it.training.sportsCenter.name }}</td>
+			
+				<td>{{it.date}}</td>
 			</tr>
 		</table>
 		
-		<h3 v-bind:hidden="newUser.uloga!='trener'">Personalni treninzi</h3>
 		
-		<table border="1" id="tabelaPersonalni" v-bind:hidden="newUser.uloga!='trener'" class="table2">
-			<caption style="background:pink;">Personalni treninzi</caption>
+		<!--
+		<h3 v-bind:hidden="newUser.role!='trainer'">Persolan trainings</h3>
+		
+		<table border="1" id="personalTable" v-bind:hidden="newUser.role!='trainer'" class="table2">
+			<caption style="background:pink;">Personal trainings</caption>
 			<thead>
 				<tr bgcolor="lightgrey">
 					<th>Termin</th>
-					<th>Kupac</th>
-					<th>Sportski objekat</th>
+					<th>Customer</th>
+					<th>Sports Center</th>
 				</tr>
 			</thead>
 
@@ -172,13 +176,13 @@
 				<td>{{gt.opis }}</td>
 			</tr>
 		</table>
-		
+		 -->
 	</div>
 
 
 	<script src="js/vue.js"></script>
 	<script src="js/axios.js"></script>
-	<script src="js/profil.js"></script>
+	<script src="js/myProfile.js"></script>
 
 </body>
 </html>

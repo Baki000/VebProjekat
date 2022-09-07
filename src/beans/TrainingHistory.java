@@ -1,6 +1,7 @@
 package beans;
 
 import java.time.LocalDateTime;
+import formats.DateTimeFormat;
 
 public class TrainingHistory {
 	
@@ -31,11 +32,11 @@ public class TrainingHistory {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public LocalDateTime getDate() {
-		return date;
+	public String getDate() {
+		return DateTimeFormat.dateTimeToString(date);
 	}
-	public void setDate(LocalDateTime date) {
-		this.date = date;
+	public void setDate(String date) {
+		this.date = DateTimeFormat.stringToDateTime(date);
 	}
 	public Training getTraining() {
 		return training;

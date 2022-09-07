@@ -65,8 +65,8 @@ public class Fee {
 	}
 
 
-	public LocalDate getPayDay() {
-		return payDay;
+	public String getPayDay() {
+		return DateFormat.dateToString(payDay);
 	}
 
 
@@ -78,8 +78,8 @@ public class Fee {
 	}
 
 
-	public LocalDate getDateStart() {
-		return dateStart;
+	public String getDateStart() {
+		return DateFormat.dateToString(dateStart);
 	}
 
 
@@ -91,8 +91,8 @@ public class Fee {
 	}
 
 
-	public LocalDate getDateEnd() {
-		return dateEnd;
+	public String getDateEnd() {
+		return DateFormat.dateToString(dateEnd);
 	}
 
 
