@@ -415,24 +415,7 @@ public class UserCommonDAO {
 		return trainers;
 	}
 	
-	public void setCustomerFeeType() {
-		for(UserCommon u : users.values()) {
-			if(u.getCustomerType() == null) {
-				continue;
-			}
-			double poeni = u.getCustomerType().getPointsNeeded();
-			if(poeni < 500) {
-				u.getCustomerType().setTypeName(FeeType.BRONZE);
-				u.getCustomerType().setDiscount(10);
-			}else if(poeni < 1000) {
-				u.getCustomerType().setTypeName(FeeType.SILVER);
-				u.getCustomerType().setDiscount(20);
-			}else {
-				u.getCustomerType().setTypeName(FeeType.GOLD);
-				u.getCustomerType().setDiscount(30);
-			}
-		}
-	}
+
 
 
 }
