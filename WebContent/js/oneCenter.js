@@ -18,9 +18,9 @@ var app = new Vue({
 		},
 	methods: {
 		prijavaNaTrening: function(t){
-			axios.put('rest/korisnik1/cekirajSe')
+			axios.put('rest/users/checkIn')
 			.then((response) => {
-				axios.post('rest/istorijaTreninga/cekirajSe', { intId: t.id })
+				axios.post('rest/trainingHistory/checkIn', { intId: t.id })
 				.then((response) => {
 					alert('Uspesno ste se cekirali za trening!')
 				})

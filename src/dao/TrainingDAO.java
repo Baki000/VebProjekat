@@ -15,6 +15,7 @@ import beans.SportsCenter;
 import beans.Training;
 import beans.TrainingHistory;
 import beans.UserCommon;
+import enums.TrainingType;
 
 public class TrainingDAO {
 
