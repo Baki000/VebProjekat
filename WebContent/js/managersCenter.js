@@ -33,7 +33,7 @@ var app = new Vue({
 		changeTraining: function(tr) {
 			axios.post('rest/training/setSelected', tr)
 			 .then((response) => {
-				 window.location.href = 'http://localhost:8080/WebShopREST/izmenaTreninga.html';
+				 window.open("changeTraining.html", "_self");
 			 })
 		 }
 	}

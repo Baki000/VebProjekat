@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<title>Add training</title>
+</head>
+<body>
+<div class="container" id="newTraining">
+		<h1 class="title">New Training</h1>
+
+		<form @submit='addTraining' class="registartion-form">
+			<table>
+				<tr>
+					<td>
+						 Name:
+					</td>
+					<td>
+						<input type="text"
+						name="name" required
+						v-model="training.name">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Tip treninga:
+					</td>
+					<td>
+						<select type="combobox"
+						class="combobox" v-model="trening.tipTreninga" width="15"
+						required size=1
+						style="width: 300px; height: 40px; border-radius: 5px; font-size: 16px">
+						<option value="grupni">Grupni</option>
+						<option value="personalni">Personalni</option>
+						<option value="individualni">Individualni</option>
+						<option value="teretana">Teretana</option>
+						<option value="bazen">Bazen</option>
+					</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Trajanje:
+					</td>
+					<td>
+						<input type="text"
+						name="trajanje" required
+						v-model="trening.trajanje">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Opis:
+					</td>
+					<td>
+						<input 
+						name="opis" v-model="trening.opis">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Slika:
+					</td>
+					<td>
+						<input type="file"
+								accept="image/*" @change="uploadImage($event)">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Trener:
+					</td>
+					<td>
+						<select v-model="izabraniTrener" 
+						v-bind:hidden="treneri === null || treneri.length == 0">
+						<option v-for="t in treneri" :value="t"  >
+						{{t.ime}} {{t.prezime}} {{t.korisnickoIme}}</option>
+					</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+
+					</td>
+					<td>
+						<input type="submit" value="Dodaj" class="submit">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/addTraining.js"></script>
+
+</body>
+</html>

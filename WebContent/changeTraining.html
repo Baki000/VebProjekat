@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div class="container" id="changeTraining">
+		<h1 class="title">Change Training</h1>
+
+
+		<form @submit='changeTraining' class="registartion-form">
+			<table>
+				<tr>
+					<td>
+						 Name:
+					</td>
+					<td>
+						<input type="text"
+						name="name" required
+						v-model="training.name">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						 Sports Center:
+					</td>
+					<td>
+						<input type="text" disabled
+						name="imeObjekta" 
+						v-model="training.sportsCenter.name">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Training Type:
+					</td>
+					<td>
+						<select type="combobox"
+						class="combobox" v-model="training.trainingType" width="15"
+						required size=1
+						style="width: 300px; height: 40px; border-radius: 5px; font-size: 16px">
+						<option value="group">Group</option>
+						<option value="personal">Personal</option>
+						<option value="standard">Standard</option>
+					</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Duration:
+					</td>
+					<td>
+						<input type="text"
+						name="duration" required
+						v-model="training.duration">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Description:
+					</td>
+					<td>
+						<input 
+						name="description" v-model="training.description">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Image:
+					</td>
+					<td>
+						<input type="file"
+								accept="image/*" @change="uploadImage($event)">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Trainer Name:
+					</td>
+					<td>
+						<input name="trainerName" disabled
+						v-model="chosenTrainer.name">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Change Trainer:
+					</td>
+					<td>
+						<select v-model="chosenTrainer" 
+					v-bind:hidden="trainers === null || trainers.length == 0">
+					<option v-for="t in trainers" :value="t"  >
+						{{t.name}} {{t.surname}} {{t.userName}}</option>
+				</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+
+					</td>
+					<td>
+						<input type="submit" value="Change" class="submit">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/changeTraining.js"></script>
+
+</body>
+</body>
+</html>

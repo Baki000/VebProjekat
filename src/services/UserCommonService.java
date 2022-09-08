@@ -80,6 +80,15 @@ public class UserCommonService {
 		
 	}
 	
+	@GET
+	@Path("/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public UserCommonDTO getKorisnik(@PathParam("id") int id) { 
+		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
+		return new UserCommonDTO(dao.getById(id));
+	}
+	
 	@POST
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
