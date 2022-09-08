@@ -27,6 +27,7 @@ import beans.User;
 import beans.UserCommon;
 import enums.FeeType;
 import enums.Role;
+import enums.TypeName;
 import formats.DateFormat;
 
 public class UserCommonDAO {
@@ -307,8 +308,8 @@ public class UserCommonDAO {
 	public ArrayList<UserCommon> getCustomersforSC(int scID) {
 		ArrayList<UserCommon> customers = new ArrayList<UserCommon>();
 		for (UserCommon u : users.values()) {
-			for (SportsCenter sportskiObjekat : u.getVisitedCenters()) {
-				if (sportskiObjekat.getId() == scID) {
+			for (SportsCenter sc : u.getVisitedCenters()) {
+				if (sc.getId() == scID) {
 					customers.add(u);
 					break;
 				}
@@ -386,7 +387,7 @@ public class UserCommonDAO {
 				while (st.hasMoreTokens()) {
 					int userID = Integer.parseInt(st.nextToken().trim());
 					int scID = Integer.parseInt(st.nextToken().trim());
-					UserCommon user = getById("" + userID);
+					UserCommon user = getById(userID);
 					SportsCenter sc = SportsCenterDAO.getInstance().getById(scID);
 
 					user.getVisitedCenters().add(sc);
@@ -415,6 +416,24 @@ public class UserCommonDAO {
 		return trainers;
 	}
 	
+	public void setCustomerFeeType() {
+		for(UserCommon u : users.values()) {
+			if(u.getCustomerType() == null) {
+				continue;
+			}
+			double points = u.getCustomerType().getPointsNeeded();
+			if(points < 500) {
+				u.getCustomerType().setTypeName(TypeName.BRONZE);
+				u.getCustomerType().setDiscount(10);
+			}else if(points < 1000) {
+				u.getCustomerType().setTypeName(TypeName.SILVER);
+				u.getCustomerType().setDiscount(20);
+			}else {
+				u.getCustomerType().setTypeName(TypeName.GOLD);
+				u.getCustomerType().setDiscount(30);
+			}
+		}
+	}
 
 
 

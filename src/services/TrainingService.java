@@ -75,6 +75,18 @@ public class TrainingService {
 		return treninziDTO;
 	}
 	
+	@GET
+	@Path("/getGroupTrainings")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<TrainingDTO> getGroupTrainingsForTrainer(@QueryParam("idKorisnika") int idKorisnika) {
+		TrainingDAO dao = (TrainingDAO) ctx.getAttribute("trainingDAO");
+		ArrayList<Training> grupniTreninzi = dao.getGroupTrainingsForTrainer(idKorisnika);
+		ArrayList<TrainingDTO> grupniTreninziDTO = new ArrayList<TrainingDTO>();
+		for(Training t : grupniTreninzi) {
+			grupniTreninziDTO.add(new TrainingDTO(t));
+		}
+		return grupniTreninziDTO;
+	}
 	
 	
 	

@@ -133,7 +133,6 @@
 		</table>
 		
 		
-		<!--
 		<h3 v-bind:hidden="newUser.role!='trainer'">Persolan trainings</h3>
 		
 		<table border="1" id="personalTable" v-bind:hidden="newUser.role!='trainer'" class="table2">
@@ -147,16 +146,16 @@
 			</thead>
 
 			<tr v-for="pt in personalniTreninzi">
-				<td>{{pt.terminTreninga }}</td>
+				<td>{{pt.trainingDate }}</td>
 				<td>{{pt.imeKupca }}</td>
 				<td>{{pt.imeObjekta}}</td>
 				<td><button type="button" v-on:click="otkaziTrening(pt)">Otkazi</button></td>
 			</tr>
 		</table>
 		
-		<h3 v-bind:hidden="newUser.uloga!='trener'">Grupni treninzi</h3>
+		<h3 v-bind:hidden="newUser.role!='trainer'">Grupni treninzi</h3>
 		
-		<table border="1" id="tabelaGrupni" v-bind:hidden="newUser.uloga!='trener'" class="table2">
+		<table border="1" id="tabelaGrupni" v-bind:hidden="newUser.role!='trainer'" class="table2">
 			<caption style="background:pink;">Grupni treninzi</caption>
 			<thead>
 				<tr bgcolor="lightgrey">
@@ -169,14 +168,13 @@
 			</thead>
 
 			<tr v-for="gt in grupniTreninzi">
-				<td>{{gt.naziv }}</td>
-				<td>{{gt.tipTreninga }}</td>
-				<td>{{gt.objekatGdePripada.ime}}</td>
-				<td>{{gt.trajanje }}</td>
-				<td>{{gt.opis }}</td>
+				<td>{{gt.name }}</td>
+				<td>{{gt.trainingType }}</td>
+				<td>{{gt.centerWhereExists.name}}</td>
+				<td>{{gt.duration }}</td>
+				<td>{{gt.description }}</td>
 			</tr>
 		</table>
-		 -->
 	</div>
 
 

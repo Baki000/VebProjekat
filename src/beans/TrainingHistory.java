@@ -32,11 +32,11 @@ public class TrainingHistory {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getDate() {
-		return DateTimeFormat.dateTimeToString(date);
+	public LocalDateTime getDate() {
+		return date;
 	}
-	public void setDate(String date) {
-		this.date = DateTimeFormat.stringToDateTime(date);
+	public void setDate(LocalDateTime date) {
+		this.date = date;
 	}
 	public Training getTraining() {
 		return training;

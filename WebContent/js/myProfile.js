@@ -22,16 +22,16 @@ var app = new Vue({
 					then((response) => {
 						this.istorijeTreninga = response.data;
 					})
-/*
-				axios.get('rest/zakazanTrening/getPersonalTrainings', { params: { idKorisnika: this.newUser.intId } }).
+
+				axios.get('rest/bookedTrainings/getPersonalTrainings', { params: { idKorisnika: this.newUser.id } }).
 					then((response) => {
 						this.personalniTreninzi = response.data;
 					})
 
-				axios.get('rest/trening/getGroupTrainings', { params: { idKorisnika: this.newUser.intId } }).
+				axios.get('rest/training/getGroupTrainingsForTrainer', { params: { idKorisnika: this.newUser.intId } }).
 					then((response) => {
 						this.grupniTreninzi = response.data;
-					})*/
+					})
 			})
 	},
 	methods: {

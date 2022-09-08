@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.StringTokenizer;
 
 import beans.SportsCenter;
 import beans.Training;
+import beans.TrainingHistory;
 import beans.UserCommon;
 
 public class TrainingDAO {
@@ -218,6 +220,63 @@ public class TrainingDAO {
 		}
 
 	}
+	
+	public ArrayList<Training> getTreninziZaSportskiObjekat(int idSportskogObjekta) {
+		ArrayList<Training> trainingsZaSportskiObjekat = new ArrayList<Training>();
+		for (Training trening : trainings.values()) {
+			if (trening.getSportsCenter().getId() == idSportskogObjekta) {
+				trainingsZaSportskiObjekat.add(trening);
+			}
+		}
+		return trainingsZaSportskiObjekat;
+	}
+
+	public ArrayList<Training> getPersonalniTreninziZaTrenera(int idKorisnika) {
+		ArrayList<Training> personalniTreninziZaTrenera = new ArrayList<Training>();
+		for (Training trening : trainings.values()) {
+			if (trening.getTrainer() != null) {
+				if ((trening.getTrainer().getId() == idKorisnika)
+						&& (trening.getTrainingType().equals(TrainingType.PERSONAL))) {
+					personalniTreninziZaTrenera.add(trening);
+				}
+			}
+		}
+		return personalniTreninziZaTrenera;
+	}
+
+	public ArrayList<Training> getGroupTrainingsForTrainer(int idKorisnika) {
+		ArrayList<Training> groupTrainingsForTrainer = new ArrayList<Training>();
+		for (Training trening : trainings.values()) {
+			if (trening.getTrainer() != null) {
+				if ((trening.getTrainer().getId() == idKorisnika)
+						&& (trening.getTrainingType().equals(TrainingType.GROUP))) {
+					groupTrainingsForTrainer.add(trening);
+				}
+			}
+		}
+		return groupTrainingsForTrainer;
+	}
+
+	public boolean OtkaziTr(int id) {
+		LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
+		Training tren = TrainingDAO.getInstance().findTraining(id);
+		HashMap<Integer, TrainingHistory> i = TrainingHistoryDAO.getInstance().histories;
+		for (TrainingHistory it : i.values()) {
+			if (tren.getIntId() == it.getTraining().getIntId()) {
+				if (it.getDate().isBefore(yesterday)) {
+					it.setTraining(null);
+					delete(id);
+					return true;
+				} 
+			}
+		}
+		return false;
+	}
+	
+	public void delete(int id) {
+		this.trainings.remove(id);
+	}
+
 	
 	
 	
