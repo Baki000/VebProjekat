@@ -195,7 +195,7 @@ public class BookedTrainingDAO {
 		}
 	}
 
-	public void connectBookedTrainingCenterWhereExists() {
+	public void connectBookedTrainingandSC() {
 		ArrayList<SportsCenter> objekti = new ArrayList<SportsCenter>(SportsCenterDAO.getInstance().getAllSportsCenters());
 		for (BookedTraining bookedTraining : bookedTrainings.values()) {
 			int idTrazeni = bookedTraining.getCenterWhereExists().getId();

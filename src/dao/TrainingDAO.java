@@ -45,7 +45,7 @@ public class TrainingDAO {
 	}
 	
 	
-	public Training findTraining(int id) {
+	public Training getById(int id) {
 		return trainings.containsKey(id) ? trainings.get(id) : null;
 	}
 	
@@ -260,7 +260,7 @@ public class TrainingDAO {
 
 	public boolean OtkaziTr(int id) {
 		LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
-		Training tren = TrainingDAO.getInstance().findTraining(id);
+		Training tren = TrainingDAO.getInstance().getById(id);
 		HashMap<Integer, TrainingHistory> i = TrainingHistoryDAO.getInstance().histories;
 		for (TrainingHistory it : i.values()) {
 			if (tren.getIntId() == it.getTraining().getIntId()) {

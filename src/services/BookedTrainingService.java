@@ -82,9 +82,9 @@ public class BookedTrainingService {
 	@GET
 	@Path("/getPersonalTrainings")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<BookedTrainingDTO> getPersonalTrainingsForTrainer(@QueryParam("idUserCommon") int idUserCommon) {
+	public Collection<BookedTrainingDTO> getPersonalTrainingsForTrainer(@QueryParam("userID") int userID) {
 		BookedTrainingDAO dao = (BookedTrainingDAO) ctx.getAttribute("bookedTrainingDAO");
-		ArrayList<BookedTraining> personalniTreninzi = dao.getPersonalTrainingsForTrainer(idUserCommon);
+		ArrayList<BookedTraining> personalniTreninzi = dao.getPersonalTrainingsForTrainer(userID);
 		ArrayList<BookedTrainingDTO> personalniTreninziDTO = new ArrayList<BookedTrainingDTO>();
 		for(BookedTraining t : personalniTreninzi) {
 			personalniTreninziDTO.add(new BookedTrainingDTO(t));

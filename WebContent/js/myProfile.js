@@ -18,17 +18,17 @@ var app = new Vue({
 		axios.get('rest/users/currentUser')
 			.then((response) => {
 				this.newUser = response.data;
-				axios.get('rest/trainingHistory/getTHforUser', { params: { idKorisnika: this.newUser.id } }).
+				axios.get('rest/trainingHistory/getTHforUser', { params: { userID: this.newUser.id } }).
 					then((response) => {
 						this.istorijeTreninga = response.data;
 					})
 
-				axios.get('rest/bookedTrainings/getPersonalTrainings', { params: { idKorisnika: this.newUser.id } }).
+				axios.get('rest/bookedTraining/getPersonalTrainings', { params: { userID: this.newUser.id } }).
 					then((response) => {
 						this.personalniTreninzi = response.data;
 					})
 
-				axios.get('rest/training/getGroupTrainingsForTrainer', { params: { idKorisnika: this.newUser.intId } }).
+				axios.get('rest/training/getGroupTrainings', { params: { userID: this.newUser.id } }).
 					then((response) => {
 						this.grupniTreninzi = response.data;
 					})

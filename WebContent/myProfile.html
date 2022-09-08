@@ -133,7 +133,7 @@
 		</table>
 		
 		
-		<h3 v-bind:hidden="newUser.role!='trainer'">Persolan trainings</h3>
+		<h3 v-bind:hidden="newUser.role!='trainer'">Personal trainings</h3>
 		
 		<table border="1" id="personalTable" v-bind:hidden="newUser.role!='trainer'" class="table2">
 			<caption style="background:pink;">Personal trainings</caption>
@@ -147,8 +147,8 @@
 
 			<tr v-for="pt in personalniTreninzi">
 				<td>{{pt.trainingDate }}</td>
-				<td>{{pt.imeKupca }}</td>
-				<td>{{pt.imeObjekta}}</td>
+				<td>{{pt.customerName }}</td>
+				<td>{{pt.centerName}}</td>
 				<td><button type="button" v-on:click="otkaziTrening(pt)">Otkazi</button></td>
 			</tr>
 		</table>
@@ -170,7 +170,7 @@
 			<tr v-for="gt in grupniTreninzi">
 				<td>{{gt.name }}</td>
 				<td>{{gt.trainingType }}</td>
-				<td>{{gt.centerWhereExists.name}}</td>
+				<td>{{gt.sportsCenter.name}}</td>
 				<td>{{gt.duration }}</td>
 				<td>{{gt.description }}</td>
 			</tr>
