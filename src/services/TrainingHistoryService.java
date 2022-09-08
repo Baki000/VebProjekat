@@ -49,7 +49,7 @@ public class TrainingHistoryService {
 	@GET
 	@Path("/getTHforUser")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<TrainingHistory> getTHforUser(@QueryParam("idKorisnika") int userID) {
+	public Collection<TrainingHistory> getTHforUser(@QueryParam("userID") int userID) {
 		TrainingHistoryDAO dao = (TrainingHistoryDAO) ctx.getAttribute("trainingHistoryDAO");
 		System.out.println("THservice, userid je " + userID);
 		ArrayList<TrainingHistory> treninzi = (ArrayList<TrainingHistory>) dao.getTHforUser(userID);

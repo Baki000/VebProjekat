@@ -1,10 +1,10 @@
 var app = new Vue({
-	 el: '#changeTrainer',
+	 el: '#changeTraining',
 	 data: {
 		 training: {},
 		 error: '',
 		 trainers: [],
-		 chosenTrainer: {}
+		 selectedTrainer: {}
 	 },
 	 mounted() {
 		 axios.get('rest/training/getSelected')
@@ -12,7 +12,7 @@ var app = new Vue({
 				 this.training = response.data
 				 axios.get('rest/users/' + this.training.trainerID)
 					 .then((response) => {
-						 this.chosenTrainer = response.data;
+						 this.selectedTrainer = response.data;
 					 })
 			 })
 
@@ -23,7 +23,7 @@ var app = new Vue({
 	 },
 	 methods: {
 		 changeTraining: function(event) {
-			this.training.trainerID = this.chosenTrainer.id;
+			this.training.trainerID = this.selectedTrainer.id;
 			axios.put('rest/training/', this.training)
 			 .then((response) => {
 				 alert('Uspesno ste izmenili trening!')

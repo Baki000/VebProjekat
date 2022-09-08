@@ -8,11 +8,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import beans.Training;
 import beans.UserCommon;
@@ -78,9 +81,9 @@ public class TrainingService {
 	@GET
 	@Path("/getGroupTrainings")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<TrainingDTO> getGroupTrainingsForTrainer(@QueryParam("idKorisnika") int idKorisnika) {
+	public Collection<TrainingDTO> getGroupTrainingsForTrainer(@QueryParam("userID") int userID) {
 		TrainingDAO dao = (TrainingDAO) ctx.getAttribute("trainingDAO");
-		ArrayList<Training> grupniTreninzi = dao.getGroupTrainingsForTrainer(idKorisnika);
+		ArrayList<Training> grupniTreninzi = dao.getGroupTrainingsForTrainer(userID);
 		ArrayList<TrainingDTO> grupniTreninziDTO = new ArrayList<TrainingDTO>();
 		for(Training t : grupniTreninzi) {
 			grupniTreninziDTO.add(new TrainingDTO(t));
@@ -88,6 +91,81 @@ public class TrainingService {
 		return grupniTreninziDTO;
 	}
 	
+	@PUT
+	@Path("/cancelTraining")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response OtkaziTrening(int id) {
+		TrainingDAO dao = (TrainingDAO) ctx.getAttribute("trainingDAO");
+		
+		return null;
+	}
+	/*
+	@PUT
+	@Path("/updateTraining")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public void changeOne(TreningDTO treningDTO) {
+		TreningDAO dao = (TreningDAO) ctx.getAttribute("treningDAO");
+		Trening trening = new Trening();
+		trening.setIntId(treningDTO.getIntId());
+		trening.setNaziv(treningDTO.getNaziv());
+		trening.setTipTreninga(treningDTO.getTipTreninga());
+		trening.setObjekatGdePripada(treningDTO.getObjekatGdePripada());
+		trening.setTrajanje(treningDTO.getTrajanje());
+		trening.setOpis(treningDTO.getOpis());
+		trening.setSlika(treningDTO.getSlika());
+		Korisnik trener = KorisnikDAO.getInstance().find(treningDTO.getTrenerIntId());
+		trening.setTrener(trener);
+		
+		dao.update(trening);
+	}*/
+	
+	@POST
+	@Path("/setSelected")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response setSelected(TrainingDTO trainingDTO, @Context HttpServletRequest request) {
+		Training trening = TrainingDAO.getInstance().getById(trainingDTO.getId());
+		request.getSession().setAttribute("selectedTraining", trening);
+		return Response.status(200).build();
+	}
+	
+	@GET
+	@Path("/getSelected")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public TrainingDTO getSelected( @Context HttpServletRequest request) {
+		Training trening = (Training)request.getSession().getAttribute("selectedTraining");
+		return new TrainingDTO(trening);
+	}
+	/*
+	@POST
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response save(TreningDTO treningDTO, @Context HttpServletRequest request) {
+		TreningDAO dao = (TreningDAO) ctx.getAttribute("treningDAO");
+		if(dao.postojiNaziv(treningDTO.getNaziv())) {
+			return Response.status(400).entity("Takav naziv vec postoji!").build();
+		} else {
+			Trening trening = new Trening();
+			trening.setIntId(treningDTO.getIntId());
+			trening.setNaziv(treningDTO.getNaziv());
+			trening.setTipTreninga(treningDTO.getTipTreninga());
+			Korisnik menadzer = (Korisnik)request.getSession().getAttribute("user");
+			SportskiObjekat objekatGdePripada = menadzer.getSportskiObjekat(); // proveri da li mora preko SportskiObjekatDAO
+			trening.setObjekatGdePripada(objekatGdePripada);
+			trening.setTrajanje(treningDTO.getTrajanje());
+			trening.setOpis(treningDTO.getOpis());
+			trening.setSlika(treningDTO.getSlika());
+			Korisnik trener = KorisnikDAO.getInstance().find(treningDTO.getTrenerIntId());
+			trening.setTrener(trener);
+			
+			dao.save(trening);
+			return Response.status(200).build();
+		}	
+	}
+	*/
 	
 	
 

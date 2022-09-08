@@ -10,7 +10,7 @@ var app = new Vue({
 		axios.get('rest/sportsCenters/getSelected')
 		.then((response) => {this.sc = response.data;
 			this.location = this.sc.location
-			axios.get('rest/training/getAllTrainings', { params: { idSportskogObjekta: this.sc.id } }).
+			axios.get('rest/training/getAllTrainings', { params: { scID: this.sc.id } }).
 			then((response) => {
 				this.trainings = response.data;
 			})

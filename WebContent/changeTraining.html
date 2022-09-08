@@ -87,7 +87,7 @@
 					</td>
 					<td>
 						<input name="trainerName" disabled
-						v-model="chosenTrainer.name">
+						v-model="selectedTrainer.name">
 					</td>
 				</tr>
 
@@ -96,7 +96,7 @@
 						Change Trainer:
 					</td>
 					<td>
-						<select v-model="chosenTrainer" 
+						<select v-model="selectedTrainer" 
 					v-bind:hidden="trainers === null || trainers.length == 0">
 					<option v-for="t in trainers" :value="t"  >
 						{{t.name}} {{t.surname}} {{t.userName}}</option>
