@@ -68,6 +68,7 @@ public class FeeService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response setSelected(Fee fee, @Context HttpServletRequest request) {
 		request.getSession().setAttribute("chosenFee", fee);
+		System.out.println("setselected: dateStart je " + fee.getDateStart());
 		return Response.status(200).build();
 	}
 	
@@ -77,6 +78,7 @@ public class FeeService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Fee getSelected( @Context HttpServletRequest request) {
 		Fee fee = (Fee)request.getSession().getAttribute("chosenFee");
+		System.out.println("getselect: dateStart je " + fee.getDateStart());
 		if(fee == null) {
 			return null;
 		}

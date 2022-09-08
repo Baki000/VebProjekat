@@ -9,6 +9,9 @@ public class DateFormat {
 		
 		
 		public static String dateToString(LocalDate date) {
+			if(date == null) {
+				return null;
+			}
 			return date.format(dateFormat);
 		}
 		
