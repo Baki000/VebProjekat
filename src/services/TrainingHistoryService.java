@@ -1,5 +1,6 @@
 package services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -19,6 +20,7 @@ import beans.Training;
 import beans.TrainingHistory;
 import beans.UserCommon;
 import dao.TrainingHistoryDAO;
+import formats.DateTimeFormat;
 import startup.OnStartUp;
 
 @Path("/trainingHistory")
@@ -69,27 +71,23 @@ public class TrainingHistoryService {
 		return dao.check(trening, logovani);
 	}
 
-	/*
-	 *
-	 * 
-	 * @GET
-	 * 
-	 * @Path("/search")
-	 * 
-	 * @Produces(MediaType.APPLICATION_JSON) public ArrayList<TrainingHistory>
-	 * search(@QueryParam("searchObjekat") String
-	 * searchObjekat, @QueryParam("pocetno") String pocetno,
-	 * 
-	 * @QueryParam("krajnje") String krajnje, @Context HttpServletRequest request){
-	 * 
-	 * Korisnik logovani = (Korisnik) request.getSession().getAttribute("user");
-	 * LocalDateTime p = DateTimeHelper.stringToDateTime(pocetno); LocalDateTime k =
-	 * DateTimeHelper.stringToDateTime(krajnje);
-	 * 
-	 * trainingHistoryDAO dao = (trainingHistoryDAO)
-	 * ctx.getAttribute("trainingHistoryDAO");
-	 * 
-	 * return dao.search(searchObjekat, p, k, logovani); }
-	 */
+	@GET
+
+	@Path("/search")
+
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<TrainingHistory> search(@QueryParam("searchObjekat") String searchObjekat,
+			@QueryParam("pocetno") String start,
+
+			@QueryParam("krajnje") String end, @Context HttpServletRequest request) {
+
+		UserCommon logovani = (UserCommon) request.getSession().getAttribute("user");
+		LocalDateTime st = DateTimeFormat.stringToDateTime(start);
+		LocalDateTime en = DateTimeFormat.stringToDateTime(end);
+
+		TrainingHistoryDAO dao = (TrainingHistoryDAO) ctx.getAttribute("trainingHistoryDAO");
+
+		return dao.search(searchObjekat, st, en, logovani);
+	}
 
 }

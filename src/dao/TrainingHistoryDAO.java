@@ -1,4 +1,5 @@
 package dao;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,32 +19,31 @@ import formats.DateTimeFormat;
 
 public class TrainingHistoryDAO {
 
-	
 	private static TrainingHistoryDAO trainingHistoryInstance = null;
 	private static String contextPath = "";
-	
-	public HashMap<Integer, TrainingHistory> histories = new HashMap<Integer,TrainingHistory>();
-	
-	private TrainingHistoryDAO(){
-		
+
+	public HashMap<Integer, TrainingHistory> histories = new HashMap<Integer, TrainingHistory>();
+
+	private TrainingHistoryDAO() {
+
 	}
-	
-	private TrainingHistoryDAO(String contextPath){
+
+	private TrainingHistoryDAO(String contextPath) {
 		loadTrainingHistories(contextPath);
 	}
-	
+
 	public static TrainingHistoryDAO getInstance() {
-		if(trainingHistoryInstance == null) {
+		if (trainingHistoryInstance == null) {
 			trainingHistoryInstance = new TrainingHistoryDAO();
 		}
-		
+
 		return trainingHistoryInstance;
 	}
-	
-	public Collection<TrainingHistory> findAll(){
+
+	public Collection<TrainingHistory> findAll() {
 		return histories.values();
 	}
-	
+
 	public TrainingHistory save(TrainingHistory th) {
 		Integer maxId = -1;
 		for (int id : histories.keySet()) {
@@ -56,30 +56,30 @@ public class TrainingHistoryDAO {
 		histories.put(th.getId(), th);
 		return th;
 	}
-	
+
 	public TrainingHistory update(TrainingHistory th) {
 		histories.put(th.getId(), th);
 		return th;
 	}
-	
+
 	public void delete(int id) {
 		this.histories.remove(id);
 	}
-	
+
 	public void loadTrainingHistories(String contextPath) {
 		this.contextPath = contextPath;
 		BufferedReader in = null;
 		try {
-			File file = new File(contextPath + "histories.txt"); 
+			File file = new File(contextPath + "histories.txt");
 			System.out.println(file.getCanonicalPath());
 			in = new BufferedReader(new FileReader(file));
 			String line;
-			
+
 			int id = -1;
 			Training training = null;
 			UserCommon customer = null;
 			UserCommon trainer = null;
-			
+
 			StringTokenizer st;
 			while ((line = in.readLine()) != null) {
 				line = line.trim();
@@ -88,44 +88,45 @@ public class TrainingHistoryDAO {
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
 					id = Integer.parseInt(st.nextToken().trim());
-					LocalDateTime date  = DateTimeFormat.stringToDateTime(st.nextToken().trim());
+					LocalDateTime date = DateTimeFormat.stringToDateTime(st.nextToken().trim());
 					int trainingID = Integer.parseInt(st.nextToken().trim());
-					if(trainingID != -1) {
+					if (trainingID != -1) {
 						training = new Training(trainingID);
 					}
-					
+
 					int customerID = Integer.parseInt(st.nextToken().trim());
-					if(customerID != -1) {
+					if (customerID != -1) {
 						customer = new UserCommon(customerID);
 					}
-					
+
 					int trainerID = Integer.parseInt(st.nextToken().trim());
-					if(trainerID != -1) {
+					if (trainerID != -1) {
 						trainer = new UserCommon(trainerID);
 					}
 					histories.put(id, new TrainingHistory(id, date, training, customer, trainer));
 				}
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if ( in != null ) {
+			if (in != null) {
 				try {
 					in.close();
+				} catch (Exception e) {
 				}
-				catch (Exception e) { }
 			}
 		}
-		
+
 	}
-	
+
 	public void saveTrainingHistories() {
 		BufferedWriter out = null;
 		try {
-			File file = new File(contextPath + "histories.txt"); 
+			File file = new File(contextPath + "histories.txt");
 			System.out.println(file.getCanonicalPath());
 			out = new BufferedWriter(new FileWriter(file));
+
 
 			for(TrainingHistory th : histories.values()) {
 				String s = th.getId() + ";" +  DateTimeFormat.dateTimeToString(th.getDate()) + ";" + th.getTraining().getIntId() + ";" + th.getCustomer().getId() + ";" + ((th.getTrainer() == null) ? -1 : th.getTrainer().getId());
@@ -143,54 +144,51 @@ public class TrainingHistoryDAO {
 		}
 
 	}
-	
-	
-	
+
 	public void connectTHandCustomer() {
 		ArrayList<UserCommon> users = new ArrayList<UserCommon>(UserCommonDAO.getInstance().getAllUsers());
-		for(TrainingHistory th : histories.values()) {
-			
-			if(th.getCustomer() == null) {
+		for (TrainingHistory th : histories.values()) {
+
+			if (th.getCustomer() == null) {
 				continue;
 			}
-			
+
 			int customerID = th.getCustomer().getId();
-			for(UserCommon user : users) {
-				if(user.getId() == customerID) {
+			for (UserCommon user : users) {
+				if (user.getId() == customerID) {
 					th.setCustomer(user);
 				}
 			}
 		}
 	}
-	
-	
+
 	public void connectTHandTrainer() {
 		ArrayList<UserCommon> users = new ArrayList<UserCommon>(UserCommonDAO.getInstance().getAllUsers());
-		for(TrainingHistory th : histories.values()) {
-			
-			if(th.getTrainer() == null) {
+		for (TrainingHistory th : histories.values()) {
+
+			if (th.getTrainer() == null) {
 				continue;
 			}
-			
+
 			int trainerID = th.getTrainer().getId();
-			for(UserCommon user : users) {
-				if(user.getId() == trainerID) {
+			for (UserCommon user : users) {
+				if (user.getId() == trainerID) {
 					th.setTrainer(user);
 				}
 			}
 		}
 	}
-	
+
 	public void connectTHandTraining() {
 		ArrayList<Training> treninzi = new ArrayList<Training>(TrainingDAO.getInstance().findAll());
-		for(TrainingHistory TrainingHistory : histories.values()) {
-			if(TrainingHistory.getTraining() == null) {
+		for (TrainingHistory TrainingHistory : histories.values()) {
+			if (TrainingHistory.getTraining() == null) {
 				continue;
 			}
 			int idTrazeni = TrainingHistory.getTraining().getIntId();
-			
-			for(Training trening : treninzi) {
-				if(trening.getIntId() == idTrazeni) {
+
+			for (Training trening : treninzi) {
+				if (trening.getIntId() == idTrazeni) {
 					TrainingHistory.setTraining(trening);
 					break;
 				}
@@ -198,23 +196,19 @@ public class TrainingHistoryDAO {
 		}
 	}
 
-
-	
-	
-	public Collection<TrainingHistory> getTHforUser(int userID){
+	public Collection<TrainingHistory> getTHforUser(int userID) {
 		ArrayList<TrainingHistory> trainings = new ArrayList<TrainingHistory>();
 		System.out.println("UPAO U GETTH FOR USER u dao");
 		System.out.println("Prosledjeni id je " + userID);
-		
-		for(TrainingHistory th : histories.values()) {
+
+		for (TrainingHistory th : histories.values()) {
 			System.out.println("Trenutni id je " + th.getCustomer().getId());
-			if(th.getCustomer().getId() == userID) {
+			if (th.getCustomer().getId() == userID) {
 				trainings.add(th);
 			}
 		}
 		return trainings;
 	}
-	
 
 	public TrainingHistory check(Training trening, UserCommon korisnik) {
 		Integer maxId = -1;
@@ -225,37 +219,35 @@ public class TrainingHistoryDAO {
 		}
 		maxId++;
 		Training tr = new Training();
-		for(Training t : TrainingDAO.getInstance().trainings.values()) {
-			if(t.getIntId() == trening.getIntId()) {
+		for (Training t : TrainingDAO.getInstance().trainings.values()) {
+			if (t.getIntId() == trening.getIntId()) {
 				tr = t;
 				break;
 			}
 		}
-		
+
 		TrainingHistory it = new TrainingHistory(maxId, LocalDateTime.now(), tr, korisnik, tr.getTrainer());
 		histories.put(it.getId(), it);
 		tr.getTrainer().getTrainingHistory().add(it);
 		saveTrainingHistories();
 		return it;
 	}
-	
-	/*
-	public ArrayList<IstorijaTreninga> search(String searchObjekat, LocalDateTime pocetno, LocalDateTime krajnje, Korisnik korisnik){
-		ArrayList<IstorijaTreninga> pronadjeni = new ArrayList<IstorijaTreninga>();
-		
-		for(IstorijaTreninga it : istorijeTreninga.values() ) {
-			if(it.getKupac().getIntId() == korisnik.getIntId()) {
-				if(it.getTrening().getObjekatGdePripada().getIme().contains(searchObjekat)) {
-					if(it.getDatumVremePrijave().isAfter(pocetno) && it.getDatumVremePrijave().isBefore(krajnje)) {
-						pronadjeni.add(it);
+
+	public ArrayList<TrainingHistory> search(String searchObjekat, LocalDateTime start, LocalDateTime end,
+			UserCommon u) {
+		ArrayList<TrainingHistory> temp = new ArrayList<TrainingHistory>();
+
+		for (TrainingHistory th : histories.values()) {
+			if (th.getCustomer().getId() == u.getId()) {
+				if (th.getTraining().getSportsCenter().getName().contains(searchObjekat)) {
+					if (th.getDate().isAfter(start) && th.getDate().isBefore(end)) {
+						temp.add(th);
 					}
 				}
 			}
 		}
-		
-		return pronadjeni;
-	} */
-	
 
-	
+		return temp;
+	}
+
 }
