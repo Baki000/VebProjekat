@@ -93,7 +93,7 @@ public class BookedTrainingService {
 	}
 	
 	@DELETE
-	@Path("/{id}")
+	@Path("/cancelTraining/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response delete(@PathParam("id") int id) { //izmeni u int
 		BookedTrainingDAO dao = (BookedTrainingDAO) ctx.getAttribute("bookedTrainingDAO");

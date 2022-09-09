@@ -45,17 +45,17 @@ var app = new Vue({
 		pretraziTreninge: function(event) {
 			this.pocetno = this.pocetniDatum + " " + this.pocetnoVreme;
 			this.krajnje = this.krajnjiDatum + " " + this.krajnjeVreme;
-			axios.get('rest/istorijaTreninga/search', { params: { searchObjekat: this.searchObjekat, pocetno: this.pocetno, krajnje: this.krajnje } })
+			axios.get('rest/trainingHistory/search', { params: { searchObjekat: this.searchObjekat, pocetno: this.pocetno, krajnje: this.krajnje } })
 				.then(response => (this.istorijeTreninga = response.data))
 		},
-		otkaziTrening: function(pt) {
-			axios.delete('rest/zakazanTrening/' + pt.intID)
+		cancelTraining: function(pt) {
+			axios.delete('rest/bookedTraining/cancelTraining' + pt.id)
 				.then((response) => {
-					alert('Uspesno ste otkazali trening!');
-					this.personalniTreninzi = this.personalniTreninzi.filter((p)=> p.intID !== pt.intID)
+					alert('Training successfuly canceled!');
+					this.personalniTreninzi = this.personalniTreninzi.filter((p)=> p.id !== pt.id)
 
 				}).catch(() =>{
-					alert('Ne mozete otkazati trening. Termin treninga je za manje od dva dana!')
+					alert('Can not cancel! Training date in less than two days!')
 					event.preventDefault();
 					return;
 				})
