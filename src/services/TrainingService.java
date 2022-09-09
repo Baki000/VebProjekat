@@ -17,9 +17,11 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import beans.SportsCenter;
 import beans.Training;
 import beans.UserCommon;
 import dao.TrainingDAO;
+import dao.UserCommonDAO;
 import dto.TrainingDTO;
 import dto.UserCommonDTO;
 import startup.OnStartUp;
@@ -138,34 +140,34 @@ public class TrainingService {
 		Training trening = (Training)request.getSession().getAttribute("selectedTraining");
 		return new TrainingDTO(trening);
 	}
-	/*
+	
 	@POST
-	@Path("/")
+	@Path("/addTraining")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response save(TreningDTO treningDTO, @Context HttpServletRequest request) {
-		TreningDAO dao = (TreningDAO) ctx.getAttribute("treningDAO");
-		if(dao.postojiNaziv(treningDTO.getNaziv())) {
-			return Response.status(400).entity("Takav naziv vec postoji!").build();
+	public Response save(TrainingDTO treningDTO, @Context HttpServletRequest request) {
+		TrainingDAO dao = (TrainingDAO) ctx.getAttribute("trainingDAO");
+		if(dao.exists(treningDTO.getName())) {
+			return Response.status(400).entity("This name already exists!").build();
 		} else {
-			Trening trening = new Trening();
-			trening.setIntId(treningDTO.getIntId());
-			trening.setNaziv(treningDTO.getNaziv());
-			trening.setTipTreninga(treningDTO.getTipTreninga());
-			Korisnik menadzer = (Korisnik)request.getSession().getAttribute("user");
-			SportskiObjekat objekatGdePripada = menadzer.getSportskiObjekat(); // proveri da li mora preko SportskiObjekatDAO
-			trening.setObjekatGdePripada(objekatGdePripada);
-			trening.setTrajanje(treningDTO.getTrajanje());
-			trening.setOpis(treningDTO.getOpis());
-			trening.setSlika(treningDTO.getSlika());
-			Korisnik trener = KorisnikDAO.getInstance().find(treningDTO.getTrenerIntId());
-			trening.setTrener(trener);
+			Training trening = new Training();
+			trening.setIntId(treningDTO.getId());
+			trening.setName(treningDTO.getName());
+			trening.setTrainingType(treningDTO.getTrainingType());
+			UserCommon menadzer = (UserCommon)request.getSession().getAttribute("user");
+			SportsCenter sc = menadzer.getSportsCenter(); 
+			trening.setSportsCenter(sc);
+			trening.setDuration(treningDTO.getDuration());
+			trening.setDescription(treningDTO.getDescription());
+			trening.setPictureURL(treningDTO.getPictureURL());
+			UserCommon trener = UserCommonDAO.getInstance().getById(treningDTO.getTrainerID());
+			trening.setTrainer(trener);
 			
 			dao.save(trening);
 			return Response.status(200).build();
 		}	
 	}
-	*/
+	
 	
 	
 

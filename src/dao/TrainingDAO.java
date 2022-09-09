@@ -49,7 +49,29 @@ public class TrainingDAO {
 		return trainings.containsKey(id) ? trainings.get(id) : null;
 	}
 	
-	public boolean postojiNaziv(String naziv) {
+	public Training save(Training training) {
+		Integer maxId = -1;
+		for (Integer id : trainings.keySet()) {
+			int idNum = id;
+			if (idNum > maxId) {
+				maxId = idNum;
+			}
+		}
+		maxId++;
+		training.setIntId(maxId);
+		trainings.put(training.getIntId(), training);
+		saveTrainings();
+		return training;
+	}
+
+	public Training update(Training training) {
+		trainings.put(training.getIntId(), training);
+		saveTrainings();
+		return training;
+	}
+	
+	
+	public boolean exists(String naziv) {
 		for (Training t : trainings.values()) {
 			if (t.getName().equals(naziv)) {
 				return true;
