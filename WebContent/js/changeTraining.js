@@ -24,7 +24,7 @@ var app = new Vue({
 	 methods: {
 		 changeTraining: function(event) {
 			this.training.trainerID = this.selectedTrainer.id;
-			axios.put('rest/training/', this.training)
+			axios.put('rest/training/updateTraining', this.training)
 			 .then((response) => {
 				 alert('Uspesno ste izmenili trening!')
 			 })
@@ -32,7 +32,7 @@ var app = new Vue({
 		 },
 		  uploadImage: function() {
 			 var fileData = event.target.files[0];
-			 this.trening.pictureURL = fileData.name;
+			 this.training.pictureURL = fileData.name;
 			 
 		 }
 	 }

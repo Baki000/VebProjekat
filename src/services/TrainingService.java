@@ -101,26 +101,26 @@ public class TrainingService {
 		
 		return null;
 	}
-	/*
+	
 	@PUT
 	@Path("/updateTraining")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void changeOne(TreningDTO treningDTO) {
-		TreningDAO dao = (TreningDAO) ctx.getAttribute("treningDAO");
-		Trening trening = new Trening();
-		trening.setIntId(treningDTO.getIntId());
-		trening.setNaziv(treningDTO.getNaziv());
-		trening.setTipTreninga(treningDTO.getTipTreninga());
-		trening.setObjekatGdePripada(treningDTO.getObjekatGdePripada());
-		trening.setTrajanje(treningDTO.getTrajanje());
-		trening.setOpis(treningDTO.getOpis());
-		trening.setSlika(treningDTO.getSlika());
-		Korisnik trener = KorisnikDAO.getInstance().find(treningDTO.getTrenerIntId());
-		trening.setTrener(trener);
+	public void changeOne(TrainingDTO treningDTO) {
+		TrainingDAO dao = (TrainingDAO) ctx.getAttribute("trainingDAO");
+		Training trening = new Training();
+		trening.setIntId(treningDTO.getId());
+		trening.setName(treningDTO.getName());
+		trening.setTrainingType(treningDTO.getTrainingType());
+		trening.setSportsCenter(treningDTO.getSportsCenter());
+		trening.setDuration(treningDTO.getDuration());
+		trening.setDescription(treningDTO.getDescription());
+		trening.setPictureURL(treningDTO.getPictureURL());
+		UserCommon trener = UserCommonDAO.getInstance().getById(treningDTO.getTrainerID());
+		trening.setTrainer(trener);
 		
 		dao.update(trening);
-	}*/
+	}
 	
 	@POST
 	@Path("/setSelected")
