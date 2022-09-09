@@ -24,46 +24,44 @@
 
 				<tr>
 					<td>
-						Tip treninga:
+						Training Type:
 					</td>
 					<td>
 						<select type="combobox"
-						class="combobox" v-model="trening.tipTreninga" width="15"
+						class="combobox" v-model="training.trainingType" width="15"
 						required size=1
 						style="width: 300px; height: 40px; border-radius: 5px; font-size: 16px">
-						<option value="grupni">Grupni</option>
-						<option value="personalni">Personalni</option>
-						<option value="individualni">Individualni</option>
-						<option value="teretana">Teretana</option>
-						<option value="bazen">Bazen</option>
+						<option value="group">Group</option>
+						<option value="personal">Personal</option>
+						<option value="standard">Standard</option>
 					</select>
 					</td>
 				</tr>
 
 				<tr>
 					<td>
-						Trajanje:
+						Duration:
 					</td>
 					<td>
 						<input type="text"
-						name="trajanje" required
-						v-model="trening.trajanje">
+						name="duration" required
+						v-model="training.duration">
 					</td>
 				</tr>
 
 				<tr>
 					<td>
-						Opis:
+						Description:
 					</td>
 					<td>
 						<input 
-						name="opis" v-model="trening.opis">
+						name="opis" v-model="training.description">
 					</td>
 				</tr>
 
 				<tr>
 					<td>
-						Slika:
+						Picture:
 					</td>
 					<td>
 						<input type="file"
@@ -73,13 +71,13 @@
 
 				<tr>
 					<td>
-						Trener:
+						Trainer:
 					</td>
 					<td>
-						<select v-model="izabraniTrener" 
-						v-bind:hidden="treneri === null || treneri.length == 0">
-						<option v-for="t in treneri" :value="t"  >
-						{{t.ime}} {{t.prezime}} {{t.korisnickoIme}}</option>
+						<select v-model="selectedTrainer" 
+						v-bind:hidden="trainers === null || trainers.length == 0">
+						<option v-for="t in trainers" :value="t"  >
+						{{t.name}} {{t.surname}} {{t.userName}}</option>
 					</select>
 					</td>
 				</tr>
@@ -89,7 +87,7 @@
 
 					</td>
 					<td>
-						<input type="submit" value="Dodaj" class="submit">
+						<input type="submit" value="Add" class="submit">
 					</td>
 				</tr>
 			</table>

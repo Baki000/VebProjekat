@@ -4,7 +4,7 @@ var app = new Vue({
 		 training: {},
 		 error: '',
 		 trainers: [],
-		 izabraniTrener: {}
+		 selectedTrainer: {}
 	 },
 	 mounted() {
 		 
@@ -15,8 +15,8 @@ var app = new Vue({
 	 },
 	 methods: {
 		 addTraining: function(event) {
-			this.training.trenerIntId = this.izabraniTrener.intId;
-			axios.post('rest/trening/', this.trening)
+			this.training.trainerID = this.selectedTrainer.id;
+			axios.post('rest/training/addTraining', this.training)
 			 .then((response) => {
 				 alert('Uspesno ste dodali trening!')
 			 }).catch(() =>{
@@ -28,7 +28,7 @@ var app = new Vue({
 		 },
 		  uploadImage: function() {
 			 var fileData = event.target.files[0];
-			 this.trening.slika = fileData.name;
+			 this.training.pictureURL = fileData.name;
 			 
 		 }
 	 }

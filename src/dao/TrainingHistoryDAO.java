@@ -13,6 +13,7 @@ import java.util.StringTokenizer;
 import beans.Training;
 import beans.TrainingHistory;
 import beans.UserCommon;
+import formats.DateFormat;
 import formats.DateTimeFormat;
 
 public class TrainingHistoryDAO {
@@ -127,7 +128,7 @@ public class TrainingHistoryDAO {
 			out = new BufferedWriter(new FileWriter(file));
 
 			for(TrainingHistory th : histories.values()) {
-				String s = th.getId() + ";" + th.getDate() + ";" + th.getTraining().getIntId() + ";" + th.getCustomer().getId() + ";" + ((th.getTrainer() == null) ? -1 : th.getTrainer().getId());
+				String s = th.getId() + ";" +  DateTimeFormat.dateTimeToString(th.getDate()) + ";" + th.getTraining().getIntId() + ";" + th.getCustomer().getId() + ";" + ((th.getTrainer() == null) ? -1 : th.getTrainer().getId());
 				out.write(s);
 			}
 		} catch (Exception e) {

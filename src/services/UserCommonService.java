@@ -68,7 +68,7 @@ public class UserCommonService {
 	@GET
 	@Path("/getAll")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<UserCommon> getAllUsers(){
+	public ArrayList<UserCommonDTO> getAllUsers(){
 		System.out.println("uc service: upao u getallUsers");
 		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
 		Collection<UserCommon> usersi = dao.getAllUsers();
@@ -76,7 +76,7 @@ public class UserCommonService {
 		for(UserCommon u : usersi) {
 			usersDTO.add(new UserCommonDTO(u));
 		}
-		return usersi;
+		return usersDTO;
 		
 	}
 	
@@ -172,19 +172,21 @@ public class UserCommonService {
 	@Path("/getCustomersforSC")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<UserCommon> getCustomersforSC(@QueryParam("scID") int scID) {
+		System.out.println("Upao u servisu u getCusForSC id je " + scID);
 		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
 		return dao.getCustomersforSC(scID);
 	}
 	
 
 	@PUT
-	@Path("/checkIn")
+	@Path("/checkIn/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response checkIn(@Context HttpServletRequest request) {
+	public Response checkIn(@Context HttpServletRequest request, @PathParam("id") String id) {
 		UserCommonDAO dao = (UserCommonDAO) ctx.getAttribute("userCommonDAO");
 		UserCommon loged = (UserCommon) request.getSession().getAttribute("user");
-		if(dao.checkIn(loged.getId())) {        
+		int id2 = Integer.parseInt(id);
+		if(dao.checkIn(loged.getId(), id2)) {        
 			return Response.status(200).build();
 		} else {
 			return Response.status(400).build();

@@ -18,7 +18,7 @@ var app = new Vue({
 		},
 	methods: {
 		prijavaNaTrening: function(t){
-			axios.put('rest/users/checkIn')
+			axios.put('rest/users/checkIn/' + this.sc.id)
 			.then((response) => {
 				axios.post('rest/trainingHistory/checkIn', { intId: t.id })
 				.then((response) => {
